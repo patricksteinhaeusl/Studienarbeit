@@ -5,6 +5,6 @@ const router = express.Router();
 const accountController = require('../controllers/account');
 
 router.get('/:accountId', accountController.getAccount);
-router.post('/', accountController.updateAccount);
+router.put('/', accountController.updateAccount);
 
 module.exports = router;

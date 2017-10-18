@@ -5,19 +5,20 @@ const exceptionUtil = require('../utils/exceptionUtil');
 
 function getAccount(accountId, callback) {
   if(!accountId) return callback(exceptionUtil.createNotFoundException());
-  Account.findById(accountId, function(err, account) {
+  Account.findById(accountId, function(err, result) {
     if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!account) return callback(exceptionUtil.createNotFoundException());
-    callback(account);
+    if(!result) return callback(exceptionUtil.createNotFoundException());
+    callback(result);
   });
 }
 
 function updateAccount(account, callback) {
-  if(!account) return callback(exceptionUtil.createNotFoundException());
-  Account.findByIdAndUpdate(account._id, account, {new: true}, function(err, account) {
+  let accountObj = new Account(account);
+  if(!accountObj) return callback(exceptionUtil.createNotFoundException());
+  Account.findByIdAndUpdate(accountObj._id, accountObj, {new: true}, function(err, result) {
     if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!account) return callback(exceptionUtil.createNotFoundException());
-    callback(account);
+    if(!result) return callback(exceptionUtil.createNotFoundException());
+    callback(result);
   });
 }
 

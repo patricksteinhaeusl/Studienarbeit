@@ -9,9 +9,9 @@ let accountSchema = new Schema({
   password: { type: String, required: true },
   firstname: { type: String, require: true },
   lastname: { type: String, require: true },
-  email: { type: String, require: true },
-  created_at: { type: Date, require: true },
-  udpated_at: { type: Date, require: true }
+  email: { type: String, require: true }
+}, {
+  timestamps: {}
 });
 
 accountSchema.methods.comparePassword = function(password) {
