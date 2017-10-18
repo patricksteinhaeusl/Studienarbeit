@@ -2,9 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
+const accountController = require('../controllers/account');
 
-router.get('/', function(req, res) {
-  res.json(req.user);
-});
+router.get('/:accountId', accountController.getAccount);
+router.post('/', accountController.updateAccount);
 
 module.exports = router;
