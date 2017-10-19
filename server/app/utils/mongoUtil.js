@@ -8,9 +8,7 @@ mongoose.connect(config.DB.connectionString, { useMongoClient: true }, function(
   if(err) return console.error(err);
   console.log("Database connection sucessfully!");
 
-  dummy.dropData(function() {
-    dummy.createData();
-  });
+  dummy.init();
 });
 
 mongoose.Promise = global.Promise;

@@ -2,21 +2,21 @@
 
 const accountService = require("../services/account");
 
-function getAccount(req, res) {
+function get(req, res) {
   let accountId = req.params.accountId;
-  accountService.getAccount(accountId, (result) => {
+  accountService.get(accountId, (result) => {
     res.json(result);
   });
 }
 
-function updateAccount(req, res) {
+function update(req, res) {
   let account = req.body.account;
-  accountService.updateAccount(account, (result) => {
+  accountService.update(account, (result) => {
     res.json(result);
   });
 }
 
 module.exports = {
-  getAccount,
-  updateAccount
+  get,
+  update
 };

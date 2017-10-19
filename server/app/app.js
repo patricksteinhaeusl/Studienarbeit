@@ -10,6 +10,8 @@ const mongoUtil = require('./utils/mongoUtil');
 
 const auth = require('./routes/auth');
 const account = require('./routes/account');
+const creditcard = require('./routes/creditCard');
+const deliveryAddress = require('./routes/deliveryAddress');
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.use(expressJwt(config.AUTH.validateOptions).unless(config.AUTH.unprotectedRo
 
 app.use('/auth', auth);
 app.use('/account', account);
+app.use('/creditcard', creditcard);
+app.use('/deliveryAddress', deliveryAddress);
 
 app.use(function (err, req, res) {
   if (err.name === 'UnauthorizedError') {
