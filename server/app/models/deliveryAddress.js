@@ -8,7 +8,7 @@ let deliveryAddressSchema = new Schema({
   city: { type: String, required: true },
   zip: { type: Number, required: true },
   country: { type: String, required: true },
-  owner: { type: Schema.Types.ObjectId, ref: 'Account'}
+  _account: { type: Schema.Types.ObjectId, ref: 'Account'}
 }, {
   timestamps: {}
 });

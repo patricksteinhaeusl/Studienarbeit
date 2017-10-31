@@ -1,69 +1,81 @@
 'use strict';
 
 const Account = require('../models/account');
-const CreditCard = require('../models/creaditCard');
-const exceptionUtil = require('../utils/exceptionUtil');
+const CreditCard = require('../models/creditCard');
+const resultUtil = require('../utils/resultUtil');
 
 function get(creditCardId, callback) {
-  if(!creditCardId) return callback(exceptionUtil.createNotFoundException());
-  CreditCard.findById(creditCardId, function(err, result) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!result) return callback(exceptionUtil.createNotFoundException());
+  if(!creditCardId) return callback(resultUtil.createNotFoundException());
+  CreditCard.findById(creditCardId, function(error, result) {
+    if(error) return callback(resultUtil.createErrorException(error));
+    if(!result) return callback(resultUtil.createNotFoundException());
     result = { creditCard : result};
-    callback(result);
+    callback(null, result);
   });
 }
 
-function getAllByAccountId(accountId, callback) {
-  if(!accountId) return callback(exceptionUtil.createNotFoundException());
-  CreditCard.find({ 'owner' : accountId }, function(err, result) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!result) return callback(exceptionUtil.createNotFoundException());
+function getByAccountId(accountId, callback) {
+  if(!accountId) return callback(resultUtil.createNotFoundException());
+  CreditCard.find({ '_account' : accountId }, function(error, result) {
+    if(error) return callback(resultUtil.createErrorException(error));
+    if(!result) return callback(resultUtil.createNotFoundException());
     result = { creditCard : result};
-    callback(result);
+    callback(null, result);
   });
 }
 
 function update(creditCard, callback) {
   let creditCardObj = new CreditCard(creditCard);
-  if(!creditCardObj) return callback(exceptionUtil.createNotFoundException());
-  CreditCard.findByIdAndUpdate(creditCardObj._id, creditCardObj, function(err, result) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!result) return callback(exceptionUtil.createNotFoundException());
+  if(!creditCardObj) return callback(resultUtil.createNotFoundException());
+  CreditCard.findByIdAndUpdate(creditCardObj._id, creditCardObj, function(error, result) {
+    if(error) return callback(resultUtil.createErrorException(error));
+    if(!result) return callback(resultUtil.createNotFoundException());
     result = { creditCard : result};
-    callback(result);
+    callback(null, result);
   });
 }
 
-function insert(account, creditCard, callback) {
+function insert(creditCard, callback) {
+  let creditCardObj = new CreditCard(creditCard);
+  if(!creditCardObj) return callback(resultUtil.createNotFoundException());
+  creditCardObj.save(function(error, result) {
+    if(error) return callback(error);
+    if(!result) return callback(resultUtil.createNotFoundException());
+    result = { creditCard : result};
+    callback(null, result);
+  });
+}
+
+function insertByAccount(account, creditCard, callback) {
   let accountObj = new Account(account);
   let creditCardObj = new CreditCard(creditCard);
-  if(!creditCardObj || !accountObj) return callback(exceptionUtil.createNotFoundException());
-  Account.findById(accountObj._id, function(err, result) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!result) return callback(exceptionUtil.createNotFoundException());
+  if(!creditCardObj || !accountObj) return callback(resultUtil.createNotFoundException());
+  Account.findById(accountObj._id, function(error, result) {
+    if(error) return callback(error);
+    if(!result) return callback(resultUtil.createNotFoundException());
       creditCardObj.owner = result._id;
-      creditCardObj.save(function(err, result) {
-        if(err) return callback(exceptionUtil.createErrorException(err));
-        if(!result) return callback(exceptionUtil.createNotFoundException());
+      creditCardObj.save(function(error, result) {
+        if(error) return callback(error);
+        if(!result) return callback(resultUtil.createNotFoundException());
         result = { creditCard : result};
-        callback(result);
+        callback(null, result);
       });
   });
 }
 
 function remove(creditCardId, callback) {
-  if(!creditCardId) return callback(exceptionUtil.createNotFoundException());
-  CreditCard.findByIdAndRemove(creditCardId, function(err) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    callback();
+  if(!creditCardId) return callback(resultUtil.createNotFoundException());
+  CreditCard.findByIdAndRemove(creditCardId, function(error) {
+    if(error) return callback(error);
+    callback(null);
   });
 }
 
 module.exports = {
   get,
-  getAllByAccountId,
+  getByAccountId,
   update,
   insert,
+  insertByAccount,
   remove
 };

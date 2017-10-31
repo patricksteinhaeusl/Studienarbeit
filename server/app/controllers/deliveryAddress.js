@@ -1,46 +1,51 @@
 'use strict';
 
-const deliveryAddressService = require("../services/deliveryAddress");
+const deliveryAddressService = require('../services/deliveryAddress');
+const resultUtil = require('../utils/resultUtil');
 
-function get(req, res) {
+function get(req, res, callback) {
   let deliveryAddressId = req.params.deliveryAddressId;
-  deliveryAddressService.get(deliveryAddressId, (result) => {
-    res.json(result);
+  deliveryAddressService.get(deliveryAddressId, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
   });
 }
 
-function getAllByAccountId(req, res) {
+function getByAccountId(req, res, callback) {
   let accountId = req.params.accountId;
-  creditCardService.getAllByAccountId(accountId, (result) => {
-    res.json(result);
+  deliveryAddressService.get(accountId, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
   });
 }
 
-function update(req, res) {
+function update(req, res, callback) {
   let deliveryAddress = req.body.deliveryAddress;
-  deliveryAddressService.update(deliveryAddress, (result) => {
-    res.json(result);
+  deliveryAddressService.update(deliveryAddress, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
   });
 }
 
-function insert(req, res) {
-  let account = req.body.account;
+function insert(req, res, callback) {
   let deliveryAddress = req.body.deliveryAddress;
-  deliveryAddressService.insert(account, deliveryAddress, (result) => {
-    res.json(result);
+  deliveryAddressService.insert(deliveryAddress, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
   });
 }
 
-function remove(req, res) {
+function remove(req, res, callback) {
   let deliveryAddressId = req.params.deliveryAddressId;
-  deliveryAddressService.remove(deliveryAddressId, (result) => {
-    res.json(result);
+  deliveryAddressService.remove(deliveryAddressId, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
   });
 }
 
 module.exports = {
   get,
-  getAllByAccountId,
+  getByAccountId,
   update,
   insert,
   remove

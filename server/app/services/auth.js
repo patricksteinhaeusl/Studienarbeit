@@ -1,8 +1,9 @@
 'use strict';
 
 const config = require('../config');
-const cryptoUtil = require('../utils/cryptoUtil');
 const Account = require('../models/account');
+const cryptoUtil = require('../utils/cryptoUtil');
+const resultUtil = require('../utils/resultUtil');
 
 function login(username, password, callback) {
   if (!(username && password)) {
@@ -11,8 +12,8 @@ function login(username, password, callback) {
 
   Account.findOne({
     username: username
-  }, function(err, account) {
-    if (err) throw err;
+  }, function(error, account) {
+    if(error) return callback(error);
     if (!account) {
       return callback(null, "Wrong username or password!");
     } else if (account) {
@@ -21,7 +22,8 @@ function login(username, password, callback) {
       } else {
         let {_id, username, firstname, lastname, email} = account;
         let user = {_id, username, firstname, lastname, email};
-        cryptoUtil.createToken(user, config.jwtSecret, config.AUTH.signOptions, (err, token) => {
+        cryptoUtil.createToken(user, config.jwtSecret, config.AUTH.signOptions, (error, token) => {
+          if(error) return callback(resultUtil.createErrorException(error));
           callback(null, { token : token })
         });
       }

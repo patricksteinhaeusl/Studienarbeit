@@ -2,68 +2,80 @@
 
 const Account = require('../models/account');
 const DeliveryAddress = require('../models/deliveryAddress');
-const exceptionUtil = require('../utils/exceptionUtil');
+const resultUtil = require('../utils/resultUtil');
 
 function get(deliveryAddressId, callback) {
-  if(!deliveryAddressId) return callback(exceptionUtil.createNotFoundException());
-  DeliveryAddress.findById(deliveryAddressId, function(err, result) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!result) return callback(exceptionUtil.createNotFoundException());
+  if(!deliveryAddressId) return callback(resultUtil.createNotFoundException());
+  DeliveryAddress.findById(deliveryAddressId, function(error, result) {
+    if(error) return callback(resultUtil.createErrorException(error));
+    if(!result) return callback(resultUtil.createNotFoundException());
     result = { deliveryAddress : result};
-    callback(result);
+    callback(null, result);
   });
 }
 
-function getAllByAccountId(accountId, callback) {
-  if(!accountId) return callback(exceptionUtil.createNotFoundException());
-  DeliveryAddress.find({ 'owner' : accountId }, function(err, result) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!result) return callback(exceptionUtil.createNotFoundException());
+function getByAccountId(accountId, callback) {
+  if(!accountId) return callback(resultUtil.createNotFoundException());
+  DeliveryAddress.find({ 'owner' : accountId }, function(error, result) {
+    if(error) return callback(resultUtil.createErrorException(error));
+    if(!result) return callback(resultUtil.createNotFoundException());
     result = { deliveryAddress : result};
-    callback(result);
+    callback(null, result);
   });
 }
 
 function update(deliveryAddress, callback) {
   let deliveryAddressObj = new DeliveryAddress(deliveryAddress);
-  if(!deliveryAddressObj) return callback(exceptionUtil.createNotFoundException());
-  DeliveryAddress.findByIdAndUpdate(deliveryAddressObj._id, deliveryAddressObj, function(err, result) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!result) return callback(exceptionUtil.createNotFoundException());
+  if(!deliveryAddressObj) return callback(resultUtil.createNotFoundException());
+  DeliveryAddress.findByIdAndUpdate(deliveryAddressObj._id, deliveryAddressObj, function(error, result) {
+    if(error) return callback(resultUtil.createErrorException(error));
+    if(!result) return callback(resultUtil.createNotFoundException());
     result = { deliveryAddress : result};
-    callback(result);
+    callback(null, result);
   });
 }
 
-function insert(account, deliveryAddress, callback) {
+function insert(deliveryAddress, callback) {
+  let deliveryAddressObj = new DeliveryAddress(deliveryAddress);
+  if(!deliveryAddressObj) return callback(resultUtil.createNotFoundException());
+  deliveryAddressObj.save(function(error, result) {
+    if(error) return callback(error);
+    if(!result) return callback(resultUtil.createNotFoundException());
+    result = { deliveryAddress : result};
+    callback(null, result);
+  });
+}
+
+function insertByAccount(account, deliveryAddress, callback) {
   let accountObj = new Account(account);
   let deliveryAddressObj = new DeliveryAddress(deliveryAddress);
-  if(!deliveryAddressObj || !accountObj) return callback(exceptionUtil.createNotFoundException());
-  Account.findById(accountObj._id, function(err, result) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    if(!result) return callback(exceptionUtil.createNotFoundException());
+  if(!deliveryAddressObj || !accountObj) return callback(resultUtil.createNotFoundException());
+  Account.findById(accountObj._id, function(error, result) {
+    if(error) return callback(error);
+    if(!result) return callback(resultUtil.createNotFoundException());
     deliveryAddressObj.owner = result._id;
-    deliveryAddressObj.save(function(err, result) {
-      if(err) return callback(exceptionUtil.createErrorException(err));
-      if(!result) return callback(exceptionUtil.createNotFoundException());
+    deliveryAddressObj.save(function(error, result) {
+      if(error) return callback(error);
+      if(!result) return callback(resultUtil.createNotFoundException());
       result = { deliveryAddress : result};
-      callback(result);
+      callback(null, result);
     });
   });
 }
 
 function remove(deliveryAddressId, callback) {
-  if(!deliveryAddressId) return callback(exceptionUtil.createNotFoundException());
-  DeliveryAddress.findByIdAndRemove(deliveryAddressId, function(err) {
-    if(err) return callback(exceptionUtil.createErrorException(err));
-    callback();
+  if(!deliveryAddressId) return callback(resultUtil.createNotFoundException());
+  DeliveryAddress.findByIdAndRemove(deliveryAddressId, function(error) {
+    if(error) return callback(error);
+    callback(null);
   });
 }
 
 module.exports = {
   get,
-  getAllByAccountId,
+  getByAccountId,
   update,
   insert,
+  insertByAccount,
   remove
 };

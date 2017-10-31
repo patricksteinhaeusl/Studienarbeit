@@ -1,11 +1,11 @@
 'use strict';
 
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
-let cryptoUtil = require('../utils/cryptoUtil');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const cryptoUtil = require('../utils/cryptoUtil');
 
 let accountSchema = new Schema({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
   password: { type: String, required: true },
   firstname: { type: String, require: true },
   lastname: { type: String, require: true },
