@@ -27,10 +27,11 @@
         <li class="nav-item"><a href="#!/home">Home</a></li>
         <li class="nav-item"><a href="#!/aboutus">About us</a></li>
         <li class="nav-item"><a href="#!/contact">Contact</a></li>
+        <li class="nav-item"><a href="#!/shop">Shop</a></li>
       </div>
       <div class="menu col col-xs-3" ng-controller="AuthController as auth">
         <div class="row">
-          <li ng-if="auth.isAuthenticated()">{{ auth.getUser() }}</li>
+          <li ng-if="auth.isAuthenticated()" class="menu-label">{{ auth.getUser().firstname + " " + auth.getUser().lastname }}</li>
           <li ng-click="nav.slideDown('.auth-form')" class="menu-item glyphicon glyphicon-user" aria-hidden="true"></li>
           <li ng-click="nav.slideDown('.cart-form')" class="menu-item glyphicon glyphicon-shopping-cart" aria-hidden="true"></li>
         </div>
@@ -52,17 +53,24 @@
         </div>
         <div ng-view></div>
       </div>
-      <div class="sidebar-right col col-xs-3">
-          <form class="auth-form" ng-controller="AuthController as auth" ng-submit="auth.login()">
-            <div ng-if="auth.failed" class="alert alert-danger"><strong>Login failed!</strong> <p>Username or password is incorrect.</p></div>
+      <div class="sidebar-right col col-xs-3" ng-controller="AuthController as auth" >
+          <form class="auth-form" ng-submit="auth.login()" ng-if="auth.isAuthenticated() == false" >
+            <h2>Please log-in</h2>
+            <div ng-if="auth.login.formSubmitFailed" class="alert alert-danger"><strong>Login failed!</strong> <p>Username or password is incorrect.</p></div>
             <div class="form-group">
-              <input class="form-control" type="text" ng-model="auth.user.username" name="username" placeholder="Username" />
+              <input class="form-control" type="text" ng-model="auth.login.user.username" name="username" placeholder="Username" />
             </div>
             <div class="form-group">
-              <input class="form-control" type="password" ng-model="auth.user.password" name="password" placeholder="Password" />
+              <input class="form-control" type="password" ng-model="auth.login.user.password" name="password" placeholder="Password" />
             </div>
+            <p>Not yet an account? <a href="#!/auth/register">Register</a></p>
             <div class="form-group">
               <button class="form-control" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+          <form class="auth-form" ng-submit="auth.logout()" ng-if="auth.isAuthenticated() == true">
+            <div class="form-group">
+              <button class="form-control" class="btn btn-primary">Logout</button>
             </div>
           </form>
           <form class="cart-form" ng-controller="CartController as cart">
@@ -85,5 +93,6 @@
   <script src="controllers/home.js"></script>
   <script src="controllers/aboutUs.js"></script>
   <script src="controllers/contact.js"></script>
+  <script src="controllers/shop.js"></script>
 </body>
 </html>

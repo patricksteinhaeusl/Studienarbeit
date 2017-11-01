@@ -74,8 +74,15 @@ html, body {
 }
 
 .navbar-top .menu .menu-item {
+  display: inline-block;
   margin-right: 50px;
   font-size: 20px;
+}
+
+.navbar-top .menu .menu-label {
+  display: inline-block;
+  margin-right: 15px;
+  font-size: inherit;
 }
 
 .content {
@@ -85,12 +92,20 @@ html, body {
   min-height: 100%;
 }
 
-.sidebar-left, .sidebar-right
-{
+.sidebar-left, .sidebar-right {
   background: #F0F0F0;
   height:100%;
   min-height:100%;
   padding: 15px 0 15px 0;
+}
+
+.sidebar-left h1,
+.sidebar-left h2,
+.sidebar-left h3,
+.sidebar-right h1,
+.sidebar-right h2,
+.sidebar-right h3 {
+  color: #e0d7dc;
 }
 
 .sidebar-right {
@@ -125,9 +140,10 @@ html, body {
   display: none;
   padding: 15px;
   background-color: #5fb0e9;
+  border-bottom: solid 2px #e0d7dc;
 }
 
 .auth-form a {
-  color: white;
+  color: #e0d7dc;
   text-decoration: none;
 }

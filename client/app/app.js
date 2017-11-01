@@ -21,6 +21,14 @@ let app = angular.module('app',[
     .when('/contact', {
       templateUrl: 'views/contact.html',
       controller: 'ContactController'
+    })
+    .when('/shop', {
+      templateUrl: 'views/shop.html',
+      controller: 'ShopController'
+    })
+    .when('/auth/register', {
+      templateUrl: 'views/register.html',
+      controller: 'AuthController'
     });
 
   $routeProvider.otherwise({redirectTo: '/home'});
