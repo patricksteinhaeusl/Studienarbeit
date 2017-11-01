@@ -15,6 +15,7 @@ let accountSchema = new Schema({
 });
 
 accountSchema.methods.comparePassword = function(password) {
+  console.log(cryptoUtil.hashPwd(password));
   return cryptoUtil.hashPwd(password) === this.password;
 };
 

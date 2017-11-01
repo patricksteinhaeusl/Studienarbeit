@@ -14,19 +14,15 @@ function login(username, password, callback) {
     username: username
   }, function(error, account) {
     if(error) return callback(error);
-    if (!account) {
-      return callback(null, "Wrong username or password!");
-    } else if (account) {
-      if (!account.comparePassword(password)) {
-        return callback(null, "Wrong username or password!");
-      } else {
-        let {_id, username, firstname, lastname, email} = account;
-        let user = {_id, username, firstname, lastname, email};
-        cryptoUtil.createToken(user, config.jwtSecret, config.AUTH.signOptions, (error, token) => {
-          if(error) return callback(resultUtil.createErrorException(error));
-          callback(null, { token : token })
-        });
-      }
+    if (!account || !account.comparePassword(password)) {
+      return callback({statusCode: 500});
+    } else {
+      let {_id, username, firstname, lastname, email} = account;
+      let user = {_id, username, firstname, lastname, email};
+      cryptoUtil.createToken(user, config.jwtSecret, config.AUTH.signOptions, (error, token) => {
+        if(error) return callback(resultUtil.createErrorException(error));
+        callback(null, { user: user, token : token })
+      });
     }
   });
 }

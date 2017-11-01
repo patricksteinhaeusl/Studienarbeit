@@ -7,7 +7,7 @@ const DeliveryAddress = require('../models/deliveryAddress');
 let testAccount0 = new Account({
   _id: '59e7ffc364b7f1faf7a3348e',
   username: 'customer0',
-  password: '234234',
+  password: '496a883f65d4b17d7818b9dde7bdcfa579d501a25d52487ea5a90973ed136a6e',
   firstname: 'Hans',
   lastname: 'Muster',
   email: 'customer0@gmail.com'
@@ -29,7 +29,7 @@ let testDeliveryAddress0 = new DeliveryAddress({
 let testAccount1 = new Account({
   _id: '59e7ffc364b7f1faf7a3348f',
   username: 'customer1',
-  password: '234234',
+  password: '496a883f65d4b17d7818b9dde7bdcfa579d501a25d52487ea5a90973ed136a6e',
   firstname: 'Hans',
   lastname: 'Muster',
   email: 'customer1@gmail.com'

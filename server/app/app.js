@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const cors = require('cors');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -17,6 +18,12 @@ const product = require('./routes/product');
 
 const app = express();
 
+const corsOptions = {
+  origin: 'http://localhost:8000',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,6 +37,13 @@ app.use('/creditCard', creditCard);
 app.use('/deliveryAddress', deliveryAddress);
 app.use('/order', order);
 app.use('/product', product);
+
+app.use(function(err, req, res) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header("Access-Control-Allow-Headers", "Content-type,Accept,X-Custom-Header");
+});
 
 app.use(function (err, req, res) {
   if (err.name === 'UnauthorizedError') {

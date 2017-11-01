@@ -1,6 +1,6 @@
 'use strict';
 
-appControllers.controller('ProductSearchController', ['$scope', function($scope) {
-  let productSearch = this;
-  $scope.greeting = 'ProductSearch!';
-}]);
+appControllers.controller('ProductSearchController', function($scope) {
+  const self = this;
+  self.header = 'ProductSearch';
+});

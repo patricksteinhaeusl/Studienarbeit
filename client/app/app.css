@@ -10,6 +10,10 @@ html, body {
   font-size: 0;
 }
 
+.row {
+  margin: 0;
+}
+
 .col {
   font-size: 15px;
 }
@@ -29,7 +33,7 @@ html, body {
 }
 
 .navbar-top .logo {
-  padding-top: 15px;
+  padding-top: 20px;
 }
 
 .navbar-top .logo .logo-item {
@@ -89,6 +93,10 @@ html, body {
   padding: 15px 0 15px 0;
 }
 
+.sidebar-right {
+  padding: 0;
+}
+
 .sidebar-left .sidebar-item {
   list-style: none;
   width: 100%;
@@ -113,6 +121,13 @@ html, body {
   padding: 15px;
 }
 
-.auth-form {
-  padding: 0 15px 15px 15px;
+.auth-form, .cart-form {
+  display: none;
+  padding: 15px;
+  background-color: #5fb0e9;
+}
+
+.auth-form a {
+  color: white;
+  text-decoration: none;
 }

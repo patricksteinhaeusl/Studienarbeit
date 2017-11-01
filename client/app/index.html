@@ -18,7 +18,7 @@
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="container" ng-controller="NavController as nav">
     <div class="navbar-top">
       <div class="logo col col-xs-3">
         <li class="logo-item glyphicon glyphicon-bell" aria-hidden="true"></li>
@@ -28,9 +28,12 @@
         <li class="nav-item"><a href="#!/aboutus">About us</a></li>
         <li class="nav-item"><a href="#!/contact">Contact</a></li>
       </div>
-      <div class="menu col col-xs-3">
-        <li class="menu-item glyphicon glyphicon-user" aria-hidden="true"></li>
-        <li class="menu-item glyphicon glyphicon-shopping-cart" aria-hidden="true"></li>
+      <div class="menu col col-xs-3" ng-controller="AuthController as auth">
+        <div class="row">
+          <li ng-if="auth.isAuthenticated()">{{ auth.getUser() }}</li>
+          <li ng-click="nav.slideDown('.auth-form')" class="menu-item glyphicon glyphicon-user" aria-hidden="true"></li>
+          <li ng-click="nav.slideDown('.cart-form')" class="menu-item glyphicon glyphicon-shopping-cart" aria-hidden="true"></li>
+        </div>
       </div>
     </div>
 
@@ -41,7 +44,7 @@
       </div>
       <div class="product-search col col-xs-6">
         <div ng-controller="ProductSearchController as productSearch">
-          <form ng-submit="productSearch.search()">
+          <form>
             <div class="form-group">
               <input class="form-control" placeholder="Search for any product">
             </div>
@@ -50,22 +53,21 @@
         <div ng-view></div>
       </div>
       <div class="sidebar-right col col-xs-3">
-        <div class="auth-form">
-          <div ng-controller="AuthController as auth">
-            <form ng-submit="auth.login()">
-              <div class="form-group">
-                <input class="form-control" placeholder="Username">
-              </div>
-              <div class="form-group">
-                <input class="form-control" placeholder="Password">
-              </div>
-              <div class="form-group">
-                <button class="form-control">
-                  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Log-in
-                </button>
-              </div>
-            </form>
-          </div>
+          <form class="auth-form" ng-controller="AuthController as auth" ng-submit="auth.login()">
+            <div ng-if="auth.failed" class="alert alert-danger"><strong>Login failed!</strong> <p>Username or password is incorrect.</p></div>
+            <div class="form-group">
+              <input class="form-control" type="text" ng-model="auth.user.username" name="username" placeholder="Username" />
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="password" ng-model="auth.user.password" name="password" placeholder="Password" />
+            </div>
+            <div class="form-group">
+              <button class="form-control" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+          <form class="cart-form" ng-controller="CartController as cart">
+            <h1>Cart</h1>
+          </form>
       </div>
     </div>
   </div>
@@ -73,7 +75,12 @@
   <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>-->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
   <script src="app.js"></script>
+  <script src="services/auth.js"></script>
+  <script src="controllers/nav.js"></script>
+  <script src="controllers/auth.js"></script>
+  <script src="controllers/cart.js"></script>
   <script src="controllers/productSearch.js"></script>
   <script src="controllers/home.js"></script>
   <script src="controllers/aboutUs.js"></script>

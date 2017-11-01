@@ -1,6 +1,6 @@
 'use strict';
 
-appControllers.controller('ContactController', ['$scope', function($scope) {
-  let contact = this;
-  $scope.header = 'Contract';
-}]);
+appControllers.controller('ContactController', function($scope) {
+  const self = this;
+  self.header = 'Contact';
+});

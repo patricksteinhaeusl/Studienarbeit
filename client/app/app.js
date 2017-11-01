@@ -2,9 +2,11 @@
 
 let app = angular.module('app',[
   'ngRoute',
-  'app.controllers'
+  'LocalStorageModule',
+  'app.controllers',
+  'app.services'
 ])
-.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+.config(['$locationProvider', '$routeProvider', 'localStorageServiceProvider', function($locationProvider, $routeProvider, localStorageServiceProvider) {
   $locationProvider.hashPrefix('!');
 
   $routeProvider
@@ -21,7 +23,16 @@ let app = angular.module('app',[
       controller: 'ContactController'
     });
 
-    $routeProvider.otherwise({redirectTo: '/home'});
-}]);
+  $routeProvider.otherwise({redirectTo: '/home'});
+
+  localStorageServiceProvider
+    .setPrefix('app')
+    .setStorageType('localStorage');
+}]).run(function($http, localStorageService) {
+  if(localStorageService.token) {
+    $http.defaults.headers.common.Authorization = 'Bearer ' + localStorageService.token;
+  }
+});
 
 let appControllers = angular.module('app.controllers', []);
+let appServices = angular.module('app.services', []);

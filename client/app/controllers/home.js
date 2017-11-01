@@ -1,6 +1,6 @@
 'use strict';
 
-appControllers.controller('HomeController', ['$scope', function($scope) {
-  let home = this;
-  $scope.header = 'Home';
-}]);
+appControllers.controller('HomeController', function($scope) {
+  const self = this;
+  self.header = 'Home';
+});

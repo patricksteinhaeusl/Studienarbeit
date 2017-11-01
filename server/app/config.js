@@ -19,7 +19,8 @@ const auth = {
     issuer : 'shop'
   },
   unprotectedRoutes: {
-    path: [/.*/],
+    //path: [/.*/],
+    path: [/.auth*/]
   }
 };
 
