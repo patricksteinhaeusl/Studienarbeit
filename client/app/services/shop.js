@@ -14,10 +14,12 @@ appServices.factory('ShopService', ['$http', '$q', function ($http, $q) {
         });
     },
     rateProduct: function(product, ratingValue, user, callback) {
+      console.log("rateProduct");
       let data = { 'product': product, 'ratingValue': ratingValue, 'user': user };
       $http
         .post('http://localhost:3000/product/rating', data)
         .success(function(response) {
+          console.log(response);
           let products = response.data.products;
           return callback(products);
         })

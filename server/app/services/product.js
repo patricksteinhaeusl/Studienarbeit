@@ -1,7 +1,7 @@
 'use strict';
 
 const Product = require('../models/product');
-const Rating = require('../models/rating');
+const Rating = require('../models/rating').Rating;
 const resultUtil = require('../utils/resultUtil');
 
 function get(callback) {
@@ -26,12 +26,30 @@ function getById(productId, callback) {
 function insertRating(product, ratingValue, user, callback) {
   if(!product || !ratingValue || !user) return callback(resultUtil.createNotFoundException());
 
-  Product.find(product, function(error, result) {
+  Product.findOneAndUpdate(
+    { _id: product._id, 'ratings._account': user._id },
+    { $set: { 'ratings.$.value': ratingValue } },
+    { new: true },
+  function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
-    if(!result) return callback(resultUtil.createNotFoundException());
-
-    result = { 'product' : result };
-    return callback(null, result);
+    if(!result) {
+      Product.findOneAndUpdate(
+        {_id: product._id},
+        {
+          $push: {
+            'ratings': {
+              'value': ratingValue,
+              'comment': 'Nothing',
+              '_account': user._id
+            }
+          }
+        }, function (error, result) {
+          if (error) return callback(resultUtil.createErrorException(error));
+          if (!result) return callback(resultUtil.createNotFoundException());
+          result = {'product': result};
+          return callback(null, result);
+        });
+    }
   });
 }
 

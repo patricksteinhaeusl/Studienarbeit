@@ -12,17 +12,17 @@ function get(req, res, callback) {
 
 function getById(req, res, callback) {
   let productId = req.params.productId;
-  productService.get(productId, (error, result) => {
+  productService.getById(productId, (error, result) => {
     if(error) return callback(error);
     res.json(resultUtil.createResult(result));
   });
 }
 
 function insertRating(req, res, callback) {
-  let productId = req.params.productId;
+  let product = req.body.product;
   let ratingValue = req.body.ratingValue;
   let user = req.body.user;
-  productService.get(productId, ratingValue, user, (error, result) => {
+  productService.insertRating(product, ratingValue, user, (error, result) => {
     if(error) return callback(error);
     res.json(resultUtil.createResult(result));
   });
