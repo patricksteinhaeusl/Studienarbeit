@@ -29,23 +29,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(expressJwt(config.AUTH.validateOptions).unless(config.AUTH.unprotectedRoutes));
-
 app.use('/auth', auth);
 app.use('/account', account);
 app.use('/creditCard', creditCard);
 app.use('/deliveryAddress', deliveryAddress);
 app.use('/order', order);
+app.use(expressJwt(config.AUTH.validateOptions));
 app.use('/product', product);
 
 app.use(function(err, req, res) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header("Access-Control-Allow-Headers", "Content-type,Accept,X-Custom-Header");
-});
-
-app.use(function (err, req, res) {
   if (err.name === 'UnauthorizedError') {
     res.status(401).send('No valid token!');
   }

@@ -88,14 +88,15 @@ html, body {
 .content {
   display: inline-block;
   width: 100%;
-  height: 100%;
+  background: #F0F0F0;
   min-height: 100%;
 }
 
+.content-content {
+  background: white;
+}
+
 .sidebar-left, .sidebar-right {
-  background: #F0F0F0;
-  height:100%;
-  min-height:100%;
   padding: 15px 0 15px 0;
 }
 
@@ -146,4 +147,45 @@ html, body {
 .auth-form a {
   color: #e0d7dc;
   text-decoration: none;
+}
+
+.wide {
+  width: 100%;
+}
+
+.small {
+  width: 50%;
+}
+
+.products:first-child {
+  border-top: 1px solid grey;
+}
+
+.product {
+  display: inline-block;
+  padding: 15px;
+  border-bottom: 1px solid grey;
+}
+
+.product-name {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.product-category {
+  font-weight: bold;
+}
+
+.product-price {
+  color: red;
+  font-weight: bold;
+}
+
+.product-rating {
+  display: inline-block;
+  width: 100%;
+}
+
+.product-rating > .jk-rating-stars-container .material-icons {
+  font-size: 18px;
 }

@@ -8,7 +8,7 @@ function get(accountId, callback) {
   Account.findById(accountId, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { account : result };
+    result = { 'account' : result };
     return callback(null, result);
   });
 }
@@ -19,8 +19,8 @@ function update(account, callback) {
   Account.findByIdAndUpdate(accountObj._id, accountObj, {new: true}, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { account : result};
-    callback(null, result);
+    result = { 'account' : result};
+    return callback(null, result);
   });
 }
 
@@ -30,8 +30,8 @@ function insert(account, callback) {
   accountObj.save(function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { account : result};
-    callback(null, result);
+    result = { 'account' : result};
+    return callback(null, result);
   });
 }
 

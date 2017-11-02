@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const cryptoUtil = require('../utils/cryptoUtil');
 
 let accountSchema = new Schema({
-  username: { type: String, required: true },
+  username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   firstname: { type: String, require: true },
   lastname: { type: String, require: true },
@@ -14,8 +14,14 @@ let accountSchema = new Schema({
   timestamps: {}
 });
 
+accountSchema.pre('save', function(callback) {
+  let account = this;
+  if (!account.isModified('password')) return callback();
+  account.password = cryptoUtil.hashPwd(account.password);
+  return callback();
+});
+
 accountSchema.methods.comparePassword = function(password) {
-  console.log(cryptoUtil.hashPwd(password));
   return cryptoUtil.hashPwd(password) === this.password;
 };
 

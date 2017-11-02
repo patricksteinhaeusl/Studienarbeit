@@ -4,9 +4,9 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
-function hashPwd(pwd) {
+function hashPwd(password) {
   return crypto.createHmac(config.CRYPT.hash, config.CRYPT.secret)
-    .update(pwd)
+    .update(password)
     .digest('hex');
 }
 

@@ -1,42 +1,40 @@
 'use strict';
 
-appControllers.controller('AuthController', ['$scope', 'AuthService', 'localStorageService', function($scope, authService, localStorageService) {
-  const self = this;
-  self.login = {};
-  self.login.formSubmitFailed = false;
-  self.register = {};
-  self.register.formSubmitFailed = false;
-
-  self.init = function() {
-    authService.logout();
-  };
+appControllers.controller('AuthController', ['$scope', '$location', 'AuthService', 'localStorageService', function($scope, $location, authService, localStorageService) {
+  let self = this;
+  self.data = {};
+  self.data.login = {};
+  self.data.register = {} ;
+  self.data.login.formSubmitFailed = false;
+  self.data.register.formSubmitFailed = false;
 
   self.login = function() {
-    authService.login(self.login.user, function(result) {
-      self.login.user = '';
+    let user = self.data.login.user;
+    authService.login(user, function(result) {
+      self.data.login = {};
       if(!result)  {
-        self.login.formSubmitFailed = true;
+        self.data.login.formSubmitFailed = true;
       } else {
-        self.login.formSubmitFailed = false;
+        self.data.login.formSubmitFailed = false;
       }
     });
   };
 
   self.register = function() {
-    authService.register(self.register.user, function(result) {
-      self.register.user = '';
+    let account = self.data.register.account;
+    authService.register(account, function(result) {
+      self.data.register = {};
       if(!result)  {
-        self.register.formSubmitFailed = true;
+        self.data.register.formSubmitFailed = true;
       } else {
-        self.register.formSubmitFailed = false;
+        self.data.register.formSubmitFailed = false;
+        $location.path('/shop');
       }
     });
   };
 
   self.logout = function() {
-    authService.logout(function() {
-
-    });
+    authService.logout();
   };
 
   self.isAuthenticated = function() {

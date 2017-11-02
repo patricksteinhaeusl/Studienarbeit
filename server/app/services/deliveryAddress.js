@@ -9,8 +9,8 @@ function get(deliveryAddressId, callback) {
   DeliveryAddress.findById(deliveryAddressId, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { deliveryAddress : result};
-    callback(null, result);
+    result = { 'deliveryAddress' : result};
+    return callback(null, result);
   });
 }
 
@@ -19,8 +19,8 @@ function getByAccountId(accountId, callback) {
   DeliveryAddress.find({ 'owner' : accountId }, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { deliveryAddress : result};
-    callback(null, result);
+    result = { 'deliveryAddress' : result};
+    return callback(null, result);
   });
 }
 
@@ -30,8 +30,8 @@ function update(deliveryAddress, callback) {
   DeliveryAddress.findByIdAndUpdate(deliveryAddressObj._id, deliveryAddressObj, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { deliveryAddress : result};
-    callback(null, result);
+    result = { 'deliveryAddress' : result};
+    return callback(null, result);
   });
 }
 
@@ -41,8 +41,8 @@ function insert(deliveryAddress, callback) {
   deliveryAddressObj.save(function(error, result) {
     if(error) return callback(error);
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { deliveryAddress : result};
-    callback(null, result);
+    result = { 'deliveryAddress' : result};
+    return callback(null, result);
   });
 }
 
@@ -57,8 +57,8 @@ function insertByAccount(account, deliveryAddress, callback) {
     deliveryAddressObj.save(function(error, result) {
       if(error) return callback(error);
       if(!result) return callback(resultUtil.createNotFoundException());
-      result = { deliveryAddress : result};
-      callback(null, result);
+      result = { 'deliveryAddress' : result};
+      return callback(null, result);
     });
   });
 }
@@ -67,7 +67,7 @@ function remove(deliveryAddressId, callback) {
   if(!deliveryAddressId) return callback(resultUtil.createNotFoundException());
   DeliveryAddress.findByIdAndRemove(deliveryAddressId, function(error) {
     if(error) return callback(error);
-    callback(null);
+    return callback(null);
   });
 }
 

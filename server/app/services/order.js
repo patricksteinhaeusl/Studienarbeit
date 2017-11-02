@@ -8,7 +8,7 @@ function get(orderId, callback) {
   Order.findById(orderId, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { order : result };
+    result = { 'order' : result };
     return callback(null, result);
   });
 }
@@ -19,8 +19,8 @@ function update(order, callback) {
   Order.findByIdAndUpdate(orderObj._id, orderObj, {new: true}, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { order : result};
-    callback(null, result);
+    result = { 'order' : result };
+    return callback(null, result);
   });
 }
 
@@ -30,8 +30,8 @@ function insert(order, callback) {
   orderObj.save(function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { order : result};
-    callback(null, result);
+    result = { 'order' : result };
+    return callback(null, result);
   });
 }
 
@@ -39,7 +39,7 @@ function remove(orderId, callback) {
   if(!orderId) return callback(resultUtil.createNotFoundException());
   Order.findByIdAndRemove(orderId, function(error) {
     if(error) return callback(resultUtil.createErrorException(error));
-    callback();
+    return callback();
   });
 }
 

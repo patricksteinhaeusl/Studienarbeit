@@ -3,13 +3,16 @@
 appServices.factory('AuthService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
   return {
     login: function(user, callback) {
+      let data = user;
       $http
-        .post('http://localhost:3000/auth/login/', user)
+        .post('http://localhost:3000/auth/login', data)
         .success(function(response) {
-          if(response.data.user && response.data.token) {
-            localStorageService.set('user', response.data.user);
-            localStorageService.set('token', response.data.token);
-            $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+          let user = response.data.user;
+          let token = response.data.token;
+          if(user && token) {
+            localStorageService.set('user', user);
+            localStorageService.set('token', token);
+            $http.defaults.headers.common.Authorization = 'Bearer ' + token;
             return callback(true);
           } else {
             return callback(false);
@@ -19,14 +22,17 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
             return callback(false);
         });
     },
-    register: function(user, callback) {
+    register: function(account, callback) {
+      let data = account;
       $http
-        .post('http://localhost:3000/auth/register/', user)
+        .post('http://localhost:3000/auth/register', data)
         .success(function(response) {
-          if(response.data.user && response.data.token) {
-            localStorageService.set('user', response.data.user);
-            localStorageService.set('token', response.data.token);
-            $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+          let user = response.data.user;
+          let token = response.data.token;
+          if(user && token) {
+            localStorageService.set('user', user);
+            localStorageService.set('token', token);
+            $http.defaults.headers.common.Authorization = 'Bearer ' + token;
             return callback(true);
           } else {
             return callback(false);
@@ -36,10 +42,9 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
           return callback(false);
         });
     },
-    logout: function(callback) {
+    logout: function() {
       localStorageService.clearAll();
       $http.defaults.headers.common.Authorization = '';
-      callback();
     }
   }
 }]);

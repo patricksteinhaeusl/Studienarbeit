@@ -3,6 +3,7 @@
 let app = angular.module('app',[
   'ngRoute',
   'LocalStorageModule',
+  'jkAngularRatingStars',
   'app.controllers',
   'app.services'
 ])
@@ -37,8 +38,8 @@ let app = angular.module('app',[
     .setPrefix('app')
     .setStorageType('localStorage');
 }]).run(function($http, localStorageService) {
-  if(localStorageService.token) {
-    $http.defaults.headers.common.Authorization = 'Bearer ' + localStorageService.token;
+  if(localStorageService.get('token')) {
+    $http.defaults.headers.common.Authorization = 'Bearer ' + localStorageService.get('token');
   }
 });
 

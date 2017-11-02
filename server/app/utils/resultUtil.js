@@ -1,15 +1,15 @@
 'use strict';
 
 function createResult(data) {
-  return { statusCode: 200, data: data };
+  return { 'statusCode': 200, 'data': data };
 }
 
 function createErrorException(error) {
-  return { statusCode: 400, errorMessage: error.message };
+  return { 'statusCode': 400, 'errorMessage': error.message };
 }
 
 function createNotFoundException() {
-  return { statusCode: 404, errorMessage: 'Not found' };
+  return { 'statusCode': 404, 'errorMessage': 'Not found' };
 }
 
 module.exports = {

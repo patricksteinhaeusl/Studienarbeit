@@ -16,7 +16,7 @@ describe('Database', function() {
     it('it should connect to database', function(callback) {
       mongoose.connect(config.DB.connectionString, { useMongoClient: true }, function(error) {
         assert(error !== null, 'Failed to create data!');
-        callback();
+        return callback();
       });
     });
   });

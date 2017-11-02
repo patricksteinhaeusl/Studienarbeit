@@ -9,7 +9,7 @@ function get(creditCardId, callback) {
   CreditCard.findById(creditCardId, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { creditCard : result};
+    result = { 'creditCard' : result};
     callback(null, result);
   });
 }
@@ -19,8 +19,8 @@ function getByAccountId(accountId, callback) {
   CreditCard.find({ '_account' : accountId }, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { creditCard : result};
-    callback(null, result);
+    result = { 'creditCard' : result};
+    return callback(null, result);
   });
 }
 
@@ -30,8 +30,8 @@ function update(creditCard, callback) {
   CreditCard.findByIdAndUpdate(creditCardObj._id, creditCardObj, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { creditCard : result};
-    callback(null, result);
+    result = { 'creditCard' : result};
+    return callback(null, result);
   });
 }
 
@@ -41,8 +41,8 @@ function insert(creditCard, callback) {
   creditCardObj.save(function(error, result) {
     if(error) return callback(error);
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { creditCard : result};
-    callback(null, result);
+    result = { 'creditCard' : result};
+    return callback(null, result);
   });
 }
 
@@ -57,8 +57,8 @@ function insertByAccount(account, creditCard, callback) {
       creditCardObj.save(function(error, result) {
         if(error) return callback(error);
         if(!result) return callback(resultUtil.createNotFoundException());
-        result = { creditCard : result};
-        callback(null, result);
+        result = { 'creditCard' : result};
+        return callback(null, result);
       });
   });
 }
@@ -67,7 +67,7 @@ function remove(creditCardId, callback) {
   if(!creditCardId) return callback(resultUtil.createNotFoundException());
   CreditCard.findByIdAndRemove(creditCardId, function(error) {
     if(error) return callback(error);
-    callback(null);
+    return callback(null);
   });
 }
 

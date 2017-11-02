@@ -11,6 +11,15 @@ function login(req, res, callback) {
   });
 }
 
+function register(req, res, callback) {
+  let account = req.body;
+  authService.register(account, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
+  });
+}
+
 module.exports = {
-  login
+  login,
+  register
 };

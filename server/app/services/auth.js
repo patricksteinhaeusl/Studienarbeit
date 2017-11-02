@@ -12,21 +12,40 @@ function login(username, password, callback) {
 
   Account.findOne({
     username: username
-  }, function(error, account) {
+  }, function(error, resAccount) {
     if(error) return callback(error);
-    if (!account || !account.comparePassword(password)) {
-      return callback({statusCode: 500});
+    if (!resAccount || !resAccount.comparePassword(password)) {
+      return callback(resultUtil.createNotFoundException());
     } else {
-      let {_id, username, firstname, lastname, email} = account;
+      let {_id, username, firstname, lastname, email} = resAccount;
       let user = {_id, username, firstname, lastname, email};
       cryptoUtil.createToken(user, config.jwtSecret, config.AUTH.signOptions, (error, token) => {
         if(error) return callback(resultUtil.createErrorException(error));
-        callback(null, { user: user, token : token })
+        return callback(null, { 'user': user, 'token': token });
       });
     }
   });
 }
 
+function register(account, callback) {
+  if (!account) {
+    return callback(null, "No Data");
+  }
+
+  let newAccount = new Account(account);
+
+  newAccount.save(function(error, result) {
+    if (error) return callback(resultUtil.createErrorException(error));
+    let {_id, username, firstname, lastname, email} = result;
+    let user = {_id, username, firstname, lastname, email};
+    cryptoUtil.createToken(user, config.jwtSecret, config.AUTH.signOptions, (error, token) => {
+      if(error) return callback(resultUtil.createErrorException(error));
+      return callback(null, { 'user': user, 'token': token });
+    });
+  });
+}
+
 module.exports = {
-  login
+  login,
+  register
 };

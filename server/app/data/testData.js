@@ -3,11 +3,12 @@
 const Account = require('../models/account');
 const CreditCard = require('../models/creditCard');
 const DeliveryAddress = require('../models/deliveryAddress');
+const Product = require('../models/product');
 
 let testAccount0 = new Account({
   _id: '59e7ffc364b7f1faf7a3348e',
   username: 'customer0',
-  password: '496a883f65d4b17d7818b9dde7bdcfa579d501a25d52487ea5a90973ed136a6e',
+  password: '234234',
   firstname: 'Hans',
   lastname: 'Muster',
   email: 'customer0@gmail.com'
@@ -29,7 +30,7 @@ let testDeliveryAddress0 = new DeliveryAddress({
 let testAccount1 = new Account({
   _id: '59e7ffc364b7f1faf7a3348f',
   username: 'customer1',
-  password: '496a883f65d4b17d7818b9dde7bdcfa579d501a25d52487ea5a90973ed136a6e',
+  password: '234234',
   firstname: 'Hans',
   lastname: 'Muster',
   email: 'customer1@gmail.com'
@@ -48,15 +49,58 @@ let testDeliveryAddress1 = new DeliveryAddress({
   _account: testAccount1._id
 });
 
-let testData = [[testAccount0, testCreditCard0, testDeliveryAddress0], [testAccount1, testCreditCard1, testDeliveryAddress1]];
+let testAccounts = [[testAccount0, testCreditCard0, testDeliveryAddress0], [testAccount1, testCreditCard1, testDeliveryAddress1]];
+
+let testProduct0 = new Product({
+  _id: '59e7ffc364b7f1faf7a3310a',
+  name: 'Product 0',
+  category: 'Category 1',
+  size: 15,
+  price: 25.00,
+  image: 'product1.jpg',
+  ratings: []
+});
+
+let testProduct1 = new Product({
+  _id: '59e7ffc364b7f1faf7a3310b',
+  name: 'Product 1',
+  category: 'Category 1',
+  size: 15,
+  price: 25.00,
+  image: 'product1.jpg',
+  ratings: []
+});
+
+let testProduct2 = new Product({
+  _id: '59e7ffc364b7f1faf7a3310c',
+  name: 'Product 2',
+  category: 'Category 1',
+  size: 17,
+  price: 30.25,
+  image: 'product2.jpg',
+  ratings: []
+});
+
+let testProduct3 = new Product({
+  _id: '59e7ffc364b7f1faf7a3310d',
+  name: 'Product 3',
+  category: 'Category 2',
+  size: 17,
+  price: 30.25,
+  image: 'product3.jpg',
+  ratings: []
+});
 
 function init(callback) {
   dropData(function(error) {
     if(error) return callback(error);
-    testData.forEach(function(test) {
-      createData(test, function(error) {
+    testAccounts.forEach(function(value) {
+      createAccounts(value, function(error) {
         if(error) return callback(error);
-        callback();
+        createProducts(function(error) {
+          if(error) return callback(error);
+          return callback();
+        });
       });
     });
   });
@@ -72,21 +116,45 @@ function dropData(callback) {
       DeliveryAddress.remove({}, function(error) {
         if(error) return callback(error);
         console.log('Collection DeliveryAddress removed');
-        callback();
+        Product.remove({}, function(error) {
+          if(error) return callback(error);
+          console.log('Collection Products removed');
+          return callback();
+        });
       });
     });
   });
 }
 
-function createData(testValue, callback) {
-  testValue[0].save(function(error) {
+function createAccounts(value, callback) {
+  value[0].save(function(error) {
     if(error) return callback(error);
-    createCreditCard(testValue[1], function(error) {
+    createCreditCard(value[1], function(error) {
         if(error) return callback(error);
-      createDeliveryAddress(testValue[2], function(error) {
+      createDeliveryAddress(value[2], function(error) {
         if(error) return callback(error);
         console.log('Data added to account!');
-        callback();
+        return callback();
+      });
+    });
+  });
+}
+
+function createProducts(callback) {
+  testProduct0.save(function(error, product) {
+    if(error) console.log(error);
+    console.log(product);
+    testProduct1.save(function(error, product) {
+      if(error) console.log(error);
+      console.log(product);
+      testProduct2.save(function(error, product) {
+        if(error) console.log(error);
+        console.log(product);
+        testProduct3.save(function(error, product) {
+          if(error) console.log(error);
+          console.log(product);
+          return callback();
+        });
       });
     });
   });
@@ -95,14 +163,14 @@ function createData(testValue, callback) {
 function createCreditCard(testCreditCard, callback) {
   testCreditCard.save(function(error) {
     if(error) return callback(error);
-    callback();
+    return callback();
   });
 }
 
 function createDeliveryAddress(testDeliveryAddress, callback) {
   testDeliveryAddress.save(function(error) {
     if(error) return callback(error);
-    callback();
+    return callback();
   });
 }
 
