@@ -18,11 +18,25 @@ function getById(req, res, callback) {
   });
 }
 
+function getByCategoryId(req, res, callback) {
+  let categoryId = req.params.categoryId;
+  productService.getByCategoryId(categoryId, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
+  });
+}
+
 function insertRating(req, res, callback) {
   let product = req.body.product;
-  let ratingValue = req.body.ratingValue;
-  let user = req.body.user;
-  productService.insertRating(product, ratingValue, user, (error, result) => {
+  let rating = req.body.rating;
+  productService.insertRating(product, rating, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
+  });
+}
+
+function getCategories(req, res, callback) {
+  productService.getCategories((error, result) => {
     if(error) return callback(error);
     res.json(resultUtil.createResult(result));
   });
@@ -31,5 +45,7 @@ function insertRating(req, res, callback) {
 module.exports = {
   get,
   getById,
+  getByCategoryId,
   insertRating,
+  getCategories
 };

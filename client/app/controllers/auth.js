@@ -37,17 +37,8 @@ appControllers.controller('AuthController', ['$scope', '$location', 'AuthService
     authService.logout();
   };
 
-  self.isAuthenticated = function() {
-    if(localStorageService.get('token')) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  self.isAuthenticated = authService.isAuthenticated;
 
-  self.getUser = function() {
-    if (localStorageService.get('token')) {
-      return localStorageService.get('user');
-    }
-  };
+  self.getUser = authService.getUser;
+
 }]);

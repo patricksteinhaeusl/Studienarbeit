@@ -3,7 +3,7 @@
 appControllers.controller('NavController', function($scope) {
   const self = this;
 
-  self.slideDown = function(elementClass) {
+  self.collapseNavigation = function(elementClass) {
     $(function() {
       if($(elementClass).is(':visible')) {
         $scope.$slider = $(elementClass).slideUp();

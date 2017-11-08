@@ -3,9 +3,10 @@
 let app = angular.module('app',[
   'ngRoute',
   'LocalStorageModule',
+  'ui.bootstrap',
   'jkAngularRatingStars',
   'app.controllers',
-  'app.services'
+  'app.services',
 ])
 .config(['$locationProvider', '$routeProvider', 'localStorageServiceProvider', function($locationProvider, $routeProvider, localStorageServiceProvider) {
   $locationProvider.hashPrefix('!');
@@ -27,9 +28,29 @@ let app = angular.module('app',[
       templateUrl: 'views/shop.html',
       controller: 'ShopController'
     })
+    .when('/shop/category/:categoryId', {
+        templateUrl: 'views/shop.html',
+        controller: 'ShopController'
+    })
     .when('/auth/register', {
       templateUrl: 'views/register.html',
       controller: 'AuthController'
+    })
+    .when('/account', {
+      templateUrl: 'views/account.html',
+      controller: 'AccountController'
+    })
+    .when('/creditcards', {
+      templateUrl: 'views/creditCards.html',
+      controller: 'CreditCardsController'
+    })
+    .when('/creditcard', {
+      templateUrl: 'views/creditCard-add.html',
+      controller: 'CreditCardController'
+    })
+    .when('/creditcard/:creditCardId', {
+      templateUrl: 'views/creditCard-edit.html',
+      controller: 'CreditCardController'
     });
 
   $routeProvider.otherwise({redirectTo: '/home'});

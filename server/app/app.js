@@ -34,8 +34,8 @@ app.use('/account', account);
 app.use('/creditCard', creditCard);
 app.use('/deliveryAddress', deliveryAddress);
 app.use('/order', order);
-app.use(expressJwt(config.AUTH.validateOptions));
 app.use('/product', product);
+app.use(expressJwt(config.AUTH.validateOptions));
 
 app.use(function(err, req, res) {
   if (err.name === 'UnauthorizedError') {

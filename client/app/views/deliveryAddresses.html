@@ -1,0 +1,25 @@
+<div class="content-view" ng-controller="DeliveryAddressesController as deliveryAddresses">
+  <h1>Your delivery addresses</h1>
+  <a class="btn btn-primary" href="#!/creditcard">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+  </a>
+  <table>
+    <thead>
+      <th>Number</th>
+      <th>Type</th>
+      <th>Action</th>
+    </thead>
+    <tbody ng-repeat="creditCard in creditCards.data.creditCards">
+      <td>{{ creditCard.number }}</td>
+      <td>{{ creditCard.type }}</td>
+      <td>
+        <button class="btn btn-primary" ng-click="creditCards.remove($index)" ng-disabled="creditCards.data.creditCards.length <= 1">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove
+        </button>
+        <a class="btn btn-primary" ng-href="#!/creditcard/{{ creditCard._id }}">
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+        </a>
+      </td>
+    </tbody>
+  </table>
+</div>

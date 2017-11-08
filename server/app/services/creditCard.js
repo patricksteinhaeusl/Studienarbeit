@@ -19,7 +19,7 @@ function getByAccountId(accountId, callback) {
   CreditCard.find({ '_account' : accountId }, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { 'creditCard' : result};
+    result = { 'creditCards' : result};
     return callback(null, result);
   });
 }
@@ -27,7 +27,7 @@ function getByAccountId(accountId, callback) {
 function update(creditCard, callback) {
   let creditCardObj = new CreditCard(creditCard);
   if(!creditCardObj) return callback(resultUtil.createNotFoundException());
-  CreditCard.findByIdAndUpdate(creditCardObj._id, creditCardObj, function(error, result) {
+  CreditCard.findByIdAndUpdate(creditCardObj._id, creditCardObj, { new: true }, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
     result = { 'creditCard' : result};

@@ -16,6 +16,7 @@ let testAccount0 = new Account({
 
 let testCreditCard0 = new CreditCard({
   number: '0000-0000-0000-0000',
+  type: 'MasterCard',
   _account: testAccount0._id
 });
 
@@ -38,6 +39,7 @@ let testAccount1 = new Account({
 
 let testCreditCard1 = new CreditCard({
   number: '1111-1111-1111-1111',
+  type: 'Visa',
   _account: testAccount1._id
 });
 
@@ -54,40 +56,52 @@ let testAccounts = [[testAccount0, testCreditCard0, testDeliveryAddress0], [test
 let testProduct0 = new Product({
   _id: '59e7ffc364b7f1faf7a3310a',
   name: 'Product 0',
-  category: 'Category 1',
+  category: {
+    _id: '5a01b5d5802bd61d4547f5b1',
+    name: 'Category 1'
+  },
   size: 15,
   price: 25.00,
-  image: 'product1.jpg',
+  image: 'assets/product.jpg',
   ratings: []
 });
 
 let testProduct1 = new Product({
   _id: '59e7ffc364b7f1faf7a3310b',
   name: 'Product 1',
-  category: 'Category 1',
+  category: {
+    _id: '5a01b5d5802bd61d4547f5b1',
+    name: 'Category 1'
+  },
   size: 15,
   price: 25.00,
-  image: 'product1.jpg',
+  image: 'assets/product.jpg',
   ratings: []
 });
 
 let testProduct2 = new Product({
   _id: '59e7ffc364b7f1faf7a3310c',
   name: 'Product 2',
-  category: 'Category 1',
+  category: {
+    _id: '5a01b5d5802bd61d4547f5b2',
+    name: 'Category 2'
+  },
   size: 17,
   price: 30.25,
-  image: 'product2.jpg',
+  image: 'assets/product.jpg',
   ratings: []
 });
 
 let testProduct3 = new Product({
   _id: '59e7ffc364b7f1faf7a3310d',
   name: 'Product 3',
-  category: 'Category 2',
+  category: {
+    _id: '5a01b5d5802bd61d4547f5b3',
+    name: 'Category 3'
+  },
   size: 17,
   price: 30.25,
-  image: 'product3.jpg',
+  image: 'assets/product.jpg',
   ratings: []
 });
 

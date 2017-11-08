@@ -1,0 +1,21 @@
+<div class="content-view" ng-controller="AccountController as account">
+  <form class="auth-form-account" ng-submit="account.update()">
+    <h1>Your account</h1>
+    <div ng-if="auth.data.account.formSubmitFailed" class="alert alert-danger"><strong>Update failed!</strong></div>
+    <div class="form-group">
+      <input class="form-control" type="text" ng-model="account.data.account.firstname" name="firstname" placeholder="Firstname" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" ng-model="account.data.account.lastname" name="lastname" placeholder="Lastname" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="email" ng-model="account.data.account.email" name="email" placeholder="Email" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" ng-model="account.data.account.username" name="username" placeholder="Username" disabled/>
+    </div>
+    <button class="form-control" class="btn btn-primary">
+      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Update
+    </button>
+  </form>
+</div>

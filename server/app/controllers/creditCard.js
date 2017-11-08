@@ -13,7 +13,7 @@ function get(req, res, callback) {
 
 function getByAccountId(req, res, callback) {
   let accountId = req.params.accountId;
-  creditCardService.get(accountId, (error, result) => {
+  creditCardService.getByAccountId(accountId, (error, result) => {
     if(error) return callback(error);
     res.json(resultUtil.createResult(result));
   });

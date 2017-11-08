@@ -13,15 +13,34 @@ appServices.factory('ShopService', ['$http', '$q', function ($http, $q) {
           return callback(false);
         });
     },
-    rateProduct: function(product, ratingValue, user, callback) {
-      console.log("rateProduct");
-      let data = { 'product': product, 'ratingValue': ratingValue, 'user': user };
+    getProductsByCategory: function(categoryId, callback) {
+      $http
+        .get('http://localhost:3000/product/category/' + categoryId)
+        .success(function(response) {
+          let products = response.data.products;
+          return callback(products);
+        })
+        .error(function(response) {
+          return callback(false);
+        });
+    },
+    getProductCategories: function(callback) {
+      $http
+        .get('http://localhost:3000/product/category')
+        .success(function(response) {
+          let categories = response.data.categories;
+          return callback(categories);
+        })
+        .error(function(response) {
+          return callback(false);
+        });
+    },
+    rateProduct: function(product, rating, callback) {
+      let data = { 'product': product, 'rating': rating };
       $http
         .post('http://localhost:3000/product/rating', data)
         .success(function(response) {
-          console.log(response);
-          let products = response.data.products;
-          return callback(products);
+          return callback(true);
         })
         .error(function(response) {
           return callback(false);

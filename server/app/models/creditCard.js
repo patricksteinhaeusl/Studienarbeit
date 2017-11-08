@@ -5,6 +5,7 @@ let Schema = mongoose.Schema;
 
 let creditCardSchema = new Schema({
   number: { type: String, required: true },
+  type: { type: String, required: true },
   _account: { type: Schema.Types.ObjectId, ref: 'Account'}
 }, {
   timestamps: {}
