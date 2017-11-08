@@ -1,14 +1,14 @@
 'use strict';
 
-appServices.factory('CreditCardService', ['$http', function ($http) {
+appServices.factory('DeliveryAddressService', ['$http', function ($http) {
   return {
-    getById: function(creditCardId, callback) {
+    getById: function(deliveryAddressId, callback) {
       $http
-        .get('http://localhost:3000/creditcard/' + creditCardId)
+        .get('http://localhost:3000/deliveryaddress/' + deliveryAddressId)
         .success(function(response) {
-          let creditCard = response.data.creditCard;
-          if(creditCard) {
-            return callback(creditCard);
+          let deliveryAddress = response.data.deliveryAddress;
+          if(deliveryAddress) {
+            return callback(deliveryAddress);
           } else {
             return callback(false);
           }
@@ -17,14 +17,14 @@ appServices.factory('CreditCardService', ['$http', function ($http) {
           return callback(false);
         });
     },
-    update: function(creditCard, callback) {
-      let data = { creditCard: creditCard };
+    update: function(deliveryAddress, callback) {
+      let data = { deliveryAddress: deliveryAddress };
       $http
-        .put('http://localhost:3000/creditcard/', data)
+        .put('http://localhost:3000/deliveryaddress/', data)
         .success(function(response) {
-          let creditCard = response.data.creditCard;
-          if(creditCard) {
-            return callback(creditCard);
+          let deliveryAddress = response.data.deliveryAddress;
+          if(deliveryAddress) {
+            return callback(deliveryAddress);
           } else {
             return callback(false);
           }
@@ -33,14 +33,14 @@ appServices.factory('CreditCardService', ['$http', function ($http) {
           return callback(false);
         });
     },
-    insert: function(creditCard, callback) {
-      let data = { creditCard: creditCard };
+    insert: function(deliveryAddress, callback) {
+      let data = { deliveryAddress: deliveryAddress };
       $http
-        .post('http://localhost:3000/creditcard/', data)
+        .post('http://localhost:3000/deliveryaddress/', data)
         .success(function(response) {
-          let creditCard = response.data.creditCard;
-          if(creditCard) {
-            return callback(creditCard);
+          let creditCard = response.data.deliveryAddress;
+          if(deliveryAddress) {
+            return callback(deliveryAddress);
           } else {
             return callback(false);
           }

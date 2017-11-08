@@ -1,0 +1,22 @@
+<div class="cart-menu" ng-controller="CartController as cart">
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </thead>
+    <tbody ng-repeat="item in cart.data.items">
+      <td>{{ item.product.name }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.product.price * item.quantity }} CHF</td>
+    </tbody>
+    <tfoot>
+      <td>Sum:</td>
+      <td></td>
+      <td>{{ cart.data.totalPrice }} CHF</td>
+    </tfoot>
+  </table>
+  <button class="form-control" class="btn btn-primary">
+    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Check out
+  </button>
+</div>

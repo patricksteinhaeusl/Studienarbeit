@@ -3,7 +3,7 @@
 const Account = require('../models/account');
 const CreditCard = require('../models/creditCard');
 const DeliveryAddress = require('../models/deliveryAddress');
-const Product = require('../models/product');
+const Product = require('../models/product').Product;
 
 let testAccount0 = new Account({
   _id: '59e7ffc364b7f1faf7a3348e',

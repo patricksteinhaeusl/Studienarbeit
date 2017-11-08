@@ -16,10 +16,10 @@ function get(deliveryAddressId, callback) {
 
 function getByAccountId(accountId, callback) {
   if(!accountId) return callback(resultUtil.createNotFoundException());
-  DeliveryAddress.find({ 'owner' : accountId }, function(error, result) {
+  DeliveryAddress.find({ '_account' : accountId }, function(error, result) {
     if(error) return callback(resultUtil.createErrorException(error));
     if(!result) return callback(resultUtil.createNotFoundException());
-    result = { 'deliveryAddress' : result};
+    result = { 'deliveryAddresses' : result};
     return callback(null, result);
   });
 }

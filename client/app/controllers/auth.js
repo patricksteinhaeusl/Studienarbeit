@@ -35,6 +35,7 @@ appControllers.controller('AuthController', ['$scope', '$location', 'AuthService
 
   self.logout = function() {
     authService.logout();
+    $location.path('/home');
   };
 
   self.isAuthenticated = authService.isAuthenticated;

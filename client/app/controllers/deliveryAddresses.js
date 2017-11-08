@@ -1,10 +1,10 @@
 'use strict';
 
-appControllers.controller('CreditCardsController', ['$scope', 'CreditCardsService', 'AuthService',function($scope, creditCardsService, authService) {
+appControllers.controller('DeliveryAddressesController', ['$scope', 'DeliveryAddressesService', 'AuthService', function($scope, deliveryAddressesService, authService) {
   const self = this;
   self.data = {};
   self.data.account = {};
-  self.data.creditCards = {};
+  self.data.deliveryAddresses = {};
 
   self.init = function() {
     self.data.account = authService.getUser();
@@ -13,15 +13,15 @@ appControllers.controller('CreditCardsController', ['$scope', 'CreditCardsServic
 
   self.getAllByAccount = function() {
     let account = self.data.account;
-    creditCardsService.getAllByAccount(account, function(creditcards) {
-      self.data.creditCards = creditcards;
+    deliveryAddressesService.getAllByAccount(account, function(data) {
+      self.data.deliveryAddresses = data;
     });
   };
 
   self.remove = function(index) {
-    let creditCardId = self.data.creditCards[index]._id;
-    creditCardsService.remove(creditCardId, function() {
-      self.data.creditCards.splice(index, 1);
+    let deliveryAddressId = self.data.deliveryAddresses[index]._id;
+    deliveryAddressesService.remove(deliveryAddressId, function() {
+      self.data.deliveryAddresses.splice(index, 1);
     });
   };
 

@@ -43,7 +43,9 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
         });
     },
     logout: function() {
-      localStorageService.clearAll();
+      localStorageService.remove('token');
+      localStorageService.remove('user');
+      console.log(localStorageService.keys());
       $http.defaults.headers.common.Authorization = '';
     },
     isAuthenticated: function() {

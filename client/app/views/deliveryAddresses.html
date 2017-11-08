@@ -1,22 +1,25 @@
 <div class="content-view" ng-controller="DeliveryAddressesController as deliveryAddresses">
   <h1>Your delivery addresses</h1>
-  <a class="btn btn-primary" href="#!/creditcard">
+  <a class="btn btn-primary" href="#!/deliveryaddress" ng-disabled="deliveryAddresses.data.deliveryAddresses.length >= 2">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
   </a>
   <table>
     <thead>
-      <th>Number</th>
-      <th>Type</th>
+      <th>Delivery address</th>
       <th>Action</th>
     </thead>
-    <tbody ng-repeat="creditCard in creditCards.data.creditCards">
-      <td>{{ creditCard.number }}</td>
-      <td>{{ creditCard.type }}</td>
+    <tbody ng-repeat="deliveryAddress in deliveryAddresses.data.deliveryAddresses">
       <td>
-        <button class="btn btn-primary" ng-click="creditCards.remove($index)" ng-disabled="creditCards.data.creditCards.length <= 1">
+        <p><label>Street:</label>{{ deliveryAddress.street }}</p>
+        <p><label>Zip:</label>{{ deliveryAddress.zip }}</p>
+        <p><label>City:</label>{{ deliveryAddress.city }}</p>
+        <p><label>Country:</label>{{ deliveryAddress.country }}</p>
+      </td>
+      <td>
+        <button class="btn btn-primary" ng-click="deliveryAddresses.remove($index)" ng-disabled="deliveryAddresses.data.deliveryAddresses.length <= 1">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove
         </button>
-        <a class="btn btn-primary" ng-href="#!/creditcard/{{ creditCard._id }}">
+        <a class="btn btn-primary" ng-href="#!/deliveryaddress/{{ deliveryAddress._id }}">
           <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
         </a>
       </td>

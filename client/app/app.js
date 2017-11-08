@@ -13,44 +13,43 @@ let app = angular.module('app',[
 
   $routeProvider
     .when('/home', {
-      templateUrl: 'views/home.html',
-      controller: 'HomeController'
+      templateUrl: 'views/home.html'
     })
     .when('/aboutus', {
-      templateUrl: 'views/aboutUs.html',
-      controller: 'AboutUsController'
+      templateUrl: 'views/aboutUs.html'
     })
     .when('/contact', {
-      templateUrl: 'views/contact.html',
-      controller: 'ContactController'
+      templateUrl: 'views/contact.html'
     })
     .when('/shop', {
-      templateUrl: 'views/shop.html',
-      controller: 'ShopController'
+      templateUrl: 'views/shop.html'
     })
     .when('/shop/category/:categoryId', {
-        templateUrl: 'views/shop.html',
-        controller: 'ShopController'
+      templateUrl: 'views/shop.html'
     })
     .when('/auth/register', {
-      templateUrl: 'views/register.html',
-      controller: 'AuthController'
+      templateUrl: 'views/register.html'
     })
     .when('/account', {
-      templateUrl: 'views/account.html',
-      controller: 'AccountController'
+      templateUrl: 'views/account.html'
     })
     .when('/creditcards', {
-      templateUrl: 'views/creditCards.html',
-      controller: 'CreditCardsController'
+      templateUrl: 'views/creditCards.html'
     })
     .when('/creditcard', {
-      templateUrl: 'views/creditCard-add.html',
-      controller: 'CreditCardController'
+      templateUrl: 'views/creditCard-add.html'
     })
     .when('/creditcard/:creditCardId', {
-      templateUrl: 'views/creditCard-edit.html',
-      controller: 'CreditCardController'
+      templateUrl: 'views/creditCard-edit.html'
+    })
+    .when('/deliveryaddresses', {
+      templateUrl: 'views/deliveryAddresses.html'
+    })
+    .when('/deliveryaddress', {
+      templateUrl: 'views/deliveryAddress-add.html'
+    })
+    .when('/deliveryaddress/:deliveryAddressId', {
+      templateUrl: 'views/deliveryAddress-edit.html'
     });
 
   $routeProvider.otherwise({redirectTo: '/home'});

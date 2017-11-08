@@ -1,6 +1,6 @@
 'use strict';
 
-const Product = require('../models/product');
+const Product = require('../models/product').Product;
 const Rating = require('../models/rating').Rating;
 const resultUtil = require('../utils/resultUtil');
 

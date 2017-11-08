@@ -1,6 +1,6 @@
 <div class="content-view" ng-controller="CreditCardsController as creditCards">
   <h1>Your credit cards</h1>
-  <a class="btn btn-primary" href="#!/creditcard">
+  <a class="btn btn-primary" href="#!/creditcard" ng-disabled="creditCards.data.creditCards.length >= 2">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
   </a>
   <table>

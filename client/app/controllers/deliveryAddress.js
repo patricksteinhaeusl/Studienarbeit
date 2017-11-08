@@ -1,35 +1,36 @@
 'use strict';
 
-appControllers.controller('CreditCardController', ['$scope', '$location', '$routeParams', 'CreditCardService', 'AuthService', function($scope, $location, $routeParams, creditCardService, authService) {
+appControllers.controller('DeliveryAddressController', ['$scope', '$location', '$routeParams', 'DeliveryAddressService', 'AuthService', function($scope, $location, $routeParams, deliveryAddressService, authService) {
   const self = this;
   self.data = {};
-  self.data.creditCard = {};
+  self.data.deliveryAddress = {};
 
   self.init = function() {
     self.getById();
   };
 
   self.getById = function() {
-    let creditCardId = $routeParams.creditCardId;
-    creditCardService.getById(creditCardId, function(data) {
-      self.data.creditCard = data;
+    let deliveryAddressId = $routeParams.deliveryAddressId;
+    deliveryAddressService.getById(deliveryAddressId, function(data) {
+      self.data.deliveryAddress = data;
     });
   };
 
   self.update = function() {
-    let creditCard = self.data.creditCard;
-    creditCardService.update(creditCard, function(data) {
-      self.data.creditCard = data;
-      $location.path('/creditcards');
+    let deliveryAddress = self.data.deliveryAddress;
+    deliveryAddressService.update(deliveryAddress, function(data) {
+      self.data.deliveryAddress = data;
+      $location.path('/deliveryaddresses');
     });
   };
 
   self.insert = function() {
-    let creditCard = self.data.creditCard;
-    creditCard._account = authService.getUser()._id;
-    creditCardService.insert(creditCard, function(data) {
-      self.data.creditCard = data;
-      $location.path('/creditcards');
+    let deliveryAddress = self.data.deliveryAddress;
+    console.log(deliveryAddress);
+    deliveryAddress._account = authService.getUser()._id;
+    deliveryAddressService.insert(deliveryAddress, function(data) {
+      self.data.deliveryAddress = data;
+      $location.path('/deliveryaddresses');
     });
   };
 

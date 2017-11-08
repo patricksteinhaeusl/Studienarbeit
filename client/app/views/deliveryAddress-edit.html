@@ -1,12 +1,18 @@
-<div class="content-view" ng-controller="DeliveryAddressController as deliveryAdress">
-  <form class="creditCard-form" ng-submit="creditCard.update()">
-    <h1>Update your delivery address</h1>
-    <div ng-if="creditCard.data.creditCard.formSubmitFailed" class="alert alert-danger"><strong>Credit card failed!</strong></div>
+<div class="content-view" ng-controller="DeliveryAddressController as deliveryAddress">
+  <form class="creditCard-form" ng-submit="deliveryAddress.update()">
+    <h1>Insert your delivery address</h1>
+    <div ng-if="deliveryAddress.data.deliveryAddress.formSubmitFailed" class="alert alert-danger"><strong>Credit card failed!</strong></div>
     <div class="form-group">
-      <input class="form-control" type="text" ng-model="creditCard.data.creditCard.number" name="number" placeholder="Number" required />
+      <input class="form-control" type="text" ng-model="deliveryAddress.data.deliveryAddress.street" name="street" placeholder="Street" required />
     </div>
     <div class="form-group">
-      <input class="form-control" type="text" ng-model="creditCard.data.creditCard.type" name="type" placeholder="Type" required />
+      <input class="form-control" type="text" ng-model="deliveryAddress.data.deliveryAddress.zip" name="zip" placeholder="Zip" required />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" ng-model="deliveryAddress.data.deliveryAddress.city" name="city" placeholder="City" required />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" ng-model="deliveryAddress.data.deliveryAddress.country" name="counttry" placeholder="Country" required />
     </div>
     <div class="form-group">
       <button class="form-control" class="btn btn-primary">

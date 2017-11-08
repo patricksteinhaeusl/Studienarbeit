@@ -2,9 +2,10 @@
 
 appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthService', 'ShopService', function($scope, $routeParams, authService, shopService) {
   const self = this;
-  self.products = {};
-  self.categories = {};
-  self.categoryId = null;
+  self.data = {};
+  self.data.products = {};
+  self.data.categories = {};
+  self.data.categoryId = null;
 
   self.init = function(callback) {
     self.getProductCategories(function() {
@@ -13,21 +14,21 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
   };
 
   self.getProducts = function() {
-    self.categoryId = $routeParams.categoryId;
-    if(!self.categoryId) {
+    self.data.categoryId = $routeParams.categoryId;
+    if(!self.data.categoryId) {
       shopService.getProducts(function(products) {
-        self.products = products;
-        for(let productIndex = 0; productIndex < self.products.length; productIndex++) {
-          self.products[productIndex].rating = {};
-          self.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
+        self.data.products = products;
+        for(let productIndex = 0; productIndex < self.data.products.length; productIndex++) {
+          self.data.products[productIndex].rating = {};
+          self.data.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
         }
       });
     } else {
-      shopService.getProductsByCategory(self.categoryId, function(products) {
-        self.products = products;
-        for(let productIndex = 0; productIndex < self.products.length; productIndex++) {
-          self.products[productIndex].rating = {};
-          self.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
+      shopService.getProductsByCategory(self.data.categoryId, function(products) {
+        self.data.products = products;
+        for(let productIndex = 0; productIndex < self.data.products.length; productIndex++) {
+          self.data.products[productIndex].rating = {};
+          self.data.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
         }
       });
     }
@@ -35,13 +36,13 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
 
   self.getProductCategories = function(callback) {
     shopService.getProductCategories(function(categories) {
-      self.categories = categories;
+      self.data.categories = categories;
       return callback();
     });
   };
 
   self.calculateProductRatingValue = function(productIndex) {
-    let ratings = self.products[productIndex].ratings;
+    let ratings = self.data.products[productIndex].ratings;
     if(ratings.length !== 0) {
       let value = 0;
       for (let rating of ratings) {
@@ -54,9 +55,9 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
   };
 
   self.rateProduct = function(productIndex) {
-    let product = self.products[productIndex];
-    let comment = self.data.products[productIndex].rating.comment;
-    let value = self.data.products[productIndex].rating.value;
+    let product = self.data.products[productIndex];
+    let comment = product.rating.comment;
+    let value = product.rating.value;
     let user = authService.getUser();
     let rating = { 'comment': comment, 'value': value, '_account': user._id };
     shopService.rateProduct(product, rating, function(result) {
