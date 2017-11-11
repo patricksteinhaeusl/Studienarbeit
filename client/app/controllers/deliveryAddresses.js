@@ -1,6 +1,7 @@
 'use strict';
 
 appControllers.controller('DeliveryAddressesController', ['$scope', 'DeliveryAddressesService', 'AuthService', function($scope, deliveryAddressesService, authService) {
+  console.log("DeliveryAddressesController");
   const self = this;
   self.data = {};
   self.data.account = {};

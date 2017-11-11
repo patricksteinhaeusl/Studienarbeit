@@ -1,6 +1,7 @@
 'use strict';
 
 appControllers.controller('AuthController', ['$scope', '$location', 'AuthService', 'localStorageService', function($scope, $location, authService, localStorageService) {
+  console.log("AuthController");
   let self = this;
   self.data = {};
   self.data.login = {};

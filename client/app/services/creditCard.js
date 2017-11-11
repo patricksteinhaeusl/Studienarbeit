@@ -48,6 +48,6 @@ appServices.factory('CreditCardService', ['$http', function ($http) {
         .error(function(response) {
           return callback(false);
         });
-    },
+    }
   }
 }]);

@@ -13,6 +13,16 @@ function get(orderId, callback) {
   });
 }
 
+function getByAccountId(accountId, callback) {
+  if(!accountId) return callback(resultUtil.createNotFoundException());
+  Order.find({ _account: accountId }, function(error, result) {
+    if(error) return callback(resultUtil.createErrorException(error));
+    if(!result) return callback(resultUtil.createNotFoundException());
+    result = { 'orders' : result };
+    return callback(null, result);
+  });
+}
+
 function update(order, callback) {
   let orderObj = new Order(order);
   if(!orderObj) return callback(resultUtil.createNotFoundException());
@@ -45,6 +55,7 @@ function remove(orderId, callback) {
 
 module.exports = {
   get,
+  getByAccountId,
   update,
   insert,
   remove

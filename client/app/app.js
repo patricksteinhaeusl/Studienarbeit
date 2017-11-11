@@ -1,19 +1,87 @@
 'use strict';
 
+let routes = {
+  '/home': {
+    templateUrl: 'views/home.html',
+    requireLogin: false
+  },
+  '/aboutus': {
+    templateUrl: 'views/aboutUs.html',
+    requireLogin: false
+  },
+  '/contact': {
+    templateUrl: 'views/contact.html',
+    requireLogin: false
+  },
+  '/shop': {
+    templateUrl: 'views/shop.html',
+    requireLogin: false
+  },
+  '/auth/register': {
+    templateUrl: 'views/register.html',
+    requireLogin: false
+  },
+  '/checkout/overview': {
+    templateUrl: 'views/checkOut-overview.html',
+    requireLogin: true
+  },
+  '/checkout/address': {
+    templateUrl: 'views/checkOut-address.html',
+    requireLogin: true
+  },
+  '/checkout/payment': {
+    templateUrl: 'views/checkOut-payment.html',
+    requireLogin: true
+  },
+  '/account': {
+    templateUrl: 'views/account.html',
+    requireLogin: true
+  },
+  '/creditcards': {
+    templateUrl: 'views/creditCards.html',
+    requireLogin: true
+  },
+  '/creditcard': {
+    templateUrl: 'views/creditCard-add.html',
+    requireLogin: true
+  },
+  '/creditcard/:creditCardId': {
+    templateUrl: 'views/creditCard-edit.html',
+    requireLogin: true
+  },
+  '/deliveryaddresses': {
+    templateUrl: 'views/deliveryAddresses.html',
+    requireLogin: true
+  },
+  '/deliveryaddress': {
+    templateUrl: 'views/deliveryAddress-add.html',
+    requireLogin: true
+  },
+  '/deliveryaddress/:deliveryAddressId': {
+    templateUrl: 'views/deliveryAddress-edit.html',
+    requireLogin: true
+  },
+  '/orders': {
+    templateUrl: 'views/orders.html',
+    requireLogin: true
+  }
+};
+
 let app = angular.module('app',[
   'ngRoute',
   'LocalStorageModule',
   'ui.bootstrap',
   'jkAngularRatingStars',
   'app.controllers',
-  'app.services',
+  'app.services'
 ])
 .config(['$locationProvider', '$routeProvider', 'localStorageServiceProvider', function($locationProvider, $routeProvider, localStorageServiceProvider) {
   $locationProvider.hashPrefix('!');
 
-  $routeProvider
+  /*$routeProvider
     .when('/home', {
-      templateUrl: 'views/home.html'
+      templateUrl: 'views/home.html',
+      needsAuthentication: true
     })
     .when('/aboutus', {
       templateUrl: 'views/aboutUs.html'
@@ -24,11 +92,17 @@ let app = angular.module('app',[
     .when('/shop', {
       templateUrl: 'views/shop.html'
     })
-    .when('/shop/category/:categoryId', {
-      templateUrl: 'views/shop.html'
-    })
     .when('/auth/register', {
       templateUrl: 'views/register.html'
+    })
+    .when('/checkout/overview', {
+      templateUrl: 'views/checkOut-overview.html'
+    })
+    .when('/checkout/address', {
+      templateUrl: 'views/checkOut-address.html'
+    })
+    .when('/checkout/payment', {
+      templateUrl: 'views/checkOut-payment.html'
     })
     .when('/account', {
       templateUrl: 'views/account.html'
@@ -50,18 +124,40 @@ let app = angular.module('app',[
     })
     .when('/deliveryaddress/:deliveryAddressId', {
       templateUrl: 'views/deliveryAddress-edit.html'
+    })
+    .when('/orders', {
+      templateUrl: 'views/orders.html'
     });
+
+  $routeProvider.otherwise({redirectTo: '/home'});*/
+
+  for(let path in routes) {
+    $routeProvider.when(path, routes[path]);
+  }
 
   $routeProvider.otherwise({redirectTo: '/home'});
 
   localStorageServiceProvider
     .setPrefix('app')
     .setStorageType('localStorage');
-}]).run(function($http, localStorageService) {
+
+}]).run(['$rootScope', '$http', '$location', 'localStorageService', 'AuthService', function($rootScope, $http, $location, localStorageService, authService) {
+  if(!localStorageService.get('items')) localStorageService.set('items', '[]');
   if(localStorageService.get('token')) {
     $http.defaults.headers.common.Authorization = 'Bearer ' + localStorageService.get('token');
   }
-});
+
+  $rootScope.$on("$locationChangeStart", function(event, next, current) {
+    for(let path in routes) {
+      if(next.indexOf(path) != -1) {
+        if(routes[path].requireLogin && !authService.isAuthenticated()) {
+          event.preventDefault();
+          $location.path('/home');
+        }
+      }
+    }
+  });
+}]);
 
 let appControllers = angular.module('app.controllers', []);
 let appServices = angular.module('app.services', []);

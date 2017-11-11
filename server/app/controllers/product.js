@@ -26,6 +26,14 @@ function getByCategoryId(req, res, callback) {
   });
 }
 
+function getBySearchValue(req, res, callback) {
+  let searchValue = req.params.searchValue;
+  productService.getBySearchValue(searchValue, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
+  });
+}
+
 function insertRating(req, res, callback) {
   let product = req.body.product;
   let rating = req.body.rating;
@@ -46,6 +54,7 @@ module.exports = {
   get,
   getById,
   getByCategoryId,
+  getBySearchValue,
   insertRating,
   getCategories
 };

@@ -1,40 +1,38 @@
-<div class="content-view" ng-controller="ShopController as shop">
-  <div ng-controller="CartController as cart">
-    <div class="products" ng-repeat="product in shop.data.products">
-      <div class="product wide">
-        <div class="col col-xs-3"><img class="product-image" ng-src="{{ product.image }}" /></div>
-        <div class="col col-xs-5">
-          <p class="product-name">{{ product.name }}</p>
-          <p class="product-category">{{ product.category.name }}</p>
-          <p class="product-value">{{ product.size }} cm</p>
-          <p class="product-price">{{ product.price }} CHF</p>
+<div class="content-view">
+  <div class="products" ng-repeat="product in shop.data.products track by $index">
+    <div class="product wide">
+      <div class="col col-xs-3"><img class="product-image" ng-src="{{ product.image }}" /></div>
+      <div class="col col-xs-5">
+        <p class="product-name">{{ product.name }}</p>
+        <p class="product-category">{{ product.category.name }}</p>
+        <p class="product-value">{{ product.size }} cm</p>
+        <p class="product-price">{{ product.price }} CHF</p>
+      </div>
+      <div class="col col-xs-4">
+        <div class="product-rating">
+          <span>&empty; {{ shop.data.products[$index].rating.value }}</span>
+          <jk-rating-stars max-rating="5" rating="shop.data.products[$index].rating.value" read-only="true"></jk-rating-stars>
         </div>
-        <div class="col col-xs-4">
-          <div class="product-rating" ng-controller="AuthController as auth">
-            <span>&empty; {{ shop.data.products[$index].rating.value }}</span>
-            <jk-rating-stars max-rating="5" rating="shop.data.products[$index].rating.value" read-only="true"></jk-rating-stars>
-          </div>
-          <div class="product-menu">
-            <span class="glyphicon glyphicon-star" aria-hidden="true" ng-click="shop.collapseRatingForm($index)"></span>
-            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" ng-click="cart.insert(product)"></span>
-          </div>
+        <div class="product-menu">
+          <span class="glyphicon glyphicon-star" aria-hidden="true" ng-click="shop.collapseRatingForm($index)" ng-if="auth.isAuthenticated() === true"></span>
+          <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" ng-click="cart.insert(product)"></span>
         </div>
       </div>
-      <div>
-        <form ng-attr-id="{{ 'shop-form-rating-' + $index }}" class="shop-form-rating" ng-submit="shop.rateProduct($index)">
-          <div ng-if="shop.data.products[$index].formSubmitFailed" class="alert alert-danger"><strong>Rating failed!</strong></div>
-          <div class="form-group">
-            <jk-rating-stars max-rating="5" rating="" read-only="false" on-rating="shop.changeInputRatingValue($index, rating)"></jk-rating-stars>
-            <input ng-attr-id="{{ 'rating-' + $index }}" class="form-control" type="number" name="value" ng-model="shop.data.products[$index].rating.value" placeholder="Value" min="0" max="5" hidden required>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" name="comment" ng-model="shop.data.products[$index].rating.comment" placeholder="Comment" required></textarea>
-          </div>
-          <div class="form-group">
-            <button class="form-control" class="btn btn-primary">Save</button>
-          </div>
-        </form>
-      </div>
+    </div>
+    <div ng-if="auth.isAuthenticated() === true">
+      <form ng-attr-id="{{ 'shop-form-rating-' + $index }}" class="shop-form-rating" ng-submit="shop.rateProduct($index)">
+        <div ng-if="shop.data.products[$index].formSubmitFailed" class="alert alert-danger"><strong>Rating failed!</strong></div>
+        <div class="form-group">
+          <jk-rating-stars max-rating="5" rating="" read-only="false" on-rating="shop.changeInputRatingValue($index, rating)"></jk-rating-stars>
+          <input ng-attr-id="{{ 'rating-' + $index }}" class="form-control" type="number" name="value" ng-model="shop.data.products[$index].rating.value" placeholder="Value" min="0" max="5" hidden required>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="comment" ng-model="shop.data.products[$index].rating.comment" placeholder="Comment" required></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-outline-primary">Save</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

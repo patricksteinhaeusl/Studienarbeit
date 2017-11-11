@@ -13,4 +13,7 @@ let creditCardSchema = new Schema({
 
 let CreditCard = mongoose.model('CreditCard', creditCardSchema);
 
-module.exports = CreditCard;
+module.exports = {
+  CreditCard,
+  creditCardSchema
+};

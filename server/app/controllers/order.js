@@ -11,6 +11,14 @@ function get(req, res, callback) {
   });
 }
 
+function getByAccountId(req, res, callback) {
+  let accountId = req.params.accountId;
+  orderService.getByAccountId(accountId, (error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
+  });
+}
+
 function update(req, res, callback) {
   let order = req.body.order;
   orderService.update(order, (error, result) => {
@@ -37,6 +45,7 @@ function remove(req, res, callback) {
 
 module.exports = {
   get,
+  getByAccountId,
   update,
   insert,
   remove

@@ -1,9 +1,10 @@
 'use strict';
 
 const Account = require('../models/account');
-const CreditCard = require('../models/creditCard');
-const DeliveryAddress = require('../models/deliveryAddress');
+const CreditCard = require('../models/creditCard').CreditCard;
+const DeliveryAddress = require('../models/deliveryAddress').DeliveryAddress;
 const Product = require('../models/product').Product;
+const Order = require('../models/order');
 
 let testAccount0 = new Account({
   _id: '59e7ffc364b7f1faf7a3348e',
@@ -133,7 +134,11 @@ function dropData(callback) {
         Product.remove({}, function(error) {
           if(error) return callback(error);
           console.log('Collection Products removed');
-          return callback();
+          Order.remove({}, function(error) {
+            if(error) return callback(error);
+            console.log('Collection Orders removed');
+            return callback();
+          });
         });
       });
     });

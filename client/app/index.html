@@ -20,29 +20,39 @@
 </head>
 <body>
   <div class="container">
-    <div class="navbar">
-      <div class="col col-xs-3">
-        <li class="logo-item glyphicon glyphicon-bell" aria-hidden="true"></li>
-      </div>
-      <div class="col col-xs-6">
-        <div ng-include src="'views/navbar-navigation'"></div>
-      </div>
-      <div class="col col-xs-3">
-        <div ng-include src="'views/navbar-menu'"></div>
-      </div>
-    </div>
+    <div class="container" ng-controller="AuthController as auth">
+      <div class="container" ng-controller="ShopController as shop">
+        <div class="container" ng-controller="CartController as cart">
+          <div class="container" ng-controller="NavController as nav">
+            <div class="container" ng-controller="OrderController as order">
+              <div class="navbar">
+                <div class="col col-xs-3">
+                  <li class="logo-item glyphicon glyphicon-bell" aria-hidden="true"></li>
+                </div>
+                <div class="col col-xs-6">
+                  <div ng-include src="'views/navbar-navigation'"></div>
+                </div>
+                <div class="col col-xs-3">
+                  <div ng-include src="'views/navbar-menu'"></div>
+                </div>
+              </div>
 
-    <div class="content">
-      <div class="sidebar-left col col-xs-3">
-        <div ng-include src="'views/sidebar-menu.html'"></div>
-      </div>
-      <div class="content-content col col-xs-6">
-        <div ng-include src="'views/product-search.html'"></div>
-        <div ng-view></div>
-      </div>
-      <div class="sidebar-right col col-xs-3">
-        <div ng-include src="'views/auth-menu.html'"></div>
-        <div ng-include src="'views/cart-menu.html'"></div>
+              <div class="content">
+                <div class="sidebar-left col col-xs-3">
+                  <div ng-include src="'views/sidebar-menu.html'"></div>
+                </div>
+                <div class="content-content col col-xs-6">
+                  <div ng-include src="'views/product-search.html'"></div>
+                  <div ng-view></div>
+                </div>
+                <div class="sidebar-right col col-xs-3">
+                  <div ng-include src="'views/auth-menu.html'"></div>
+                  <div ng-include src="'views/cart-menu.html'"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -59,6 +69,8 @@
   <script src="services/shop.js"></script>
   <script src="services/cart.js"></script>
   <script src="services/account.js"></script>
+  <script src="services/order.js"></script>
+  <script src="services/orders.js"></script>
   <script src="services/creditCard.js"></script>
   <script src="services/creditCards.js"></script>
   <script src="services/deliveryAddress.js"></script>
@@ -68,11 +80,12 @@
   <script src="controllers/shop.js"></script>
   <script src="controllers/cart.js"></script>
   <script src="controllers/account.js"></script>
+  <script src="controllers/order.js"></script>
+  <script src="controllers/orders.js"></script>
   <script src="controllers/creditCard.js"></script>
   <script src="controllers/creditCards.js"></script>
   <script src="controllers/deliveryAddress.js"></script>
   <script src="controllers/deliveryAddresses.js"></script>
-  <script src="controllers/productSearch.js"></script>
   <script src="controllers/home.js"></script>
   <script src="controllers/aboutUs.js"></script>
   <script src="controllers/contact.js"></script>

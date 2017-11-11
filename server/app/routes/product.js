@@ -7,6 +7,7 @@ const productController = require('../controllers/product');
 
 router.get('/category', productController.getCategories);
 router.get('/category/:categoryId', productController.getByCategoryId);
+router.get('/searchValue/:searchValue', productController.getBySearchValue);
 router.post('/rating', productController.insertRating);
 router.get('/', productController.get);
 router.get('/:productId', productController.getById);

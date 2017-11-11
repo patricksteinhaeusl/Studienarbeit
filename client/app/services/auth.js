@@ -45,11 +45,10 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
     logout: function() {
       localStorageService.remove('token');
       localStorageService.remove('user');
-      console.log(localStorageService.keys());
       $http.defaults.headers.common.Authorization = '';
     },
     isAuthenticated: function() {
-      if(localStorageService.get('token')) {
+      if(localStorageService.get('token') && localStorageService.get('user')) {
         return true;
       } else {
         return false;

@@ -1,7 +1,7 @@
 'use strict';
 
 const Account = require('../models/account');
-const CreditCard = require('../models/creditCard');
+const CreditCard = require('../models/creditCard').CreditCard;
 const resultUtil = require('../utils/resultUtil');
 
 function get(creditCardId, callback) {

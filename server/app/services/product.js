@@ -33,6 +33,20 @@ function getByCategoryId(categoryId, callback) {
   });
 }
 
+function getBySearchValue(searchValue, callback) {
+  if(!searchValue) return callback(resultUtil.createNotFoundException());
+  Product.find({ $or: [
+      { name: new RegExp(searchValue, "i") },
+      { 'category.name' : new RegExp(searchValue, "i") }
+    ]}, function(error, result) {
+    console.log(result);
+      if(error) return callback(resultUtil.createErrorException(error));
+      if(!result) return callback(resultUtil.createNotFoundException());
+      result = { 'products' : result };
+      return callback(null, result);
+  });
+}
+
 function insertRating(product, rating, callback) {
   if(!product || !rating) return callback(resultUtil.createNotFoundException());
 
@@ -83,6 +97,7 @@ module.exports = {
   get,
   getById,
   getByCategoryId,
+  getBySearchValue,
   insertRating,
   getCategories
 };

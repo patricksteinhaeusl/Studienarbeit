@@ -1,43 +1,56 @@
 'use strict';
 
 appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthService', 'ShopService', function($scope, $routeParams, authService, shopService) {
+  console.log("ShopController");
   const self = this;
   self.data = {};
   self.data.products = {};
   self.data.categories = {};
   self.data.categoryId = null;
+  self.data.searchValue = null;
+  self.data.searchValues = [];
 
-  self.init = function(callback) {
-    self.getProductCategories(function() {
-      self.getProducts();
-    });
+  self.init = function() {
+    self.getProductCategories();
+    self.getProducts();
   };
 
   self.getProducts = function() {
-    self.data.categoryId = $routeParams.categoryId;
-    if(!self.data.categoryId) {
-      shopService.getProducts(function(products) {
-        self.data.products = products;
-        for(let productIndex = 0; productIndex < self.data.products.length; productIndex++) {
-          self.data.products[productIndex].rating = {};
-          self.data.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
-        }
-      });
-    } else {
-      shopService.getProductsByCategory(self.data.categoryId, function(products) {
-        self.data.products = products;
-        for(let productIndex = 0; productIndex < self.data.products.length; productIndex++) {
-          self.data.products[productIndex].rating = {};
-          self.data.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
-        }
-      });
-    }
+    self.data.categoryId = null;
+    shopService.getProducts(function(products) {
+      self.data.products = products;
+      for(let productIndex = 0; productIndex < self.data.products.length; productIndex++) {
+        self.data.products[productIndex].rating = {};
+        self.data.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
+      }
+    });
   };
 
-  self.getProductCategories = function(callback) {
+  self.getProductsByCategory = function(categoryId) {
+    self.data.categoryId = categoryId;
+    shopService.getProductsByCategory(categoryId, function(products) {
+      self.data.products = products;
+      for(let productIndex = 0; productIndex < self.data.products.length; productIndex++) {
+        self.data.products[productIndex].rating = {};
+        self.data.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
+      }
+    });
+  };
+
+  self.getProductsBySeachValue = function(searchValue) {
+    self.data.categoryId = null;
+    shopService.getProductsBySearchValue(searchValue, function(products) {
+      self.data.products = products;
+      for(let productIndex = 0; productIndex < self.data.products.length; productIndex++) {
+        self.data.products[productIndex].rating = {};
+        self.data.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
+      }
+    });
+  };
+
+  self.getProductCategories = function() {
     shopService.getProductCategories(function(categories) {
       self.data.categories = categories;
-      return callback();
     });
   };
 
@@ -89,7 +102,32 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
     }
   };
 
-  self.init(function() {
-    console.log("Data loaded");
-  });
-}]);
+  self.addSearchValue = function() {
+    let maxSearchValues = 2;
+    if(self.data.searchValue) {
+      if(self.data.searchValues.length < maxSearchValues) {
+        self.data.searchValues.splice(0, 0, self.data.searchValue);
+      } else {
+        self.data.searchValues.splice(maxSearchValues, 1);
+        self.data.searchValues.splice(0, 0, self.data.searchValue);
+      }
+      self.getProductsBySeachValue(self.data.searchValue);
+    } else {
+      self.getProducts();
+    }
+    self.data.searchValue = '';
+  };
+
+  self.init();
+}]).directive('ngEnter', function() {
+  return function(scope, element, attrs) {
+    element.bind("keydown keypress", function(event) {
+      if(event.which === 13) {
+        scope.$apply(function(){
+          scope.$eval(attrs.ngEnter, {'event': event});
+        });
+        event.preventDefault();
+      }
+    });
+  };
+});

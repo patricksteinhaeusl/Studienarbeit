@@ -15,4 +15,7 @@ let deliveryAddressSchema = new Schema({
 
 let DeliveryAddress = mongoose.model('DeliveryAddress', deliveryAddressSchema);
 
-module.exports = DeliveryAddress;
+module.exports = {
+  DeliveryAddress,
+  deliveryAddressSchema
+};

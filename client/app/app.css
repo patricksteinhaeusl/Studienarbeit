@@ -15,18 +15,34 @@ table {
   margin-bottom: 25px;
 }
 
+table tfoot td:first-child {
+  font-weight: bold;
+}
+
 ul > ul {
   padding: 0 0 0 15px;;
   margin: 0;
 }
 
 ul li {
-  list-style-type: none;
-  list-style-position: outside;
+  list-style: outside none;
+}
+
+a:hover {
+  opacity: 0.8;
 }
 
 .col {
   font-size: 15px;
+}
+
+.btn-outline-primary {
+  background-color: lightgray;
+  color: black;
+}
+
+.btn-outline-primary:hover {
+  opacity: 0.8;
 }
 
 .container {
@@ -44,6 +60,7 @@ ul li {
   color: white;
   margin: 0;
 }
+
 .navbar .logo-item {
   padding-top: 15px;
   font-size: 40px;
@@ -51,12 +68,16 @@ ul li {
 
 .navbar-navigation ul {
   margin: 0;
-  padding: 15px;
+  padding: 15px 0 15px 0;
 }
 
 .navbar-navigation .navigation-item {
   display: inline-block;
   border-right: solid 1px white;
+}
+
+.navbar-navigation .navigation-item:first-child {
+  border-left: solid 1px white;
 }
 
 .navbar-navigation .navigation-item a {
@@ -93,6 +114,7 @@ ul li {
 
 .content-content {
   background: white;
+  padding-bottom: 15px;
 }
 
 .content-view {
@@ -106,7 +128,7 @@ ul li {
 }
 
 .content-view table thead {
-  border-bottom: solid 2px grey;
+  border-bottom: solid 1px grey;
 }
 
 .content-view table td,
@@ -133,6 +155,10 @@ table td p label {
   width: 25%;
 }
 
+table tr td li {
+  padding: 5px 0 0 25px;
+}
+
 .sidebar-left, .sidebar-right {
   padding: 15px 0 15px 0;
 }
@@ -143,28 +169,43 @@ table td p label {
 .sidebar-right h1,
 .sidebar-right h2,
 .sidebar-right h3 {
-  color: #e0d7dc;
+  color: #ada4a9;
 }
 
 .sidebar-right {
+  display: table;
   padding: 0;
 }
 
-.sidebar-left .categories {
+.sidebar-left h3 {
+  margin-left: 15px;
+}
+
+.sidebar-menu .categories,
+.sidebar-menu .search-values {
   padding: 0;
 }
 
-.sidebar-left .sidebar-item {
+.sidebar-menu .sidebar-item {
   list-style: none;
   width: 100%;
-  padding-bottom: 15px;
+  height: 31px;
+  padding-bottom: 10px;
 }
 
-.sidebar-left .sidebar-item a {
+.sidebar-menu .sidebar-item a {
   display: inline-block;
   text-decoration: none;
-  padding: 5px 15px 5px 15px;
+  padding: 5px 25px 5px 25px;
   width: 100%;
+}
+
+.sidebar-menu .sidebar-item.selected {
+  background-color: #4d91ff;
+}
+
+.sidebar-menu .sidebar-item.selected a {
+  color: white;
 }
 
 .product-search {
@@ -174,10 +215,18 @@ table td p label {
 .auth-menu, .cart-menu {
   display: none;
   padding: 15px;
-  color: white;
-  background-color: #5fb0e9;
+  color: #e1e1e1;
+  background-color: #4753e9;
   border-top: solid 2px #e0d7dc;
   border-bottom: solid 2px #e0d7dc;
+  font-size: 13px;
+}
+
+.auth-menu .btn-outline-primary,
+.cart-menu .btn-outline-primary {
+  background-color: transparent;
+  color: white;
+  border: solid 1px white;
 }
 
 .auth-menu ul {
@@ -185,7 +234,12 @@ table td p label {
 }
 
 .auth-menu ul ul {
+  margin: 0 0 5px 15px;
   padding: 0 0 0 15px;
+}
+
+.auth-menu ul ul > li {
+  list-style-type: disc;
 }
 
 .auth-menu a {
@@ -194,12 +248,16 @@ table td p label {
 }
 
 .cart-menu table thead {
-  border-bottom: solid 2px white;
+  border-bottom: solid 1px white;
 }
 
 .cart-menu table th,
 .cart-menu table td {
   padding: 5px;
+}
+
+.checkOut-overview table tfoot {
+  border-bottom: double black;
 }
 
 .cart-menu table tfoot {
@@ -277,6 +335,79 @@ table td p label {
   font-size: 17px !important;
 }
 
-.glyphicon, .material-icons {
+.glyphicon, .material-icons, a {
   cursor: pointer;
+}
+
+.wizard {
+  display: inline-block;
+  width: 100%;
+}
+
+.wizard .col {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+}
+
+.wizard hr {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  top: 12px;
+  border-top: 3px solid grey;
+  padding: 0;
+  margin: 0;
+}
+
+.wizard .icon-wrapper {
+  text-align: center;
+  margin-top: -22px;
+}
+
+.wizard .icon {
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  z-index: 100;
+  background-color: lightgray;
+}
+
+.wizard .icon.active {
+  background-color: #4d91ff;
+}
+
+.wizard .icon .glyphicon {
+  font-size: 26px;
+  margin-top: 12px;
+  margin-left: -6px;
+  color: black;
+}
+
+.wizard > div:nth-child(2) > div > .glyphicon {
+  margin-left: 0;
+}
+
+.wizard .icon.active .glyphicon {
+  color: white;
+}
+
+.btn.back {
+  float: left;
+}
+
+.btn.next {
+  float: right;
+}
+
+.checkout-table td:first-child {
+  width: 100px;
+  text-align: center;
+}
+
+.checkout-table td:last-child {
+  width: auto !important;
 }

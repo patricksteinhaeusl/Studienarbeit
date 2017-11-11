@@ -1,14 +1,16 @@
 'use strict';
 
 appControllers.controller('NavController', function($scope) {
+  console.log("NavController");
   const self = this;
 
-  self.collapseNavigation = function(elementClass) {
+  self.collapseNavigation = function(elementClassToSlide, elementClassToFooter) {
     $(function() {
-      if($(elementClass).is(':visible')) {
-        $scope.$slider = $(elementClass).slideUp();
+      $(elementClassToFooter).css('display', 'none');
+      if($(elementClassToSlide).is(':visible')) {
+        $scope.$slider = $(elementClassToSlide).slideUp();
       } else {
-        $scope.$slider = $(elementClass).slideDown();
+        $scope.$slider = $(elementClassToSlide).slideDown();
       }
     });
   };

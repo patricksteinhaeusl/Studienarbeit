@@ -1,7 +1,7 @@
 'use strict';
 
 const Account = require('../models/account');
-const DeliveryAddress = require('../models/deliveryAddress');
+const DeliveryAddress = require('../models/deliveryAddress').DeliveryAddress;
 const resultUtil = require('../utils/resultUtil');
 
 function get(deliveryAddressId, callback) {
