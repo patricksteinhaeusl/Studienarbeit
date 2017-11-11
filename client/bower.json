@@ -14,6 +14,7 @@
     "angular-local-storage": "^0.7.1",
     "angular-jk-rating-stars": "1.0.8",
     "angular-bootstrap": "^2.5.0",
-    "jQuery": "3.2.1"
+    "jQuery": "3.2.1",
+    "angular-toArrayFilter": "^1.0.1"
   }
 }

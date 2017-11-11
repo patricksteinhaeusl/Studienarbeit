@@ -24,6 +24,17 @@ appServices.factory('ShopService', ['$http', '$q', function ($http, $q) {
           return callback(false);
         });
     },
+    getProductsTopRated: function(callback) {
+      $http
+        .get('http://localhost:3000/product/toprated/')
+        .success(function(response) {
+          let products = response.data.products;
+          return callback(products);
+        })
+        .error(function(response) {
+          return callback(false);
+        });
+    },
     getProductsBySearchValue: function(searchValue, callback) {
       $http
         .get('http://localhost:3000/product/searchValue/' + searchValue)

@@ -15,17 +15,17 @@
         </button>
       </td>
     </tbody>
-    <tbody ng-show="!cart.data.items || cart.data.items.length === 0">
+    <tbody ng-show="cart.data.items.length === 0">
       <td colspan="4">No items in cart</td>
     </tbody>
-    <tfoot ng-show="cart.data.items || cart.data.items.length > 0">
+    <tfoot ng-show="cart.data.items.length > 0">
       <td>Sum:</td>
       <td></td>
       <td>{{ cart.data.totalPrice }} CHF</td>
       <td></td>
     </tfoot>
   </table>
-  <button type="button" class="btn btn-outline-primary" ng-if="auth.isAuthenticated() === true" ng-click="order.goToOverview()">
+  <button type="button" class="btn btn-outline-primary" ng-if="auth.isAuthenticated() === true && cart.data.items.length > 0" ng-click="order.goToOverview()">
     <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Check out
   </button>
 </div>

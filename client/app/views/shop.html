@@ -10,7 +10,7 @@
       </div>
       <div class="col col-xs-4">
         <div class="product-rating">
-          <span>&empty; {{ shop.data.products[$index].rating.value }}</span>
+          <span class="rating-average">&empty; {{ shop.data.products[$index].rating.value }}</span>
           <jk-rating-stars max-rating="5" rating="shop.data.products[$index].rating.value" read-only="true"></jk-rating-stars>
         </div>
         <div class="product-menu">
@@ -23,8 +23,7 @@
       <form ng-attr-id="{{ 'shop-form-rating-' + $index }}" class="shop-form-rating" ng-submit="shop.rateProduct($index)">
         <div ng-if="shop.data.products[$index].formSubmitFailed" class="alert alert-danger"><strong>Rating failed!</strong></div>
         <div class="form-group">
-          <jk-rating-stars max-rating="5" rating="" read-only="false" on-rating="shop.changeInputRatingValue($index, rating)"></jk-rating-stars>
-          <input ng-attr-id="{{ 'rating-' + $index }}" class="form-control" type="number" name="value" ng-model="shop.data.products[$index].rating.value" placeholder="Value" min="0" max="5" hidden required>
+          <jk-rating-stars max-rating="5" rating="0" read-only="false" on-rating="shop.changeInputRatingValue($index, rating)"></jk-rating-stars>
         </div>
         <div class="form-group">
           <textarea class="form-control" name="comment" ng-model="shop.data.products[$index].rating.comment" placeholder="Comment" required></textarea>

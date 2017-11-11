@@ -64,12 +64,21 @@ let routes = {
   '/orders': {
     templateUrl: 'views/orders.html',
     requireLogin: true
+  },
+  '/community': {
+    templateUrl: 'views/community.html',
+    requireLogin: true
+  },
+  '/retailer': {
+    templateUrl: 'views/retailer.html',
+    requireLogin: true
   }
 };
 
 let app = angular.module('app',[
   'ngRoute',
   'LocalStorageModule',
+  'angular-toArrayFilter',
   'ui.bootstrap',
   'jkAngularRatingStars',
   'app.controllers',
@@ -77,59 +86,6 @@ let app = angular.module('app',[
 ])
 .config(['$locationProvider', '$routeProvider', 'localStorageServiceProvider', function($locationProvider, $routeProvider, localStorageServiceProvider) {
   $locationProvider.hashPrefix('!');
-
-  /*$routeProvider
-    .when('/home', {
-      templateUrl: 'views/home.html',
-      needsAuthentication: true
-    })
-    .when('/aboutus', {
-      templateUrl: 'views/aboutUs.html'
-    })
-    .when('/contact', {
-      templateUrl: 'views/contact.html'
-    })
-    .when('/shop', {
-      templateUrl: 'views/shop.html'
-    })
-    .when('/auth/register', {
-      templateUrl: 'views/register.html'
-    })
-    .when('/checkout/overview', {
-      templateUrl: 'views/checkOut-overview.html'
-    })
-    .when('/checkout/address', {
-      templateUrl: 'views/checkOut-address.html'
-    })
-    .when('/checkout/payment', {
-      templateUrl: 'views/checkOut-payment.html'
-    })
-    .when('/account', {
-      templateUrl: 'views/account.html'
-    })
-    .when('/creditcards', {
-      templateUrl: 'views/creditCards.html'
-    })
-    .when('/creditcard', {
-      templateUrl: 'views/creditCard-add.html'
-    })
-    .when('/creditcard/:creditCardId', {
-      templateUrl: 'views/creditCard-edit.html'
-    })
-    .when('/deliveryaddresses', {
-      templateUrl: 'views/deliveryAddresses.html'
-    })
-    .when('/deliveryaddress', {
-      templateUrl: 'views/deliveryAddress-add.html'
-    })
-    .when('/deliveryaddress/:deliveryAddressId', {
-      templateUrl: 'views/deliveryAddress-edit.html'
-    })
-    .when('/orders', {
-      templateUrl: 'views/orders.html'
-    });
-
-  $routeProvider.otherwise({redirectTo: '/home'});*/
 
   for(let path in routes) {
     $routeProvider.when(path, routes[path]);

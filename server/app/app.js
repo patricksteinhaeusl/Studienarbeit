@@ -15,6 +15,7 @@ const creditCard = require('./routes/creditCard');
 const deliveryAddress = require('./routes/deliveryAddress');
 const order = require('./routes/order');
 const product = require('./routes/product');
+const news = require('./routes/news');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('/creditCard', creditCard);
 app.use('/deliveryAddress', deliveryAddress);
 app.use('/order', order);
 app.use('/product', product);
+app.use('/news', news);
 app.use(expressJwt(config.AUTH.validateOptions));
 
 app.use(function(err, req, res) {

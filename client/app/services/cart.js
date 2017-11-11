@@ -54,8 +54,9 @@ appServices.service('CartService', ['$http', '$q', 'localStorageService', functi
   };
 
   self.clear = function() {
-    localStorageService.remove('items');
     self.items = [];
+    localStorageService.set('items', '[]');
+    self.totalPrice = 0;
   };
 
   return self;

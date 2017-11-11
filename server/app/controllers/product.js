@@ -18,6 +18,13 @@ function getById(req, res, callback) {
   });
 }
 
+function getTopRated(req, res, callback) {
+  productService.getTopRated((error, result) => {
+    if(error) return callback(error);
+    res.json(resultUtil.createResult(result));
+  });
+}
+
 function getByCategoryId(req, res, callback) {
   let categoryId = req.params.categoryId;
   productService.getByCategoryId(categoryId, (error, result) => {
@@ -55,6 +62,7 @@ module.exports = {
   getById,
   getByCategoryId,
   getBySearchValue,
+  getTopRated,
   insertRating,
   getCategories
 };

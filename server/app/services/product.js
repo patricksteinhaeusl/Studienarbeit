@@ -23,6 +23,17 @@ function getById(productId, callback) {
   });
 }
 
+function getTopRated(callback) {
+  Product.find({}, function(error, result) {
+    console.log(result);
+    if(error) return callback(resultUtil.createErrorException(error));
+    if(!result) return callback(resultUtil.createNotFoundException());
+    result = { 'products' : result };
+    return callback(null, result);
+  });
+}
+
+
 function getByCategoryId(categoryId, callback) {
   if(!categoryId) return callback(resultUtil.createNotFoundException());
   Product.find({ 'category._id': categoryId }, function(error, result) {
@@ -98,6 +109,7 @@ module.exports = {
   getById,
   getByCategoryId,
   getBySearchValue,
+  getTopRated,
   insertRating,
   getCategories
 };

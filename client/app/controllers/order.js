@@ -41,7 +41,8 @@ appControllers.controller('OrderController', ['$scope', '$location', 'OrderServi
   };
 
   $scope.$watch(function() { return cartService.getItems() }, function(items) {
-    if(items) self.data.order.totalPrice = cartService.getTotalPrice();
+    self.data.order.items = cartService.getItems();
+    self.data.order.totalPrice = cartService.getTotalPrice();
   }, true);
 
   self.initOverview();

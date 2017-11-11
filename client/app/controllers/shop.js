@@ -5,14 +5,17 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
   const self = this;
   self.data = {};
   self.data.products = {};
+  self.data.topRatedProducts = {};
   self.data.categories = {};
   self.data.categoryId = null;
   self.data.searchValue = null;
   self.data.searchValues = [];
+  self.data.rating = {};
 
   self.init = function() {
     self.getProductCategories();
     self.getProducts();
+    self.getProductsTopRated();
   };
 
   self.getProducts = function() {
@@ -33,6 +36,16 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
       for(let productIndex = 0; productIndex < self.data.products.length; productIndex++) {
         self.data.products[productIndex].rating = {};
         self.data.products[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
+      }
+    });
+  };
+
+  self.getProductsTopRated = function() {
+    shopService.getProductsTopRated(function(products) {
+      self.data.topRatedProducts = products;
+      for(let productIndex = 0; productIndex < self.data.topRatedProducts.length; productIndex++) {
+        self.data.topRatedProducts[productIndex].rating = {};
+        self.data.topRatedProducts[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
       }
     });
   };
@@ -70,16 +83,16 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
   self.rateProduct = function(productIndex) {
     let product = self.data.products[productIndex];
     let comment = product.rating.comment;
-    let value = product.rating.value;
     let user = authService.getUser();
+    let value = self.data.products[productIndex].rating.value;
     let rating = { 'comment': comment, 'value': value, '_account': user._id };
+
     shopService.rateProduct(product, rating, function(result) {
       self.data.products[productIndex].rating = {};
       if(result) {
         self.data.products[productIndex].formSubmitFailed = false;
-        self.getProducts(function() {
-          console.log("Produkt rated");
-        });
+        self.getProducts();
+        $('.shop-form-rating').slideUp();
       } else {
         self.data.products[productIndex].formSubmitFailed = true;
       }
@@ -87,10 +100,7 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
   };
 
   self.changeInputRatingValue = function(productIndex, ratingValue) {
-    let input = $('#rating-' + productIndex);
-    input.val(ratingValue);
-    input.trigger('input');
-    input.trigger('change');
+    self.data.products[productIndex].rating.value = ratingValue;
   };
 
   self.collapseRatingForm = function(productIndex) {
@@ -118,7 +128,12 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
     self.data.searchValue = '';
   };
 
+  $scope.$watch(function() { return self.data.products }, function() {
+    self.getProductsTopRated();
+  }, true);
+
   self.init();
+
 }]).directive('ngEnter', function() {
   return function(scope, element, attrs) {
     element.bind("keydown keypress", function(event) {

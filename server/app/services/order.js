@@ -15,11 +15,16 @@ function get(orderId, callback) {
 
 function getByAccountId(accountId, callback) {
   if(!accountId) return callback(resultUtil.createNotFoundException());
-  Order.find({ _account: accountId }, function(error, result) {
-    if(error) return callback(resultUtil.createErrorException(error));
-    if(!result) return callback(resultUtil.createNotFoundException());
-    result = { 'orders' : result };
-    return callback(null, result);
+  Order
+    .find({ _account: accountId })
+    .sort({ 'createdAt': -1})
+    .exec(function(error, result) {
+      console.log(error);
+      console.log(result);
+      if (error) return callback(resultUtil.createErrorException(error));
+      if (!result) return callback(resultUtil.createNotFoundException());
+      result = {'orders': result};
+      return callback(null, result);
   });
 }
 

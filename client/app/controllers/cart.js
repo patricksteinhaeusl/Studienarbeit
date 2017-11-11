@@ -17,6 +17,7 @@ appControllers.controller('CartController', ['$scope', 'CartService', function($
   };
 
   $scope.$watch(function() { return cartService.getItems() }, function (items) {
-    if(items) self.data.totalPrice = cartService.getTotalPrice();
+    self.data.items = cartService.getItems();
+    self.data.totalPrice = cartService.getTotalPrice();
   }, true);
 }]);

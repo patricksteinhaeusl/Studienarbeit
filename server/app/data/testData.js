@@ -5,6 +5,7 @@ const CreditCard = require('../models/creditCard').CreditCard;
 const DeliveryAddress = require('../models/deliveryAddress').DeliveryAddress;
 const Product = require('../models/product').Product;
 const Order = require('../models/order');
+const News = require('../models/news');
 
 let testAccount0 = new Account({
   _id: '59e7ffc364b7f1faf7a3348e',
@@ -63,7 +64,7 @@ let testProduct0 = new Product({
   },
   size: 15,
   price: 25.00,
-  image: 'assets/product.jpg',
+  image: 'assets/product-images/product-image1.jpg',
   ratings: []
 });
 
@@ -76,7 +77,7 @@ let testProduct1 = new Product({
   },
   size: 15,
   price: 25.00,
-  image: 'assets/product.jpg',
+  image: 'assets/product-images/product-image1.jpg',
   ratings: []
 });
 
@@ -89,7 +90,7 @@ let testProduct2 = new Product({
   },
   size: 17,
   price: 30.25,
-  image: 'assets/product.jpg',
+  image: 'assets/product-images/product-image1.jpg',
   ratings: []
 });
 
@@ -102,8 +103,31 @@ let testProduct3 = new Product({
   },
   size: 17,
   price: 30.25,
-  image: 'assets/product.jpg',
+  image: 'assets/product-images/product-image1.jpg',
   ratings: []
+});
+
+News.remove({}, function(error) {
+  if(error) console.error(error);
+  else {
+    let news1 = new News({
+      title: 'News Title 1',
+      text: 'News Text 1',
+      image: 'assets/news-images/news-image1.jpg',
+    }).save();
+
+    let news2 = new News({
+      title: 'News Title 2',
+      text: 'News Text 2',
+      image: 'assets/news-images/news-image2.jpg',
+    }).save();
+
+    let news3 = new News({
+      title: 'News Title 3',
+      text: 'News Text 3',
+      image: 'assets/news-images/news-image3.jpg',
+    }).save();
+  }
 });
 
 function init(callback) {
