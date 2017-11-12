@@ -7,17 +7,20 @@
     </div>
   </div>
 
-  <h1>News</h1>
   <div class="news-container">
-    <div class="news" ng-repeat="news in home.data.news">
+    <div class="news col col-xs-6" ng-repeat="news in home.data.news">
       <div class="row">
-        <div class="col col-xs-3">
-          <img class="news-image" ng-src="{{ news.image }}" />
-        </div>
-        <div class="col col-xs-9">
-          <h2 class="news-title">{{ news.title }}</h2>
-          <span class="news-createdAt">{{ news.createdAt | date : 'dd.MM.yyyy HH:mm:ss' : '+0100' }}</span>
-          <p>{{ news.text }}</p>
+        <div class="news-element">
+          <div class="row">
+            <h2 class="news-title">{{ news.title }}</h2>
+            <span class="news-createdAt">{{ news.createdAt | date : 'dd.MM.yyyy HH:mm:ss' : '+0100' }}</span>
+          </div>
+          <div class="row">
+            <img class="news-image" ng-src="{{ news.image }}" />
+          </div>
+          <div class="row">
+            <p>{{ news.text }}</p>
+          </div>
         </div>
       </div>
     </div>

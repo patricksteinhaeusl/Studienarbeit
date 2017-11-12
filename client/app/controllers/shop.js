@@ -1,6 +1,6 @@
 'use strict';
 
-appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthService', 'ShopService', function($scope, $routeParams, authService, shopService) {
+appControllers.controller('ShopController', ['$scope', '$routeParams', '$location', 'AuthService', 'ShopService', function($scope, $routeParams, $location, authService, shopService) {
   console.log("ShopController");
   const self = this;
   self.data = {};
@@ -68,14 +68,18 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
   };
 
   self.calculateProductRatingValue = function(productIndex) {
-    let ratings = self.data.products[productIndex].ratings;
-    if(ratings.length !== 0) {
-      let value = 0;
-      for (let rating of ratings) {
-        value += rating.value;
+    try {
+      let ratings = self.data.products[productIndex].ratings;
+      if(ratings.length !== 0) {
+        let value = 0;
+        for (let rating of ratings) {
+          value += rating.value;
+        }
+        return value / ratings.length;
+      } else {
+        return 0;
       }
-      return value / ratings.length;
-    } else {
+    } catch(exception) {
       return 0;
     }
   };
@@ -115,11 +119,14 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
   self.addSearchValue = function() {
     let maxSearchValues = 2;
     if(self.data.searchValue) {
-      if(self.data.searchValues.length < maxSearchValues) {
-        self.data.searchValues.splice(0, 0, self.data.searchValue);
-      } else {
-        self.data.searchValues.splice(maxSearchValues, 1);
-        self.data.searchValues.splice(0, 0, self.data.searchValue);
+      console.log($.inArray(self.data.searchValue, self.data.searchValues));
+      if ($.inArray(self.data.searchValue, self.data.searchValues) === -1) {
+        if (self.data.searchValues.length < maxSearchValues) {
+          self.data.searchValues.splice(0, 0, self.data.searchValue);
+        } else {
+          self.data.searchValues.splice(maxSearchValues, 1);
+          self.data.searchValues.splice(0, 0, self.data.searchValue);
+        }
       }
       self.getProductsBySeachValue(self.data.searchValue);
     } else {
@@ -138,7 +145,7 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', 'AuthServ
   return function(scope, element, attrs) {
     element.bind("keydown keypress", function(event) {
       if(event.which === 13) {
-        scope.$apply(function(){
+        scope.$apply(function() {
           scope.$eval(attrs.ngEnter, {'event': event});
         });
         event.preventDefault();

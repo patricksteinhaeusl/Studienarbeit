@@ -11,7 +11,8 @@ let productSchema = new Schema({
   size: { type: Number, require: true },
   price: { type: Number, require: true },
   image: { type: String, require: true },
-  ratings: [ratingSchema]
+  ratings: [ratingSchema],
+  rating: {}
 }, {
   timestamps: {}
 });

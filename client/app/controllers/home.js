@@ -12,7 +12,10 @@ appControllers.controller('HomeController', ['$scope', 'NewsService', function($
   };
 
   self.initSlider = function() {
-    let options = { $AutoPlay: 1 };
+    let options = {
+      $AutoPlay: 1
+    };
+
     let jssor_slider = new $JssorSlider$('slider_container', options);
   };
 
