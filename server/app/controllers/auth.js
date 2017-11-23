@@ -1,21 +1,20 @@
 'use strict';
 
-const authService = require('../services/auth');
-const resultUtil = require('../utils/resultUtil');
+const AuthService = require('../services/auth');
 
-function login(req, res, callback) {
+function login(req, res) {
   let {username, password} = req.body;
-  authService.login(username, password, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  AuthService.login(username, password, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function register(req, res, callback) {
+function register(req, res) {
   let account = req.body;
-  authService.register(account, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  AuthService.register(account, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 

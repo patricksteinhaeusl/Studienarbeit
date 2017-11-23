@@ -1,9 +1,9 @@
 'use strict';
 
-const config = require('../config');
+const GlobalConfig = require('../configs/index');
 const Account = require('../models/account');
-const cryptoUtil = require('../utils/cryptoUtil');
-const resultUtil = require('../utils/resultUtil');
+const CryptoUtil = require('../utils/crypt');
+const ResponseUtil = require('../utils/response');
 
 function login(username, password, callback) {
   if (!(username && password)) {
@@ -15,13 +15,14 @@ function login(username, password, callback) {
   }, function(error, resAccount) {
     if(error) return callback(error);
     if (!resAccount || !resAccount.comparePassword(password)) {
-      return callback(resultUtil.createNotFoundException());
+      return callback(ResponseUtil.createNotFoundResponse());
     } else {
       let {_id, username, firstname, lastname, email} = resAccount;
       let user = {_id, username, firstname, lastname, email};
-      cryptoUtil.createToken(user, config.jwtSecret, config.AUTH.signOptions, (error, token) => {
-        if(error) return callback(resultUtil.createErrorException(error));
-        return callback(null, { 'user': user, 'token': token });
+        CryptoUtil.createToken(user, GlobalConfig.jwt.secret, GlobalConfig.auth.signOptions, (error, token) => {
+        if(error) return callback(ResponseUtil.createErrorResponse(error));
+        let result = { 'user': user, 'token': token };
+        return callback(null, ResponseUtil.createSuccessResponse(result));
       });
     }
   });
@@ -35,12 +36,13 @@ function register(account, callback) {
   let newAccount = new Account(account);
 
   newAccount.save(function(error, result) {
-    if (error) return callback(resultUtil.createErrorException(error));
+    if (error) return callback(ResponseUtil.createErrorResponse(error));
     let {_id, username, firstname, lastname, email} = result;
     let user = {_id, username, firstname, lastname, email};
-    cryptoUtil.createToken(user, config.jwtSecret, config.AUTH.signOptions, (error, token) => {
-      if(error) return callback(resultUtil.createErrorException(error));
-      return callback(null, { 'user': user, 'token': token });
+    CryptoUtil.createToken(user, GlobalConfig.jwt.secret, GlobalConfig.auth.signOptions, (error, token) => {
+      if(error) return callback(ResponseUtil.createErrorResponse(error));
+      let result = { 'user': user, 'token': token };
+      return callback(null, ResponseUtil.createSuccessResponse(result));
     });
   });
 }

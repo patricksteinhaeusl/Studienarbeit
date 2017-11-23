@@ -1,45 +1,44 @@
 'use strict';
 
-const deliveryAddressService = require('../services/deliveryAddress');
-const resultUtil = require('../utils/resultUtil');
+const DeliveryAddressService = require('../services/deliveryAddress');
 
-function get(req, res, callback) {
+function get(req, res) {
   let deliveryAddressId = req.params.deliveryAddressId;
-  deliveryAddressService.get(deliveryAddressId, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  DeliveryAddressService.get(deliveryAddressId, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function getByAccountId(req, res, callback) {
+function getByAccountId(req, res) {
   let accountId = req.params.accountId;
-  deliveryAddressService.getByAccountId(accountId, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  DeliveryAddressService.getByAccountId(accountId, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function update(req, res, callback) {
+function update(req, res) {
   let deliveryAddress = req.body.deliveryAddress;
-  deliveryAddressService.update(deliveryAddress, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  DeliveryAddressService.update(deliveryAddress, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function insert(req, res, callback) {
+function insert(req, res) {
   let deliveryAddress = req.body.deliveryAddress;
-  deliveryAddressService.insert(deliveryAddress, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  DeliveryAddressService.insert(deliveryAddress, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function remove(req, res, callback) {
+function remove(req, res) {
   let deliveryAddressId = req.params.deliveryAddressId;
-  deliveryAddressService.remove(deliveryAddressId, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  DeliveryAddressService.remove(deliveryAddressId, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 

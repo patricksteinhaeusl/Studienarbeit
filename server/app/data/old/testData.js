@@ -1,11 +1,11 @@
 'use strict';
 
-const Account = require('../models/account');
-const CreditCard = require('../models/creditCard').CreditCard;
-const DeliveryAddress = require('../models/deliveryAddress').DeliveryAddress;
-const Product = require('../models/product').Product;
-const Order = require('../models/order');
-const News = require('../models/news');
+const Account = require('../../models/account');
+const CreditCard = require('../../models/creditCard').CreditCard;
+const DeliveryAddress = require('../../models/deliveryAddress').DeliveryAddress;
+const Product = require('../../models/product').Product;
+const Order = require('../../models/order');
+const News = require('../../models/news');
 
 let testAccount0 = new Account({
   _id: '59e7ffc364b7f1faf7a3348e',

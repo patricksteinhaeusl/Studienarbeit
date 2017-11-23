@@ -1,14 +1,14 @@
 'use strict';
 
-appServices.factory('NewsService', ['$http', '$q', function ($http, $q) {
+appServices.factory('PostService', ['$http', function ($http) {
   return {
     getAll: function(callback) {
       $http
-        .get('http://localhost:3000/news')
+        .get('http://localhost:3000/post')
         .success(function(response) {
-          let news = response.data.news;
-          if(news) {
-            return callback(news);
+          let posts = response.data.posts;
+          if(posts) {
+            return callback(posts);
           } else {
             return callback(false);
           }

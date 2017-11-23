@@ -1,29 +1,28 @@
 'use strict';
 
-const accountService = require('../services/account');
-const resultUtil = require('../utils/resultUtil');
+const AccountService = require('../services/account');
 
-function get(req, res, callback) {
+function get(req, res) {
   let accountId = req.params.accountId;
-  accountService.get(accountId, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  AccountService.get(accountId, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function update(req, res, callback) {
+function update(req, res) {
   let account = req.body.account;
-  accountService.update(account, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  AccountService.update(account, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function insert(req, res, callback) {
+function insert(req, res) {
   let account = req.body.account;
-  accountService.insert(account, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  AccountService.insert(account, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 

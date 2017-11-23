@@ -1,21 +1,21 @@
 'use strict';
 
-appServices.factory('CommunityService', ['$http', '$q', function ($http, $q) {
+appServices.factory('CommunityService', ['$http', '$q', 'Upload', function ($http, $q, Upload) {
   return {
-    getAll: function(callback) {
-      $http
-        .get('http://localhost:3000/community')
-        .success(function(response) {
-          let news = response.data.news;
-          if(news) {
-            return callback(news);
-          } else {
-            return callback(false);
-          }
-        })
-        .error(function(response) {
-          return callback(false);
-        });
+    insert: function(post, postImage, callback, callbackEvent) {
+      let data = {postImage: postImage, post: post};
+      Upload.upload({
+        url: 'http://localhost:3000/post',
+        data: data,
+      }).then(function(response) {
+        let post = response.data.data.post;
+        return callback(null, post);
+      }, function (error) {
+        return callback(error);
+      }, function (event) {
+        let progressPercentage = parseInt(100.0 * event.loaded / event.total);
+        return callbackEvent(progressPercentage);
+      });
     }
   }
 }]);

@@ -15,6 +15,9 @@
     "angular-jk-rating-stars": "1.0.8",
     "angular-bootstrap": "^2.5.0",
     "jQuery": "3.2.1",
-    "angular-toArrayFilter": "^1.0.1"
+    "angular-toArrayFilter": "^1.0.1",
+    "bootstrap": "",
+    "jssor-slider": "26.5.2",
+    "ng-file-upload": "^12.2.13"
   }
 }

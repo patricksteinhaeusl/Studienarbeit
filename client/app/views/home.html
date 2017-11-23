@@ -1,26 +1,24 @@
 <div class="content-view" ng-controller="HomeController as home">
 
-  <div id="slider_container" style="position: relative; top: 0; width: 100%; height: auto;">
-    <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 600px; height: 300px;">
-      <div><img u="image" src="assets/slider-images/slider-image1.jpeg" /></div>
-      <div><img u="image" src="assets/slider-images/slider-image2.jpeg" /></div>
+  <div id="slider_container" style="position: relative; left: 0; right: 0; top: 0; width: 960px; height: 420px;">
+    <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; right: 0; top: 0; width: 960px; height: 420px;">
+      <div><img src="assets/slider-images/slider-image0.jpg" /></div>
+      <div><img src="assets/slider-images/slider-image1.jpg" /></div>
     </div>
   </div>
 
-  <div class="news-container">
-    <div class="news col col-xs-6" ng-repeat="news in home.data.news">
-      <div class="row">
-        <div class="news-element">
-          <div class="row">
-            <h2 class="news-title">{{ news.title }}</h2>
-            <span class="news-createdAt">{{ news.createdAt | date : 'dd.MM.yyyy HH:mm:ss' : '+0100' }}</span>
-          </div>
-          <div class="row">
-            <img class="news-image" ng-src="{{ news.image }}" />
-          </div>
-          <div class="row">
-            <p>{{ news.text }}</p>
-          </div>
+  <div class="posts-container">
+    <div class="posts col col-xs-6" ng-repeat="post in home.data.posts">
+      <div class="post-element">
+        <div class="row">
+          <h2 class="post-title">{{ post.title }}</h2>
+          <span class="post-createdAt">{{ post.createdAt | date : 'dd.MM.yyyy HH:mm:ss' : '+0100' }}</span>
+        </div>
+        <div class="row">
+          <img class="post-image" ng-src="http://localhost:3000/post-images/{{post.image}}" />
+        </div>
+        <div class="row">
+          <p>{{ post.text }}</p>
         </div>
       </div>
     </div>

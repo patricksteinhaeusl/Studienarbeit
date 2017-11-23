@@ -7,14 +7,14 @@
 const app = require('../app');
 const debug = require('debug')('server:server');
 const http = require('http');
-const config = require('../config');
+const GlobalConfig = require('../configs/index');
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || config.SERVER.port);
-const host = config.SERVER.host;
+const port = GlobalConfig.server.port;
+const host = GlobalConfig.server.host;
 app.set('port', port);
 
 /**

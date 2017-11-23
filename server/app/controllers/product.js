@@ -1,59 +1,58 @@
 'use strict';
 
-const productService = require('../services/product');
-const resultUtil = require('../utils/resultUtil');
+const ProductService = require('../services/product');
 
-function get(req, res, callback) {
-  productService.get((error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+function get(req, res) {
+  ProductService.get((error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function getById(req, res, callback) {
+function getById(req, res) {
   let productId = req.params.productId;
-  productService.getById(productId, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  ProductService.getById(productId, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function getTopRated(req, res, callback) {
-  productService.getTopRated((error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+function getTopRated(req, res) {
+  ProductService.getTopRated((error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function getByCategoryId(req, res, callback) {
+function getByCategoryId(req, res) {
   let categoryId = req.params.categoryId;
-  productService.getByCategoryId(categoryId, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  ProductService.getByCategoryId(categoryId, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function getBySearchValue(req, res, callback) {
+function getBySearchValue(req, res) {
   let searchValue = req.params.searchValue;
-  productService.getBySearchValue(searchValue, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  ProductService.getBySearchValue(searchValue, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function insertRating(req, res, callback) {
+function insertRating(req, res) {
   let product = req.body.product;
   let rating = req.body.rating;
-  productService.insertRating(product, rating, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  ProductService.insertRating(product, rating, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function getCategories(req, res, callback) {
-  productService.getCategories((error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+function getCategories(req, res) {
+  ProductService.getCategories((error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 

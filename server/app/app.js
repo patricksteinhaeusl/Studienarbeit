@@ -6,8 +6,9 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
-const config = require('./config');
-const mongoUtil = require('./utils/mongoUtil');
+
+const GlobalConfig = require('./configs/index');
+const MongoUtil = require('./utils/mongo');
 
 const auth = require('./routes/auth');
 const account = require('./routes/account');
@@ -15,29 +16,25 @@ const creditCard = require('./routes/creditCard');
 const deliveryAddress = require('./routes/deliveryAddress');
 const order = require('./routes/order');
 const product = require('./routes/product');
-const news = require('./routes/news');
+const post = require('./routes/post');
 
 const app = express();
 
-const corsOptions = {
-  origin: 'http://localhost:8000',
-  optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
+app.use(cors(GlobalConfig.cors.corsOptions));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use('/post-images', express.static(__dirname + '/assets/post-images'));
 app.use('/auth', auth);
 app.use('/account', account);
 app.use('/creditCard', creditCard);
 app.use('/deliveryAddress', deliveryAddress);
 app.use('/order', order);
 app.use('/product', product);
-app.use('/news', news);
-app.use(expressJwt(config.AUTH.validateOptions));
+app.use('/post', post);
+app.use(expressJwt(GlobalConfig.auth.validateOptions).unless(GlobalConfig.auth.unprotectedRoutes));
 
 app.use(function(err, req, res) {
   if (err.name === 'UnauthorizedError') {

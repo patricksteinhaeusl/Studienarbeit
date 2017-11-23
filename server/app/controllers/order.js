@@ -1,45 +1,44 @@
 'use strict';
 
-const orderService = require('../services/order');
-const resultUtil = require('../utils/resultUtil');
+const OrderService = require('../services/order');
 
-function get(req, res, callback) {
+function get(req, res) {
   let orderId = req.params.orderId;
-  orderService.get(orderId, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  OrderService.get(orderId, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function getByAccountId(req, res, callback) {
+function getByAccountId(req, res) {
   let accountId = req.params.accountId;
-  orderService.getByAccountId(accountId, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  OrderService.getByAccountId(accountId, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function update(req, res, callback) {
+function update(req, res) {
   let order = req.body.order;
-  orderService.update(order, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  OrderService.update(order, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function insert(req, res, callback) {
+function insert(req, res) {
   let order = req.body.order;
-  orderService.insert(order, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  OrderService.insert(order, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 
-function remove(req, res, callback) {
+function remove(req, res) {
   let orderId = req.params.orderId;
-  orderService.insert(orderId, (error, result) => {
-    if(error) return callback(error);
-    res.json(resultUtil.createResult(result));
+  OrderService.insert(orderId, (error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
   });
 }
 

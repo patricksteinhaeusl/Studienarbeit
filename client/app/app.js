@@ -78,6 +78,7 @@ let routes = {
 let app = angular.module('app',[
   'ngRoute',
   'LocalStorageModule',
+  'ngFileUpload',
   'angular-toArrayFilter',
   'ui.bootstrap',
   'jkAngularRatingStars',

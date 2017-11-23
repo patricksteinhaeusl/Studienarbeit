@@ -17,6 +17,7 @@ html, body {
 }
 
 table {
+  max-width: 100%;
   width: 100%;
   margin-bottom: 25px;
 }
@@ -497,29 +498,36 @@ table tr td li {
   margin-bottom: 15px;
 }
 
-.news {
+.posts {
   padding: 5px;
 }
 
-.news-element {
+.post-element {
   display: inline-block;
+  width: 100%;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
 
-.news-title {
+.post-title {
   margin-bottom: 0px;
 }
 
-.news-image {
+.post-image {
   display: inline-block;
   margin-bottom: 15px;
-  max-width: 100%;
+  width: 100%;
 }
 
-.news-createdAt {
+.post-createdAt {
   display: inline-block;
   font-size: 12px;
   margin-bottom: 15px;
+}
+
+.thumbnail {
+  display: inline-block;
+  width: 50%;
+  margin: 0 25% 0 25%;
 }

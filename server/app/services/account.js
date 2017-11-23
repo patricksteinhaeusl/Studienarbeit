@@ -1,43 +1,44 @@
 'use strict';
 
-const config = require('../config');
+const GlobalConfig = require('../configs/index');
 const Account = require('../models/account');
-const cryptoUtil = require('../utils/cryptoUtil');
-const resultUtil = require('../utils/resultUtil');
+const CryptoUtil = require('../utils/crypt');
+const ResponseUtil = require('../utils/response');
 
 function get(accountId, callback) {
-  if(!accountId) return callback(resultUtil.createNotFoundException());
+  if(!accountId) return callback(ResponseUtil.createNotFoundResponse());
   Account.findById(accountId, function(error, result) {
-    if(error) return callback(resultUtil.createErrorException(error));
-    if(!result) return callback(resultUtil.createNotFoundException());
+    if(error) return callback(ResponseUtil.createErrorResponse(error));
+    if(!result) return callback(ResponseUtil.createNotFoundResponse());
     result = { 'account' : result };
-    return callback(null, result);
+    return callback(null, ResponseUtil.createSuccessResponse(result));
   });
 }
 
 function update(account, callback) {
   let accountObj = new Account(account);
-  if(!accountObj) return callback(resultUtil.createNotFoundException());
+  if(!accountObj) return callback(ResponseUtil.createNotFoundResponse());
   Account.findByIdAndUpdate(accountObj._id, accountObj, {new: true}, function(error, result) {
-    if(error) return callback(resultUtil.createErrorException(error));
-    if(!result) return callback(resultUtil.createNotFoundException());
+    if(error) return callback(ResponseUtil.createErrorResponse(error));
+    if(!result) return callback(ResponseUtil.createNotFoundResponse());
     let {_id, username, firstname, lastname, email} = result;
     let user = {_id, username, firstname, lastname, email};
-    cryptoUtil.createToken(user, config.jwtSecret, config.AUTH.signOptions, (error, token) => {
-      if(error) return callback(resultUtil.createErrorException(error));
-      return callback(null, { 'user': user, 'token': token });
+      CryptoUtil.createToken(user, GlobalConfig.jwt.secret, GlobalConfig.auth.signOptions, (error, token) => {
+      if(error) return callback(ResponseUtil.createErrorResponse(error));
+      result = { 'user': user, 'token': token };
+      return callback(null, ResponseUtil.createSuccessResponse(result));
     });
   });
 }
 
 function insert(account, callback) {
   let accountObj = new Account(account);
-  if(!accountObj) return callback(resultUtil.createNotFoundException());
+  if(!accountObj) return callback(ResponseUtil.createNotFoundResponse());
   accountObj.save(function(error, result) {
-    if(error) return callback(resultUtil.createErrorException(error));
-    if(!result) return callback(resultUtil.createNotFoundException());
+    if(error) return callback(ResponseUtil.createErrorResponse(error));
+    if(!result) return callback(ResponseUtil.createNotFoundResponse());
     result = { 'account' : result};
-    return callback(null, result);
+    return callback(null, ResponseUtil.createSuccessResponse(result));
   });
 }
 
