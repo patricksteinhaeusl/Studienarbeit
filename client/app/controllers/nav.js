@@ -1,7 +1,6 @@
 'use strict';
 
 appControllers.controller('NavController', function($scope) {
-  console.log("NavController");
   const self = this;
 
   self.collapseNavigation = function(elementClassToSlide, elementClassToFooter) {

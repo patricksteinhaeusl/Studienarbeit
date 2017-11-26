@@ -1,11 +1,11 @@
 'use strict';
 
 appControllers.controller('ShopController', ['$scope', '$routeParams', '$location', 'AuthService', 'ShopService', function($scope, $routeParams, $location, authService, shopService) {
-  console.log("ShopController");
   const self = this;
   self.data = {};
   self.data.products = {};
   self.data.topRatedProducts = {};
+  self.data.latestProducts = {};
   self.data.categories = {};
   self.data.categoryId = null;
   self.data.searchValue = null;
@@ -50,7 +50,18 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', '$locatio
     });
   };
 
+  self.getProductsLatest = function() {
+    shopService.getProductsLatest(function(products) {
+      self.data.latestProducts = products;
+      for(let productIndex = 0; productIndex < self.data.latestProducts.length; productIndex++) {
+        self.data.latestProducts[productIndex].rating = {};
+        self.data.latestProducts[productIndex].rating.value = self.calculateProductRatingValue(productIndex);
+      }
+    });
+  };
+
   self.getProductsBySeachValue = function(searchValue) {
+    $location.path('/shop');
     self.data.categoryId = null;
     shopService.getProductsBySearchValue(searchValue, function(products) {
       self.data.products = products;
@@ -137,6 +148,7 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', '$locatio
 
   $scope.$watch(function() { return self.data.products }, function() {
     self.getProductsTopRated();
+    self.getProductsLatest();
   }, true);
 
   self.init();

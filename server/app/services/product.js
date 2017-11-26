@@ -31,6 +31,15 @@ function getTopRated(callback) {
   });
 }
 
+function getLatest(callback) {
+  Product.find({}, function(error, result) {
+    if(error) return callback(ResponseUtil.createErrorResponse(error));
+    if(!result) return callback(ResponseUtil.createNotFoundResponse());
+    result = { 'products' : result };
+    return callback(null, ResponseUtil.createSuccessResponse(result));
+  });
+}
+
 
 function getByCategoryId(categoryId, callback) {
   if(!categoryId) return callback(ResponseUtil.createNotFoundResponse());
@@ -107,6 +116,7 @@ module.exports = {
   getByCategoryId,
   getBySearchValue,
   getTopRated,
+  getLatest,
   insertRating,
   getCategories
 };

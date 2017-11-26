@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="200px"
+   height="250px"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xml:space="preserve">
+    <polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" />
+    <script type="text/javascript">
+      <![CDATA[
+        alert("SVG INJECTION");
+      ]]>
+    </script>
+</svg>

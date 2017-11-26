@@ -3,7 +3,6 @@
 const express = require('express');
 const cors = require('cors');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
 
@@ -23,10 +22,10 @@ const app = express();
 app.use(cors(GlobalConfig.cors.corsOptions));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.use('/post-images', express.static(__dirname + '/assets/post-images'));
+app.use('/slider-images', express.static(__dirname + '/assets/slider-images'));
+app.use('/product-images', express.static(__dirname + '/assets/product-images'));
 app.use('/auth', auth);
 app.use('/account', account);
 app.use('/creditCard', creditCard);
@@ -34,7 +33,7 @@ app.use('/deliveryAddress', deliveryAddress);
 app.use('/order', order);
 app.use('/product', product);
 app.use('/post', post);
-app.use(expressJwt(GlobalConfig.auth.validateOptions).unless(GlobalConfig.auth.unprotectedRoutes));
+//app.use(expressJwt(GlobalConfig.auth.validateOptions).unless(GlobalConfig.auth.unprotectedRoutes));
 
 app.use(function(err, req, res) {
   if (err.name === 'UnauthorizedError') {

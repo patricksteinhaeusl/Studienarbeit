@@ -1,7 +1,6 @@
 'use strict';
 
 appControllers.controller('OrderController', ['$scope', '$location', 'OrderService', 'AuthService', 'CartService', function($scope, $location, orderService, authService, cartService) {
-  console.log("OrderController");
   const self = this;
 
   self.data = {};

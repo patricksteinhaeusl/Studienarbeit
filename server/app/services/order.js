@@ -19,8 +19,6 @@ function getByAccountId(accountId, callback) {
     .find({ _account: accountId })
     .sort({ 'createdAt': -1})
     .exec(function(error, result) {
-      console.log(error);
-      console.log(result);
       if(error) return callback(ResponseUtil.createErrorResponse(error));
       if(!result) return callback(ResponseUtil.createNotFoundResponse());
       result = { 'orders' : result };

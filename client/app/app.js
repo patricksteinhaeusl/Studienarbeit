@@ -80,7 +80,6 @@ let app = angular.module('app',[
   'LocalStorageModule',
   'ngFileUpload',
   'angular-toArrayFilter',
-  'ui.bootstrap',
   'jkAngularRatingStars',
   'app.controllers',
   'app.services'

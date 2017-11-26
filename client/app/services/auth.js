@@ -7,19 +7,22 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
       $http
         .post('http://localhost:3000/auth/login', data)
         .success(function(response) {
-          let user = response.data.user;
-          let token = response.data.token;
-          if(user && token) {
+          let statusCode = response.statusCode;
+          let data = response.data;
+          let message = response.message;
+          if(statusCode === 200) {
+            let user = data.user;
+            let token = data.token;
             localStorageService.set('user', user);
             localStorageService.set('token', token);
             $http.defaults.headers.common.Authorization = 'Bearer ' + token;
-            return callback(true);
-          } else {
-            return callback(false);
+            let responseData = { user: user, token: token };
+            return callback(null, responseData, message);
           }
+          return callback(null, null, message);
         })
-        .error(function(response) {
-            return callback(false);
+        .error(function(error) {
+            return callback(error);
         });
     },
     register: function(account, callback) {
@@ -27,25 +30,29 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
       $http
         .post('http://localhost:3000/auth/register', data)
         .success(function(response) {
-          let user = response.data.user;
-          let token = response.data.token;
-          if(user && token) {
+          let statusCode = response.statusCode;
+          let data = response.data;
+          let message = response.message;
+          if(statusCode === 200) {
+            let user = data.user;
+            let token = data.token;
             localStorageService.set('user', user);
             localStorageService.set('token', token);
             $http.defaults.headers.common.Authorization = 'Bearer ' + token;
-            return callback(true);
-          } else {
-            return callback(false);
+            let responseData = { user: user, token: token };
+            return callback(null, responseData, message);
           }
+          return callback(null, null, message);
         })
-        .error(function(response) {
-          return callback(false);
+        .error(function(error) {
+          return callback(error);
         });
     },
-    logout: function() {
+    logout: function(callback) {
       localStorageService.remove('token');
       localStorageService.remove('user');
       $http.defaults.headers.common.Authorization = '';
+      return callback(null, true, 'Logout successfully');
     },
     isAuthenticated: function() {
       if(localStorageService.get('token') && localStorageService.get('user')) {

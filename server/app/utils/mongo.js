@@ -15,8 +15,11 @@ util.on('error', function() {
 
 util.once('open', function() {
   LogUtil.writeInfo('Database connection successfully');
-  Data.drop();
-  Data.create();
+  Data.drop(function() {
+    Data.create(function() {
+      LogUtil.writeInfo('Database prepared');
+    });
+  });
 });
 
 module.exports = util;

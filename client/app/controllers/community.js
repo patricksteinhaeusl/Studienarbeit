@@ -1,7 +1,6 @@
 'use strict';
 
 appControllers.controller('CommunityController', ['$scope', '$location', 'CommunityService', 'AuthService', function($scope, $location, communityService, AuthService) {
-  console.log("CommunityController");
   const self = this;
   self.data = {};
   self.data.post = {};

@@ -9,9 +9,7 @@
   <title>Glocken Emil Shop</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/angular-jk-rating-stars/dist/jk-rating-stars.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
   <link rel="stylesheet" href="app.css">
@@ -40,6 +38,7 @@
                   <div ng-include src="'views/sidebar-menu.html'"></div>
                 </div>
                 <div class="content-content col col-xs-6">
+                  <div ng-include src="'views/alerts.html'"></div>
                   <div ng-include src="'views/product-search.html'"></div>
                   <div ng-view></div>
                 </div>
@@ -47,6 +46,7 @@
                   <div ng-include src="'views/auth-menu.html'"></div>
                   <div ng-include src="'views/cart-menu.html'"></div>
                   <div ng-include src="'views/topRatedProduct.html'"></div>
+                  <div ng-include src="'views/latestProduct.html'"></div>
                 </div>
               </div>
             </div>
@@ -61,11 +61,10 @@
   <script src="bower_components/angular-route/angular-route.min.js"></script>
   <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
   <script src="bower_components/angular-jk-rating-stars/dist/jk-rating-stars.min.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/js/bootstrap.min.js"></script>
   <script src="bower_components/jssor-slider/js/jssor.slider.min.js"></script>
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
   <script src="app.js"></script>
 

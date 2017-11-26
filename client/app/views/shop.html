@@ -1,7 +1,7 @@
 <div class="content-view">
   <div class="products" ng-repeat="product in shop.data.products track by $index">
     <div class="product wide">
-      <div class="col col-xs-3"><img class="product-image" ng-src="assets/product-images/{{ product.image }}" /></div>
+      <div class="col col-xs-3"><img class="product-image" ng-src="http://localhost:3000/product-images/{{ product.image }}" /></div>
       <div class="col col-xs-5">
         <p class="product-name">{{ product.name }}</p>
         <p class="product-category">{{ product.category.name }}</p>

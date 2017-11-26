@@ -7,22 +7,33 @@ const ResponseUtil = require('../utils/response');
 
 function login(username, password, callback) {
   if (!(username && password)) {
-    return callback(null, "No Data");
+    return callback(null, ResponseUtil.createNotFoundResponse('Username or Password incorrect'));
   }
 
+  // Injection Code Start - NoSQL Injection, Login bypass
+  let hashedPassword = null;
+
+  try {
+    hashedPassword = CryptoUtil.hashPwd(password);
+  } catch(exception) {
+    hashedPassword = password;
+  }
+  // Injection Code End
+
   Account.findOne({
-    username: username
+    username: username,
+    password: hashedPassword,
   }, function(error, resAccount) {
-    if(error) return callback(error);
-    if (!resAccount || !resAccount.comparePassword(password)) {
-      return callback(ResponseUtil.createNotFoundResponse());
+    if(error) return callback(ResponseUtil.createErrorResponse(error));
+    if(!resAccount) {
+      return callback(null, ResponseUtil.createNotFoundResponse('Username or Password incorrect'));
     } else {
       let {_id, username, firstname, lastname, email} = resAccount;
       let user = {_id, username, firstname, lastname, email};
         CryptoUtil.createToken(user, GlobalConfig.jwt.secret, GlobalConfig.auth.signOptions, (error, token) => {
-        if(error) return callback(ResponseUtil.createErrorResponse(error));
-        let result = { 'user': user, 'token': token };
-        return callback(null, ResponseUtil.createSuccessResponse(result));
+          if(error) return callback(ResponseUtil.createErrorResponse(error));
+          let result = { 'user': user, 'token': token };
+          return callback(null, ResponseUtil.createSuccessResponse(result, 'Login successfully'));
       });
     }
   });
@@ -30,19 +41,20 @@ function login(username, password, callback) {
 
 function register(account, callback) {
   if (!account) {
-    return callback(null, "No Data");
+    return callback(null, ResponseUtil.createNotFoundResponse('No Data'));
   }
 
   let newAccount = new Account(account);
 
   newAccount.save(function(error, result) {
-    if (error) return callback(ResponseUtil.createErrorResponse(error));
+    if(error) return callback(ResponseUtil.createErrorResponse(error));
+    if(!result) return callback(ResponseUtil.createNotFoundResponse('Registration failed'));
     let {_id, username, firstname, lastname, email} = result;
     let user = {_id, username, firstname, lastname, email};
     CryptoUtil.createToken(user, GlobalConfig.jwt.secret, GlobalConfig.auth.signOptions, (error, token) => {
       if(error) return callback(ResponseUtil.createErrorResponse(error));
       let result = { 'user': user, 'token': token };
-      return callback(null, ResponseUtil.createSuccessResponse(result));
+      return callback(null, ResponseUtil.createSuccessResponse(result, 'Registration successfully'));
     });
   });
 }

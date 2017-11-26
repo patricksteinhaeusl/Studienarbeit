@@ -21,9 +21,9 @@ accountSchema.pre('save', function(callback) {
   return callback();
 });
 
-accountSchema.methods.comparePassword = function(password) {
+/*accountSchema.methods.comparePassword = function(password) {
   return cryptoUtil.hashPwd(password) === this.password;
-};
+};*/
 
 let Account = mongoose.model('Account', accountSchema);
 

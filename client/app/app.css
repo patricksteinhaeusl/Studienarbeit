@@ -126,6 +126,7 @@ a:hover {
 .content-content {
   background: white;
   padding-bottom: 15px;
+  min-height: 100vh;
 }
 
 .content-view {
@@ -182,13 +183,21 @@ table tr td li {
   padding: 15px;
 }
 
+.sidebar-topRatedProduct {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  border: solid 1px lightgray;
+  box-shadow: 5px 5px 2px lightgray;
+  margin: 15px
+}
+
 .sidebar-right .topRatedProduct-wrapper {
   padding: 15px;
-  border: solid 1px lightgrey;
+  background-color: white;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background-color: white;
 }
 
 .sidebar-right .sidebar-topRatedProduct .image-wrapper {
@@ -283,12 +292,13 @@ table tr td li {
   padding: 15px;
   color: #e1e1e1;
   background-color: #4753e9;
-  border-top: solid 2px #e0d7dc;
-  border-bottom: solid 2px #e0d7dc;
   font-size: 13px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  border: solid 1px lightgray;
+  box-shadow: 5px 5px 2px lightgray;
+  margin: 0 15px 0px 15px;
 }
 
 .auth-menu .btn-outline-primary,
@@ -342,17 +352,14 @@ table tr td li {
   width: 50%;
 }
 
-.products:first-child {
-  border-top: 1px solid grey;
-}
-
-.products {
-  border-bottom: 1px solid grey;
-}
-
 .product {
   display: inline-block;
   padding: 15px;
+  border: solid 1px lightgray;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 2px lightgray;
 }
 
 .product-image {
@@ -402,6 +409,8 @@ table tr td li {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  border: solid 1px lightgray;
+  box-shadow: 5px 5px 2px lightgray;
 }
 
 .jk-rating-stars-container {
@@ -498,16 +507,25 @@ table tr td li {
   margin-bottom: 15px;
 }
 
+.posts-container {
+  display: table;
+}
+
 .posts {
+  min-height: 100%;
   padding: 5px;
 }
 
 .post-element {
   display: inline-block;
+  height: 400px;
   width: 100%;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  border: solid 1px lightgray;
+  padding: 15px;
+  box-shadow: 5px 5px 2px lightgray;
 }
 
 .post-title {
@@ -515,9 +533,15 @@ table tr td li {
 }
 
 .post-image {
-  display: inline-block;
-  margin-bottom: 15px;
+  max-width: 100%;
   width: 100%;
+  max-height: 150px;
+  margin-bottom: 25px;
+}
+
+svg {
+  height: 150px;
+  max-height: 150px;
 }
 
 .post-createdAt {
@@ -530,4 +554,13 @@ table tr td li {
   display: inline-block;
   width: 50%;
   margin: 0 25% 0 25%;
+}
+
+.alert-container .alert {
+  margin: 15px 0 15px 0;
+}
+
+object {
+  width: 100%;
+  max-height: 250px;
 }

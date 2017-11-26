@@ -1,0 +1,10 @@
+<div class="alert-container">
+  <div ng-if="auth.login.messages.success" class="alert alert-success"><strong>{{ auth.login.messages.success }}</strong></div>
+  <div ng-if="auth.login.messages.warning" class="alert alert-warning"><strong>{{ auth.login.messages.warning }}</strong></div>
+
+  <div ng-if="auth.register.messages.success" class="alert alert-success"><strong>{{ auth.register.messages.success }}</strong></div>
+  <div ng-if="auth.register.messages.warning" class="alert alert-warning"><strong>{{ auth.register.messages.warning }}</strong></div>
+
+  <div ng-if="auth.logout.messages.success" class="alert alert-success"><strong>{{ auth.logout.messages.success }}</strong></div>
+  <div ng-if="auth.logout.messages.warning" class="alert alert-warning"><strong>{{ auth.logout.messages.warning }}</strong></div>
+</div>

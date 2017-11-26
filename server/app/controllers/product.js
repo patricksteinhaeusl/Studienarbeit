@@ -24,6 +24,13 @@ function getTopRated(req, res) {
   });
 }
 
+function getLatest(req, res) {
+  ProductService.getLatest((error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
+  });
+}
+
 function getByCategoryId(req, res) {
   let categoryId = req.params.categoryId;
   ProductService.getByCategoryId(categoryId, (error, result) => {
@@ -62,6 +69,7 @@ module.exports = {
   getByCategoryId,
   getBySearchValue,
   getTopRated,
+  getLatest,
   insertRating,
   getCategories
 };

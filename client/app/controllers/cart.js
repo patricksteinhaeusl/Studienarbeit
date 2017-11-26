@@ -1,7 +1,6 @@
 'use strict';
 
 appControllers.controller('CartController', ['$scope', 'CartService', function($scope, cartService) {
-  console.log("CartController");
   const self = this;
 
   self.data = {};
