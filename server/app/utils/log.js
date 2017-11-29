@@ -15,7 +15,7 @@ let util = {
     let logMessage = util.createMessage('Error', message);
     fs.appendFile(logFile, logMessage, function(err) {
       if(err) return console.error(err);
-      return console.log(message);
+      return console.error(message);
     });
   },
   createMessage: function(type, message) {

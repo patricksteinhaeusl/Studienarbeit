@@ -41,7 +41,7 @@ let routes = {
     templateUrl: 'views/creditCards.html',
     requireLogin: true
   },
-  '/creditcard': {
+  '/creditcard/': {
     templateUrl: 'views/creditCard-add.html',
     requireLogin: true
   },
@@ -77,6 +77,7 @@ let routes = {
 
 let app = angular.module('app',[
   'ngRoute',
+  'ngSanitize',
   'LocalStorageModule',
   'ngFileUpload',
   'angular-toArrayFilter',
@@ -84,7 +85,7 @@ let app = angular.module('app',[
   'app.controllers',
   'app.services'
 ])
-.config(['$locationProvider', '$routeProvider', 'localStorageServiceProvider', function($locationProvider, $routeProvider, localStorageServiceProvider) {
+.config(['$locationProvider', '$routeProvider', '$compileProvider', 'localStorageServiceProvider', function($locationProvider, $routeProvider, $compileProvider, localStorageServiceProvider) {
   $locationProvider.hashPrefix('!');
 
   for(let path in routes) {
@@ -96,6 +97,8 @@ let app = angular.module('app',[
   localStorageServiceProvider
     .setPrefix('app')
     .setStorageType('localStorage');
+
+  $compileProvider.debugInfoEnabled(true);
 
 }]).run(['$rootScope', '$http', '$location', 'localStorageService', 'AuthService', function($rootScope, $http, $location, localStorageService, authService) {
   if(!localStorageService.get('items')) localStorageService.set('items', '[]');

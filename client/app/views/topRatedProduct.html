@@ -1,7 +1,6 @@
 <div class="sidebar-topRatedProduct">
   <h3>Top rated product</h3>
   <div class="topRatedProduct-wrapper" ng-repeat="topRatedProduct in shop.data.topRatedProducts | toArray: false | orderBy: '-rating.value' | limitTo: 1">
-  {{ topRatedProducts.rating.value }}
   <h4>{{ topRatedProduct.name }} - {{ topRatedProduct.category.name }}</h4>
     <div class="image-wrapper">
       <img ng-src="http://localhost:3000/product-images/{{ topRatedProduct.image }}">

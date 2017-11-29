@@ -6,7 +6,7 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
       let data = user;
       $http
         .post('http://localhost:3000/auth/login', data)
-        .success(function(response) {
+        .then(function(response) {
           let statusCode = response.statusCode;
           let data = response.data;
           let message = response.message;
@@ -20,8 +20,7 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
             return callback(null, responseData, message);
           }
           return callback(null, null, message);
-        })
-        .error(function(error) {
+        }, function(error) {
             return callback(error);
         });
     },
@@ -29,13 +28,13 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
       let data = account;
       $http
         .post('http://localhost:3000/auth/register', data)
-        .success(function(response) {
+        .then(function(response) {
           let statusCode = response.statusCode;
           let data = response.data;
           let message = response.message;
           if(statusCode === 200) {
-            let user = data.user;
-            let token = data.token;
+            let user = data.data.user;
+            let token = data.data.token;
             localStorageService.set('user', user);
             localStorageService.set('token', token);
             $http.defaults.headers.common.Authorization = 'Bearer ' + token;
@@ -43,8 +42,7 @@ appServices.factory('AuthService', ['$http', '$q', 'localStorageService', functi
             return callback(null, responseData, message);
           }
           return callback(null, null, message);
-        })
-        .error(function(error) {
+        }, function(error) {
           return callback(error);
         });
     },

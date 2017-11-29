@@ -5,25 +5,23 @@ appServices.factory('CreditCardsService', ['$http', function ($http) {
     getAllByAccount: function(account, callback) {
       $http
         .get('http://localhost:3000/creditcard/account/' + account._id)
-        .success(function(response) {
-          let creditCards = response.data.creditCards;
+        .then(function(response) {
+          let creditCards = response.data.data.creditCards;
           if(creditCards) {
             return callback(creditCards);
           } else {
             return callback(false);
           }
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     },
     remove: function(creditCardId, callback) {
       $http
         .delete('http://localhost:3000/creditcard/' + creditCardId)
-        .success(function(response) {
+        .then(function(response) {
           return callback(true);
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     }

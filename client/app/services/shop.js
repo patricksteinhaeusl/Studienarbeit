@@ -5,66 +5,60 @@ appServices.factory('ShopService', ['$http', '$q', function ($http, $q) {
     getProducts: function(callback) {
       $http
         .get('http://localhost:3000/product')
-        .success(function(response) {
-          let products = response.data.products;
+        .then(function(response) {
+          let products = response.data.data.products;
           return callback(products);
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     },
     getProductsByCategory: function(categoryId, callback) {
       $http
         .get('http://localhost:3000/product/category/' + categoryId)
-        .success(function(response) {
-          let products = response.data.products;
+        .then(function(response) {
+          let products = response.data.data.products;
           return callback(products);
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     },
     getProductsTopRated: function(callback) {
       $http
         .get('http://localhost:3000/product/toprated/')
-        .success(function(response) {
-          let products = response.data.products;
+        .then(function(response) {
+          let products = response.data.data.products;
           return callback(products);
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     },
     getProductsLatest: function(callback) {
       $http
         .get('http://localhost:3000/product/latest/')
-        .success(function(response) {
-          let products = response.data.products;
+        .then(function (response) {
+          let products = response.data.data.products;
           return callback(products);
-        })
-        .error(function(response) {
+        }, function (response) {
           return callback(false);
         });
     },
     getProductsBySearchValue: function(searchValue, callback) {
       $http
         .get('http://localhost:3000/product/searchValue/' + searchValue)
-        .success(function(response) {
-          let products = response.data.products;
+        .then(function (response) {
+          let products = response.data.data.products;
           return callback(products);
-        })
-        .error(function(response) {
+        }, function (response) {
           return callback(false);
         });
     },
     getProductCategories: function(callback) {
       $http
         .get('http://localhost:3000/product/category')
-        .success(function(response) {
-          let categories = response.data.categories;
+        .then(function (response) {
+          let categories = response.data.data.categories;
           return callback(categories);
-        })
-        .error(function(response) {
+        }, function (response) {
           return callback(false);
         });
     },
@@ -72,10 +66,9 @@ appServices.factory('ShopService', ['$http', '$q', function ($http, $q) {
       let data = { 'product': product, 'rating': rating };
       $http
         .post('http://localhost:3000/product/rating', data)
-        .success(function(response) {
+        .then(function (response) {
           return callback(true);
-        })
-        .error(function(response) {
+        }, function (response) {
           return callback(false);
         });
     }

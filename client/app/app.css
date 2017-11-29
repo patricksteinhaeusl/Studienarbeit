@@ -9,6 +9,43 @@
   src: url('assets/fonts/Roboto/Roboto-Regular.ttf') format('ttf');
 }
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('bower_components/material-design-icons/iconfont/MaterialIcons-Regular.svg'); /* For IE6-8 */
+  src: local('Material Icons'),
+  local('MaterialIcons-Regular'),
+  url('bower_components/material-design-icons/iconfont/MaterialIcons-Regular.woff2') format('woff2'),
+  url('bower_components/material-design-icons/iconfont/MaterialIcons-Regular.woff') format('woff2'),
+  url('bower_components/material-design-icons/iconfont/MaterialIcons-Regular.ttf') format('trutype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
 html, body {
   width: 100%;
   height:100%;
@@ -207,10 +244,10 @@ table tr td li {
 }
 
 .sidebar-right .sidebar-topRatedProduct img {
-  position: relative;
-  margin-left: 25%;
-  margin-right: 25%;
-  max-width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 130px;
 }
 
 .sidebar-right .sidebar-topRatedProduct .rating-average-wrapper {
@@ -345,15 +382,25 @@ table tr td li {
 }
 
 .wide {
-  width: 100%;
+  width: 100% !important;
 }
 
 .small {
-  width: 50%;
+  width: 50% !important;
+}
+
+.products {
+  display: inline-block;
+  width: 100%;
+}
+
+.product-container {
+ padding: 5px;
 }
 
 .product {
   display: inline-block;
+  width: 100%;
   padding: 15px;
   border: solid 1px lightgray;
   -webkit-border-radius: 5px;
@@ -363,8 +410,10 @@ table tr td li {
 }
 
 .product-image {
+  display: block;
+  margin: auto;
+  max-height: 130px;
   max-width: 100%;
-  max-height: 100%;
 }
 
 .product-name {
@@ -384,6 +433,7 @@ table tr td li {
 .product-rating {
   text-align: right;
   width: 100%;
+  font-size: 14px;
 }
 
 .rating-average {
@@ -392,8 +442,9 @@ table tr td li {
 }
 
 .product-menu {
-  padding: 90px 0 0 50px;
+  height: 105px;
   text-align: right;
+  padding-top: 87px;
 }
 
 .product-menu > span {
@@ -402,9 +453,10 @@ table tr td li {
 
 .shop-form-rating {
   display: none;
+  width: 100%;
   padding: 15px;
-  border-bottom: 1px solid grey;
   background-color: #4d91ff;
+  margin-top: 5px;
   margin-bottom: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -432,6 +484,7 @@ table tr td li {
 .wizard {
   display: inline-block;
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .wizard .col {
@@ -563,4 +616,28 @@ svg {
 object {
   width: 100%;
   max-height: 250px;
+}
+
+.product-filter-form {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.product-filter-form .col {
+  padding: 0 15px 0 0;
+}
+
+.product-filter-form label {
+  display: inline-block;
+  width: 100%;
+}
+
+.panel-title {
+  display: inline-block;
+  width: auto;
+}
+
+.panel-heading input {
+  margin-right: 15px;
 }

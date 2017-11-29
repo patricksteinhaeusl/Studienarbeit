@@ -23,12 +23,12 @@ let data = {
   },
   create: function(callback) {
     let account0 = new Account({
-        _id: '59e7ffc364b7f1faf7a3348e',
-        username: 'customer0',
-        password: '234234',
-        firstname: 'Hans',
-        lastname: 'Muster',
-        email: 'customer0@gmail.com'
+      _id: '59e7ffc364b7f1faf7a3348e',
+      username: 'customer0',
+      password: '234234',
+      firstname: 'Hans',
+      lastname: 'Muster',
+      email: 'customer0@gmail.com'
     })
     .save(function(err, account0) {
       if(err) LogUtil.writeError(err);
@@ -82,7 +82,7 @@ let data = {
                 country: 'Liechtenstein',
                 _account: account1._id
               })
-              .save(function(err) {
+                .save(function(err) {
                 if(err) LogUtil.writeError(err);
                 LogUtil.writeInfo('DeliveryAddress saved');
                 return callback();

@@ -36,8 +36,8 @@ let data = {
           _id: '5a01b5d5802bd61d4547f5b1',
           name: 'Category 1'
         },
-        size: 15,
-        price: 25.00,
+        size: 100,
+        price: 5.00,
         image: 'default.png',
         ratings: []
       })
@@ -52,8 +52,8 @@ let data = {
             _id: '5a01b5d5802bd61d4547f5b2',
             name: 'Category 2'
           },
-          size: 17,
-          price: 30.25,
+          size: 25,
+          price: 10.25,
           image: 'default.png',
           ratings: []
         })
@@ -68,7 +68,7 @@ let data = {
               _id: '5a01b5d5802bd61d4547f5b3',
               name: 'Category 3'
             },
-            size: 17,
+            size: 40,
             price: 30.25,
             image: 'default.png',
             ratings: []

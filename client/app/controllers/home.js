@@ -13,7 +13,11 @@ appControllers.controller('HomeController', ['$scope', 'PostService', function($
   self.initSlider = function() {
     $(document).ready(function() {
       let options = {
-        $AutoPlay: 1
+        $AutoPlay: 1,
+        $BulletNavigatorOptions: {
+          $Class: $JssorBulletNavigator$,
+          $ChanceToShow: 2
+        }
       };
 
       let jssor_slider = new $JssorSlider$('slider_container', options);
@@ -44,12 +48,12 @@ appControllers.controller('HomeController', ['$scope', 'PostService', function($
   self.init();
 }])
 // Injection Code Start - SVG Injection
-.filter('trustAsResourceUrl', function ($sce) {
-  let serverUrl = 'http://localhost:3000/post-images/';
+.filter('trustAsResourceUrl', ['$sce', function ($sce) {
   return function(postImage) {
-    return $sce.trustAsResourceUrl(serverUrl + postImage);
-  };
-})
+    let serverUrl = 'http://localhost:3000/post-images/';
+    return $sce.trustAs($sce.RESOURCE_URL, serverUrl + postImage);
+  }
+}])
 .filter('extension', function() {
   return function(input) {
     return input.split('.').pop()

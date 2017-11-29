@@ -6,9 +6,9 @@ appServices.factory('AccountService', ['$http', '$q', 'localStorageService', fun
       let data = { account: account };
       $http
         .put('http://localhost:3000/account', data)
-        .success(function(response) {
-          let user = response.data.user;
-          let token = response.data.token;
+        .then(function(response) {
+          let user = response.data.data.user;
+          let token = response.data.data.token;
           if(user && token) {
             localStorageService.set('user', user);
             localStorageService.set('token', token);
@@ -17,8 +17,7 @@ appServices.factory('AccountService', ['$http', '$q', 'localStorageService', fun
           } else {
             return callback(false);
           }
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     }

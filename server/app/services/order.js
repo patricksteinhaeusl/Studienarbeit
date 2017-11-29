@@ -48,6 +48,12 @@ function insert(order, callback) {
   });
 }
 
+function create(callback) {
+  let orderObj = new Order();
+  let result = { order: orderObj };
+  return callback(null, ResponseUtil.createSuccessResponse(result));
+}
+
 function remove(orderId, callback) {
   if(!orderId) return callback(ResponseUtil.createNotFoundResponse());
   Order.findByIdAndRemove(orderId, function(error) {
@@ -61,5 +67,6 @@ module.exports = {
   getByAccountId,
   update,
   insert,
+  create,
   remove
 };

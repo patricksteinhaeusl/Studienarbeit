@@ -25,7 +25,7 @@
       <td></td>
     </tfoot>
   </table>
-  <button type="button" class="btn btn-outline-primary" ng-if="auth.isAuthenticated() === true && cart.data.items.length > 0" ng-click="order.goToOverview()">
+  <button type="button" class="btn btn-outline-primary" ng-if="auth.isAuthenticated() === true && cart.data.items.length > 0" ng-click="order.createOrder()">
     <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Check out
   </button>
 </div>

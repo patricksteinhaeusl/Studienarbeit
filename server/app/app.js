@@ -5,6 +5,7 @@ const cors = require('cors');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
+const path = require('path');
 
 const GlobalConfig = require('./configs/index');
 const MongoUtil = require('./utils/mongo');
@@ -16,12 +17,17 @@ const deliveryAddress = require('./routes/deliveryAddress');
 const order = require('./routes/order');
 const product = require('./routes/product');
 const post = require('./routes/post');
+const retailer = require('./routes/retailer');
 
 const app = express();
 
 app.use(cors(GlobalConfig.cors.corsOptions));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '/views'));
 
 app.use('/post-images', express.static(__dirname + '/assets/post-images'));
 app.use('/slider-images', express.static(__dirname + '/assets/slider-images'));
@@ -33,6 +39,7 @@ app.use('/deliveryAddress', deliveryAddress);
 app.use('/order', order);
 app.use('/product', product);
 app.use('/post', post);
+app.use('/retailer', retailer);
 //app.use(expressJwt(GlobalConfig.auth.validateOptions).unless(GlobalConfig.auth.unprotectedRoutes));
 
 app.use(function(err, req, res) {

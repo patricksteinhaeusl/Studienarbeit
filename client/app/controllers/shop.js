@@ -9,8 +9,33 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', '$locatio
   self.data.categories = {};
   self.data.categoryId = null;
   self.data.searchValue = null;
-  self.data.searchValues = [];
+  self.data.searchValues = {};
   self.data.rating = {};
+  self.filter = {};
+  self.data.filter = {
+    name: {
+      label: 'Name',
+      query: '+name'
+    },
+    category: {
+      label: 'Category',
+      query: '+category.name'
+    },
+    price: {
+      label: 'Price',
+      query: '+price'
+    },
+    size: {
+      label: 'Size',
+      query: '+size'
+    },
+    rating: {
+      label: 'Rating',
+      query: '-rating.value'
+    }
+  };
+  self.data.filterSelected = self.data.filter.name.query;
+  self.productOrientation = 'wide';
 
   self.init = function() {
     self.getProductCategories();
@@ -95,27 +120,26 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', '$locatio
     }
   };
 
-  self.rateProduct = function(productIndex) {
-    let product = self.data.products[productIndex];
+  self.rateProduct = function(product) {
     let comment = product.rating.comment;
     let user = authService.getUser();
-    let value = self.data.products[productIndex].rating.value;
+    let value = product.rating.value;
     let rating = { 'comment': comment, 'value': value, '_account': user._id };
 
     shopService.rateProduct(product, rating, function(result) {
-      self.data.products[productIndex].rating = {};
+      product.rating = {};
       if(result) {
-        self.data.products[productIndex].formSubmitFailed = false;
+        product.formSubmitFailed = false;
         self.getProducts();
         $('.shop-form-rating').slideUp();
       } else {
-        self.data.products[productIndex].formSubmitFailed = true;
+        product.formSubmitFailed = true;
       }
     });
   };
 
-  self.changeInputRatingValue = function(productIndex, ratingValue) {
-    self.data.products[productIndex].rating.value = ratingValue;
+  self.changeInputRatingValue = function(product, ratingValue) {
+    product.rating.value = ratingValue;
   };
 
   self.collapseRatingForm = function(productIndex) {
@@ -124,13 +148,13 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', '$locatio
       div.slideUp();
     } else {
       div.slideDown();
+      div.css('display', 'inline-block');
     }
   };
 
   self.addSearchValue = function() {
     let maxSearchValues = 2;
     if(self.data.searchValue) {
-      console.log($.inArray(self.data.searchValue, self.data.searchValues));
       if ($.inArray(self.data.searchValue, self.data.searchValues) === -1) {
         if (self.data.searchValues.length < maxSearchValues) {
           self.data.searchValues.splice(0, 0, self.data.searchValue);
@@ -144,6 +168,10 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', '$locatio
       self.getProducts();
     }
     self.data.searchValue = '';
+  };
+
+  self.changeOrientation = function(orientation) {
+    self.productOrientation = orientation;
   };
 
   $scope.$watch(function() { return self.data.products }, function() {

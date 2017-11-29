@@ -34,6 +34,13 @@ function insert(req, res) {
   });
 }
 
+function create(req, res) {
+  OrderService.create((error, result) => {
+    if(error) return res.json(error);
+    res.json(result);
+  });
+}
+
 function remove(req, res) {
   let orderId = req.params.orderId;
   OrderService.insert(orderId, (error, result) => {
@@ -47,5 +54,6 @@ module.exports = {
   getByAccountId,
   update,
   insert,
+  create,
   remove
 };

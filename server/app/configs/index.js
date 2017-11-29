@@ -1,16 +1,41 @@
 'use strict';
 
+let authSecret = '6a5d1f68as189c1asd31c98ad74f$ä¨ü123^01230dfasdklöfj asjfklö ä$das-füadfc$äsdä-$ad maklfjolu89ujpoadfädüafcnadszucfbhjk9m vkldf mlökl';
+
+
 let config = {
   server: {
     host: 'localhost',
-    port: 3000,
+    port: '3000'
+  },
+  crypt: {
+    hash: 'sha256',
+    secret: 'kslafjop2)/)*(ZOJKN*K*JL*IU%*IO%JH'
   },
   mongo: {
     host: 'localhost',
     port: 27017,
-    database: 'glockenEmil',
+    name:'webshop',
     connectionString: function() {
-      return 'mongodb://' + this.host + ':' + this.port + '/' + this.database;
+      return 'mongodb://' + this.host + ':' + this.port + '/' + this.name;
+    }
+  },
+  jwt: {
+    secret: authSecret,
+  },
+  auth: {
+    signOptions: {
+      expiresIn: '1d',
+      audience : 'self',
+      issuer : 'shop'
+    },
+    validateOptions: {
+      secret: authSecret,
+      audience : 'self',
+      issuer : 'shop'
+    },
+    unprotectedRoutes: {
+      path: [/.assets/]
     }
   },
   cors: {
@@ -18,29 +43,6 @@ let config = {
       origin: 'http://localhost:8000',
       optionsSuccessStatus: 200
     }
-  },
-  auth: {
-    validateOptions: {
-      secret: 'falskdjf2u3f928jfo24jfopjo2=*Q=(*/)(*JTIçJTOIJçOçIçJçLJ',
-      audience: 'http://localhost:3000',
-      issuer: 'http://localhost:3000'
-    },
-    signOptions: {
-      algorithm: 'HS256',
-      expiresIn: '1 days',
-      audience: 'http://localhost:3000',
-      issuer: 'http://localhost:3000'
-    },
-    unprotectedRoutes: {
-      path: ['/token']
-    }
-  },
-  crypt: {
-    hash: 'sha256',
-    secret: '6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50'
-  },
-  jwt: {
-    secret: 'falskdjf2u3f928jfo24jfopjo2=*Q=(*/)(*JTIçJTOIJçOçIçJçLJ',
   },
   postImages: {
     directory: '../assets/post-images/',

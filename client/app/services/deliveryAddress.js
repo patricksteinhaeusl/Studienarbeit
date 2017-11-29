@@ -5,15 +5,14 @@ appServices.factory('DeliveryAddressService', ['$http', function ($http) {
     getById: function(deliveryAddressId, callback) {
       $http
         .get('http://localhost:3000/deliveryaddress/' + deliveryAddressId)
-        .success(function(response) {
-          let deliveryAddress = response.data.deliveryAddress;
+        .then(function(response) {
+          let deliveryAddress = response.data.data.deliveryAddress;
           if(deliveryAddress) {
             return callback(deliveryAddress);
           } else {
             return callback(false);
           }
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     },
@@ -21,15 +20,14 @@ appServices.factory('DeliveryAddressService', ['$http', function ($http) {
       let data = { deliveryAddress: deliveryAddress };
       $http
         .put('http://localhost:3000/deliveryaddress/', data)
-        .success(function(response) {
-          let deliveryAddress = response.data.deliveryAddress;
+        .then(function(response) {
+          let deliveryAddress = response.data.data.deliveryAddress;
           if(deliveryAddress) {
             return callback(deliveryAddress);
           } else {
             return callback(false);
           }
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     },

@@ -5,15 +5,14 @@ appServices.factory('CreditCardService', ['$http', function ($http) {
     getById: function(creditCardId, callback) {
       $http
         .get('http://localhost:3000/creditcard/' + creditCardId)
-        .success(function(response) {
-          let creditCard = response.data.creditCard;
+        .then(function(response) {
+          let creditCard = response.data.data.creditCard;
           if(creditCard) {
             return callback(creditCard);
           } else {
             return callback(false);
           }
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     },
@@ -21,15 +20,14 @@ appServices.factory('CreditCardService', ['$http', function ($http) {
       let data = { creditCard: creditCard };
       $http
         .put('http://localhost:3000/creditcard/', data)
-        .success(function(response) {
-          let creditCard = response.data.creditCard;
+        .then(function(response) {
+          let creditCard = response.data.data.creditCard;
           if(creditCard) {
             return callback(creditCard);
           } else {
             return callback(false);
           }
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     },
@@ -37,15 +35,14 @@ appServices.factory('CreditCardService', ['$http', function ($http) {
       let data = { creditCard: creditCard };
       $http
         .post('http://localhost:3000/creditcard/', data)
-        .success(function(response) {
-          let creditCard = response.data.creditCard;
+        .then(function(response) {
+          let creditCard = response.data.data.creditCard;
           if(creditCard) {
             return callback(creditCard);
           } else {
             return callback(false);
           }
-        })
-        .error(function(response) {
+        }, function(response) {
           return callback(false);
         });
     }
