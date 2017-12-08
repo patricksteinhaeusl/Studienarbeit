@@ -1,0 +1,23 @@
+<div class="content-view">
+  <form class="auth-form-register" ng-submit="auth.register()">
+    <h1>Create an account</h1>
+    <div class="form-group">
+      <input class="form-control" type="text" ng-model="auth.data.register.account.firstname" name="firstname" placeholder="Firstname" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" ng-model="auth.data.register.account.lastname" name="lastname" placeholder="Lastname" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="email" ng-model="auth.data.register.account.email" name="email" placeholder="Email" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" ng-model="auth.data.register.account.username" name="username" placeholder="Username" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="password" ng-model="auth.data.register.account.password" name="password" placeholder="Password" />
+    </div>
+    <div class="form-group">
+      <button class="btn btn-outline-primary">Register</button>
+    </div>
+  </form>
+</div>
