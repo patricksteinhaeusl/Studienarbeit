@@ -1,6 +1,6 @@
 'use strict';
 
-const GlobalConfig = require('../../../../Studienarbeit/server/app/configs/index');
+const GlobalConfig = require('../configs/index');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
