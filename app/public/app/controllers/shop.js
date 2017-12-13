@@ -40,7 +40,6 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', '$locatio
   self.init = function() {
     self.getProductCategories();
     self.getProducts();
-    self.getProductsTopRated();
   };
 
   self.getProducts = function() {
@@ -192,7 +191,7 @@ appControllers.controller('ShopController', ['$scope', '$routeParams', '$locatio
     });
   };
 })
-// Injection Code Start - XSS Injection
+// Injection Code Start - XSS
 .filter('trustAsHTML', ['$sce', function ($sce) {
   return function(comment) {
     return $sce.trustAs($sce.HTML, comment);

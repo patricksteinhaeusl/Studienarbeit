@@ -1,4 +1,9 @@
 <div class="content-view" ng-controller="CreditCardController as creditCard">
+
+  <div ng-repeat="validation in creditCard.update.validations">
+    <div class="alert alert-warning"><strong>{{ validation }}</strong></div>
+  </div>
+
   <form class="creditCard-form" ng-submit="creditCard.update()">
     <h1>Update your credit card</h1>
     <div ng-if="creditCard.data.creditCard.formSubmitFailed" class="alert alert-danger"><strong>Credit card failed!</strong></div>

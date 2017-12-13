@@ -4,12 +4,21 @@ const Account = require('../models/account');
 const CreditCard = require('../models/creditCard').CreditCard;
 const ResponseUtil = require('../utils/response');
 
-function get(creditCardId, callback) {
-  if(!creditCardId) return callback(ResponseUtil.createNotFoundResponse());
-  CreditCard.findById(creditCardId, function(error, result) {
+function getByNumber(creditCardNumber, callback) {
+  if(!creditCardNumber) return callback(ResponseUtil.createNotFoundResponse());
+  CreditCard.findOne({ number: creditCardNumber }, function(error, result) {
     if(error) return callback(ResponseUtil.createNotFoundResponse(error));
     if(!result) return callback(ResponseUtil.createNotFoundResponse());
     result = { 'creditCard' : result};
+    return callback(null, ResponseUtil.createSuccessResponse(result));
+  });
+}
+
+function getAll(callback) {
+  CreditCard.find({}, function(error, result) {
+    if(error) return callback(ResponseUtil.createNotFoundResponse(error));
+    if(!result) return callback(ResponseUtil.createNotFoundResponse());
+    result = { 'creditCards' : result};
     return callback(null, ResponseUtil.createSuccessResponse(result));
   });
 }
@@ -27,7 +36,7 @@ function getByAccountId(accountId, callback) {
 function update(creditCard, callback) {
   let creditCardObj = new CreditCard(creditCard);
   if(!creditCardObj) return callback(ResponseUtil.createNotFoundResponse());
-  CreditCard.findByIdAndUpdate(creditCardObj._id, creditCardObj, { new: true }, function(error, result) {
+  CreditCard.findByIdAndUpdate(creditCardObj._id, creditCardObj, { new: true, runValidators: true }, function(error, result) {
     if(error) {
       if(error.errors) {
         return callback(ResponseUtil.createValidationResponse(error.errors));
@@ -82,7 +91,8 @@ function remove(creditCardId, callback) {
 }
 
 module.exports = {
-  get,
+  getByNumber,
+  getAll,
   getByAccountId,
   update,
   insert,

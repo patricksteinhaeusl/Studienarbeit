@@ -26,8 +26,8 @@ let data = {
       _id: '59e7ffc364b7f1faf7a3348e',
       username: 'customer0',
       password: 'abcd1234',
-      firstname: 'Hans',
-      lastname: 'Muster',
+      firstname: 'Hans 0',
+      lastname: 'Muster 0',
       email: 'customer0@gmail.com'
     })
     .save(function(err, account0) {
@@ -58,8 +58,8 @@ let data = {
             _id: '59e7ffc364b7f1faf7a3348f',
             username: 'customer1',
             password: 'abcd1234',
-            firstname: 'Hans',
-            lastname: 'Muster',
+            firstname: 'Hans 1',
+            lastname: 'Muster 1',
             email: 'customer1@gmail.com'
           })
           .save(function(err, account1) {

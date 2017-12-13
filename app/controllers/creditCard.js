@@ -2,9 +2,16 @@
 
 const CreditCardService = require('../services/creditCard');
 
-function get(req, res) {
-  let creditCardId = req.params.creditCardId;
-  CreditCardService.get(creditCardId, (error, result) => {
+function getByNumber(req, res) {
+  let creditCardNumber = req.params.creditCardNumber;
+  CreditCardService.getByNumber(creditCardNumber, (error, result) => {
+    if(error) return res.send(error);
+    res.json(result);
+  });
+}
+
+function getAll(req, res) {
+  CreditCardService.getAll((error, result) => {
     if(error) return res.send(error);
     res.json(result);
   });
@@ -43,7 +50,8 @@ function remove(req, res) {
 }
 
 module.exports = {
-  get,
+  getByNumber,
+  getAll,
   getByAccountId,
   update,
   insert,

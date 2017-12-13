@@ -1,4 +1,9 @@
 <div class="content-view" ng-controller="DeliveryAddressController as deliveryAddress">
+
+  <div ng-repeat="validation in deliveryAddress.update.validations">
+    <div class="alert alert-warning"><strong>{{ validation }}</strong></div>
+  </div>
+
   <form class="creditCard-form" ng-submit="deliveryAddress.update()">
     <h1>Insert your delivery address</h1>
     <div ng-if="deliveryAddress.data.deliveryAddress.formSubmitFailed" class="alert alert-danger"><strong>Credit card failed!</strong></div>

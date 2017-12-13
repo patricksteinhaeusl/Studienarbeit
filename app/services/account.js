@@ -18,15 +18,20 @@ function get(accountId, callback) {
 function update(account, callback) {
   let accountObj = new Account(account);
   if(!accountObj) return callback(ResponseUtil.createNotFoundResponse());
-  Account.findByIdAndUpdate(accountObj._id, accountObj, {new: true}, function(error, result) {
-    if(error) return callback(ResponseUtil.createErrorResponse(error));
-    if(!result) return callback(ResponseUtil.createNotFoundResponse());
+  Account.findByIdAndUpdate(accountObj._id, accountObj, { new: true, runValidators: true }, function(error, result) {
+    if(error) {
+      if(error.errors) {
+        return callback(ResponseUtil.createValidationResponse(error.errors));
+      }
+      return callback(ResponseUtil.createErrorResponse(error));
+    }
+    if(!result) return callback(ResponseUtil.createNotFoundResponse('Account failed to create'));
     let {_id, username, firstname, lastname, email} = result;
     let user = {_id, username, firstname, lastname, email};
       CryptoUtil.createToken(user, GlobalConfig.jwt.secret, GlobalConfig.auth.signOptions, (error, token) => {
       if(error) return callback(ResponseUtil.createErrorResponse(error));
       result = { 'user': user, 'token': token };
-      return callback(null, ResponseUtil.createSuccessResponse(result));
+      return callback(null, ResponseUtil.createSuccessResponse(result, 'Account successfully created.'));
     });
   });
 }

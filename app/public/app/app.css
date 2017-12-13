@@ -477,6 +477,14 @@ table tr td li {
   font-size: 17px !important;
 }
 
+.wide .material-icons {
+  font-size: 17px !important;
+}
+
+.small .material-icons {
+  font-size: 14px !important;
+}
+
 .glyphicon, .material-icons, a {
   cursor: pointer;
 }

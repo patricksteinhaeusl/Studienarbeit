@@ -45,7 +45,7 @@ let routes = {
     templateUrl: 'views/creditCard-add.html',
     requireLogin: true
   },
-  '/creditcard/:creditCardId': {
+  '/creditcard/:creditCardNumber': {
     templateUrl: 'views/creditCard-edit.html',
     requireLogin: true
   },
@@ -95,6 +95,7 @@ let app = angular.module('app',[
   $routeProvider.otherwise({redirectTo: '/home'});
 
   localStorageServiceProvider
+    .setPrefix('')
     .setStorageType('localStorage');
 
   $compileProvider.debugInfoEnabled(true);

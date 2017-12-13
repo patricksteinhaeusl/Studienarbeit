@@ -7,18 +7,25 @@ appServices.factory('AccountService', ['$http', '$q', 'localStorageService', fun
       $http
         .put('http://localhost:3000/api/account', data)
         .then(function(response) {
-          let user = response.data.data.user;
-          let token = response.data.data.token;
-          if(user && token) {
+          let statusCode = response.data.statusCode;
+          let data = response.data.data;
+          let message = response.data.message;
+          let validations = response.data.validations;
+          if(statusCode === 200) {
+            let user = data.user;
+            let token = data.token;
             localStorageService.set('user', user);
             localStorageService.set('token', token);
             $http.defaults.headers.common.Authorization = 'Bearer ' + token;
-            return callback(user);
-          } else {
-            return callback(false);
+
+            let responseData = { user: user, token: token };
+            return callback(null, responseData, message, null);
+          } else if(statusCode === 405) {
+            return callback(null, null, null, validations);
           }
-        }, function(response) {
-          return callback(false);
+          return callback(null, null, message, null);
+        }, function(error) {
+          return callback(error);
         });
     }
   };

@@ -29,14 +29,16 @@ app.use(bodyParser.json({'strict': true}));
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));
 
-
 app.use(express.static(__dirname + '/public/app'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use('/product-images', express.static(__dirname + '/assets/product-images'));
 app.use('/post-images', express.static(__dirname + '/assets/post-images'));
 app.use('/slider-images', express.static(__dirname + '/assets/slider-images'));
-app.use('/assets/favicon.ico', express.static(__dirname + '/assets/favicon.ico'));
+app.use('/favicon.ico', express.static(__dirname + '/assets/favicon.ico'));
 app.use('/api/auth', auth);
+// Injection Code Start - Unprotected REST API
+app.use('/api/retailer', retailer);
+// Injection Code End
 
 app.use(expressJwt(GlobalConfig.auth.validateOptions).unless(GlobalConfig.auth.unprotectedRoutes));
 
@@ -46,7 +48,6 @@ app.use('/api/deliveryAddress', deliveryAddress);
 app.use('/api/order', order);
 app.use('/api/product', product);
 app.use('/api/post', post);
-app.use('/api/retailer', retailer);
 
 app.use(function(err, req, res) {
   if (err.name === 'UnauthorizedError') {

@@ -43,6 +43,7 @@ let config = {
         new RegExp('/api\/product\/category\/.*', 'i'),
         new RegExp('/api\/product\/searchvalue\/.*', 'i'),
         '/api/post',
+        '/api/creditcard'
       ]
     }
   },

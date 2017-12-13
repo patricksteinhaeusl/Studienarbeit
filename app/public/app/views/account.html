@@ -1,4 +1,12 @@
 <div class="content-view" ng-controller="AccountController as account">
+
+  <div ng-if="account.update.messages.success" class="alert alert-success"><strong>{{ account.update.messages.success }}</strong></div>
+  <div ng-if="account.update.messages.warning" class="alert alert-warning"><strong>{{ account.update.messages.warning }}</strong></div>
+
+  <div ng-repeat="validation in account.update.validations">
+    <div class="alert alert-warning"><strong>{{ validation }}</strong></div>
+  </div>
+
   <form class="auth-form-account" ng-submit="account.update()">
     <h1>Your account</h1>
     <div ng-if="auth.data.account.formSubmitFailed" class="alert alert-danger"><strong>Update failed!</strong></div>

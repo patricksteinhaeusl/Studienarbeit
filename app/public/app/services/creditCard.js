@@ -2,9 +2,9 @@
 
 appServices.factory('CreditCardService', ['$http', function ($http) {
   return {
-    getById: function(creditCardId, callback) {
+    getByNumber: function(creditCardNumber, callback) {
       $http
-        .get('http://localhost:3000/api/creditcard/' + creditCardId)
+        .get('http://localhost:3000/api/creditcard/' + creditCardNumber)
         .then(function(response) {
           let creditCard = response.data.data.creditCard;
           if(creditCard) {
@@ -21,14 +21,20 @@ appServices.factory('CreditCardService', ['$http', function ($http) {
       $http
         .put('http://localhost:3000/api/creditcard/', data)
         .then(function(response) {
-          let creditCard = response.data.data.creditCard;
-          if(creditCard) {
-            return callback(creditCard);
-          } else {
-            return callback(false);
+          let statusCode = response.data.statusCode;
+          let data = response.data.data;
+          let message = response.data.message;
+          let validations = response.data.validations;
+          if(statusCode === 200) {
+            let creditCard = data.creditCard;
+            let responseData = { creditCard: creditCard };
+            return callback(null, responseData, message, null);
+          } else if(statusCode === 405) {
+            return callback(null, null, null, validations);
           }
-        }, function(response) {
-          return callback(false);
+          return callback(null, null, message, null);
+        }, function(error) {
+          return callback(error);
         });
     },
     insert: function(creditCard, callback) {
@@ -51,15 +57,6 @@ appServices.factory('CreditCardService', ['$http', function ($http) {
         }, function(error) {
           return callback(error);
         });
-          /*let creditCard = response.data.data.creditCard;
-          if(creditCard) {
-            return callback(creditCard);
-          } else {
-            return callback(false);
-          }
-        }, function(response) {
-          return callback(false);
-        });*/
     }
   };
 }]);

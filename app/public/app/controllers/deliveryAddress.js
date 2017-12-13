@@ -1,6 +1,6 @@
 'use strict';
 
-appControllers.controller('DeliveryAddressController', ['$scope', '$location', '$routeParams', 'DeliveryAddressService', 'AuthService', function($scope, $location, $routeParams, deliveryAddressService, authService) {
+appControllers.controller('DeliveryAddressController', ['$rootScope', '$scope', '$location', '$timeout', '$routeParams', 'DeliveryAddressService', 'AuthService', function($rootScope, $scope, $location, $timeout, $routeParams, deliveryAddressService, authService) {
   const self = this;
   self.data = {};
   self.data.deliveryAddress = {};
@@ -20,18 +20,42 @@ appControllers.controller('DeliveryAddressController', ['$scope', '$location', '
 
   self.update = function() {
     let deliveryAddress = self.data.deliveryAddress;
-    deliveryAddressService.update(deliveryAddress, function(data) {
-      self.data.deliveryAddress = data;
-      $location.path('/deliveryaddresses');
+    $rootScope.messages = {};
+    deliveryAddressService.update(deliveryAddress, function(error, data, message, validations) {
+      if(error) self.update.messages.error = error;
+      if(validations) self.update.validations = validations;
+      if(!data) $rootScope.messages.warning = message;
+      if(data) {
+        self.data.creditCard = {};
+        self.update.messages.success = message;
+        $location.update('/deliveryaddresses');
+      }
+
+      $timeout(function() {
+        $rootScope.messages = {};
+        self.update.validations = {};
+      }, 5000);
     });
   };
 
   self.insert = function() {
     let deliveryAddress = self.data.deliveryAddress;
     deliveryAddress._account = authService.getUser()._id;
-    deliveryAddressService.insert(deliveryAddress, function(data) {
-      self.data.deliveryAddress = data;
-      $location.path('/deliveryaddresses');
+    $rootScope.messages = {};
+    deliveryAddressService.insert(deliveryAddress, function(error, data, message, validations) {
+      if(error) $rootScope.messages.error = error;
+      if(validations) self.insert.validations = validations;
+      if(!data) $rootScope.messages.warning = message;
+      if(data) {
+        self.data.creditCard = {};
+        $rootScope.messages.success = message;
+        $location.path('/deliveryaddresses');
+      }
+
+      $timeout(function() {
+        $rootScope.messages = {};
+        self.insert.validations = {};
+      }, 5000);
     });
   };
 

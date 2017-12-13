@@ -27,7 +27,7 @@ function getByAccountId(accountId, callback) {
 function update(deliveryAddress, callback) {
   let deliveryAddressObj = new DeliveryAddress(deliveryAddress);
   if(!deliveryAddressObj) return callback(ResponseUtil.createNotFoundResponse());
-  DeliveryAddress.findByIdAndUpdate(deliveryAddressObj._id, deliveryAddressObj, function(error, result) {
+  DeliveryAddress.findByIdAndUpdate(deliveryAddressObj._id, deliveryAddressObj, { new: true, runValidators: true },function(error, result) {
     if(error) {
       if(error.errors) {
         return callback(ResponseUtil.createValidationResponse(error.errors));

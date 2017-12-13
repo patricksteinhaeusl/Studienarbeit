@@ -32,8 +32,14 @@
           <span class="post-createdAt">{{ post.createdAt | date : 'dd.MM.yyyy HH:mm:ss' : '+0100' }}</span>
         </div>
         <div class="row">
-          <img class="post-image" ng-src="{{ post.image | trustAsResourceUrl }}" ng-if="(post.image | extension) !== 'svg'" />
-          <object ng-attr-id="post-image-{{ $index }}" ng-attr-data="{{ post.image | trustAsResourceUrl }}" type="image/svg+xml" ng-if="(post.image | extension) === 'svg'"></object>
+          <!-- Injection Code Start - SVG Injection -->
+          <img class="post-image" ng-src="{{ post.image | trustAsResourceUrl }}"
+               ng-if="(post.image | extension) !== 'svg'" />
+          <object ng-attr-id="post-image-{{ $index }}"
+                  ng-attr-data="{{ post.image | trustAsResourceUrl }}"
+                  type="image/svg+xml"
+                  ng-if="(post.image | extension) === 'svg'"></object>
+          <!-- Injection Code End -->
         </div>
         <div class="row">
           <p>{{ post.text }}</p>
