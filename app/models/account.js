@@ -22,8 +22,8 @@ accountSchema.pre('save', function(callback) {
 });
 
 accountSchema.path('password').validate(function(password, callback) {
-  let regex = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
-  return callback(regex.test(password), 'Password: Require 8 characters, at least 1 letter and one number!');
+  let regex = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/);
+  return callback(regex.test(password), 'Password: Require 7 characters, at least 1 letter and one number!');
 }, 'An unexpected error occured');
 
 accountSchema.path('email').validate(function(email, callback) {

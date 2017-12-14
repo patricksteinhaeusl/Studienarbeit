@@ -10998,3 +10998,34 @@ Date: Wed Dec 13 2017 22:18:29 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 M
 Date: Wed Dec 13 2017 22:18:29 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Post saved
 Date: Wed Dec 13 2017 22:18:29 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Database prepared
 Date: Wed Dec 13 2017 22:18:29 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Collections created
+Date: Thu Dec 14 2017 00:59:30 GMT+0100 (Mitteleuropäische Zeit)	 Type: Error	 Message: Database connection failed
+Date: Thu Dec 14 2017 00:59:51 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Database connection successfully
+Date: Thu Dec 14 2017 00:59:51 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Order removed
+Date: Thu Dec 14 2017 00:59:51 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Account removed
+Date: Thu Dec 14 2017 00:59:51 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: CreditCard removed
+Date: Thu Dec 14 2017 00:59:51 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: DeliveryAddress removed
+Date: Thu Dec 14 2017 00:59:51 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Product removed
+Date: Thu Dec 14 2017 00:59:51 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Post removed
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Database connection successfully
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Order removed
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Account removed
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: CreditCard removed
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: DeliveryAddress removed
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Product removed
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Post removed
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Collections dropped
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Account saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: CreditCard saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: DeliveryAddress saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Account saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: CreditCard saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: DeliveryAddress saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Product saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Product saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Product saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Product saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Post saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Post saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Post saved
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Collections created
+Date: Thu Dec 14 2017 01:01:42 GMT+0100 (Mitteleuropäische Zeit)	 Type: Info	 Message: Database prepared

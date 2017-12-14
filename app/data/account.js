@@ -22,13 +22,16 @@ let data = {
     });
   },
   create: function(callback) {
+
+    // http://de.fakenamegenerator.com/gen-random-gr-sz.php
+
     let account0 = new Account({
       _id: '59e7ffc364b7f1faf7a3348e',
       username: 'customer0',
-      password: 'abcd1234',
-      firstname: 'Hans 0',
-      lastname: 'Muster 0',
-      email: 'customer0@gmail.com'
+      password: 'hacker0',
+      firstname: 'Juliane',
+      lastname: 'Schulze',
+      email: 'juliane.schulze@gmail.com'
     })
     .save(function(err, account0) {
       if(err) LogUtil.writeError(err);
@@ -44,10 +47,10 @@ let data = {
         LogUtil.writeInfo('CreditCard saved');
 
         let deliveryAddress0 = new DeliveryAddress({
-          street: 'Bahnhofstrasse 33',
-          zip:  234324,
-          city: 'Triesen',
-          country: 'Liechtenstein',
+          street: 'Im Sandbüel 93',
+          zip:  1700,
+          city: 'Fribourg',
+          country: 'Schweiz',
           _account: account0._id
         })
         .save(function(err) {
@@ -57,10 +60,10 @@ let data = {
           let account1 = new Account({
             _id: '59e7ffc364b7f1faf7a3348f',
             username: 'customer1',
-            password: 'abcd1234',
-            firstname: 'Hans 1',
-            lastname: 'Muster 1',
-            email: 'customer1@gmail.com'
+            password: 'hacker1',
+            firstname: 'Peter',
+            lastname: 'Holzmann',
+            email: 'peter.holzmann@gmail.com'
           })
           .save(function(err, account1) {
             if(err) LogUtil.writeError(err);
@@ -76,10 +79,10 @@ let data = {
               LogUtil.writeInfo('CreditCard saved');
 
               let deliveryAddress1 = new DeliveryAddress({
-                street: 'Bahnhofstrasse 33',
-                zip:  234324,
-                city: 'Triesen',
-                country: 'Liechtenstein',
+                street: 'Sonnenbergstr 114',
+                zip:  1897,
+                city: 'Bouveret',
+                country: 'Schweiz',
                 _account: account1._id
               })
                 .save(function(err) {
